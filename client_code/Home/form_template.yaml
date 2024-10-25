@@ -1,0 +1,53 @@
+components:
+- components:
+  - layout_properties: {grid_position: 'XZLIUW,FEXYLF'}
+    name: label_1
+    properties: {align: center, font_size: 18, text: Saved}
+    type: Label
+  - components:
+    - layout_properties: {}
+      name: no_saves_found
+      properties: {align: center, italic: true, text: No saves found}
+      type: Label
+    layout_properties: {grid_position: 'NWALGM,ETTDJW'}
+    name: saved_linear_panel
+    properties: {}
+    type: LinearPanel
+  - layout_properties: {grid_position: 'SCIFZU,HVWBFV'}
+    name: spacing
+    properties: {height: 32, spacing_below: large}
+    type: Spacer
+  - layout_properties: {grid_position: 'FJBOIR,VASJDW'}
+    name: label_2
+    properties: {align: center, font_size: 18, text: Start New Quary}
+    type: Label
+  - layout_properties: {grid_position: 'HIEQOW,JBPGJL'}
+    name: rule_and_option_checkbox
+    properties: {align: center, enabled: false, text: All selected rules must be true, tooltip: 'If selected it acts like: rule1 AND rule2.  If not selected it acts like: rule1 OR rule2'}
+    type: CheckBox
+  - components:
+    - event_bindings: {click: new_ruleset_button_click}
+      layout_properties: {grid_position: 'HPYNSG,YAEMJE'}
+      name: new_ruleset_button
+      properties: {role: outlined-button, text: New Rulset}
+      type: Button
+    layout_properties: {grid_position: 'BCZOWE,CZDLYU'}
+    name: rule_sets
+    properties: {}
+    type: ColumnPanel
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {col_widths: '{}'}
+  type: ColumnPanel
+- layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+- layout_properties: {slot: title}
+  name: title_label
+  properties: {align: left, bold: false, text: Visual Overpass}
+  type: Label
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
