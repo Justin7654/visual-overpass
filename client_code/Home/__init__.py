@@ -14,9 +14,10 @@ class Home(HomeTemplate):
     self.loadHistory()
 
   def loadHistory(self):
-    
+    pass  
 
   def addNewHistoryItem(self):
+    pass
   
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""
