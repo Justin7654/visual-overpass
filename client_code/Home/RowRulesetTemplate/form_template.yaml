@@ -1,0 +1,20 @@
+components:
+- layout_properties: {column: JKSDUP}
+  name: check_box_1
+  properties: {align: center, text: ''}
+  type: CheckBox
+- components:
+  - layout_properties: {}
+    name: ruleset_edit
+    properties: {icon: 'fa:pencil', text: ' Edit'}
+    type: Button
+  - layout_properties: {}
+    name: button_1
+    properties: {icon: 'fa:trash', text: ' Delete'}
+    type: Button
+  layout_properties: {column: OJLQEN}
+  name: flow_panel_1
+  properties: {align: right, gap: tiny}
+  type: FlowPanel
+container: {type: DataRowPanel}
+is_package: true
