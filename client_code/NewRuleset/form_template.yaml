@@ -1,18 +1,13 @@
 components:
 - components:
-  - components:
-    - event_bindings: {click: new_rule_click}
-      layout_properties: {}
-      name: new_rule
-      properties: {font_size: 17, role: outlined-button, text: +, tooltip: Create a new rule box}
-      type: Button
+  - components: []
     layout_properties: {grid_position: 'SAFOKN,UBTEWW'}
     name: ruleset_linear_panel
     properties: {}
     type: LinearPanel
   layout_properties: {slot: default}
   name: content_panel
-  properties: {}
+  properties: {visible: true}
   type: ColumnPanel
 - layout_properties: {slot: nav-right}
   name: navbar_links

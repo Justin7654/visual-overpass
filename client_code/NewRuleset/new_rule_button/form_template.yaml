@@ -1,0 +1,8 @@
+components:
+- event_bindings: {click: new_rule_click}
+  layout_properties: {grid_position: 'VGCJCL,REOZFF'}
+  name: new_rule
+  properties: {font_size: 17, role: outlined-button, text: +, tooltip: Create a new rule box}
+  type: Button
+container: {type: ColumnPanel}
+is_package: true

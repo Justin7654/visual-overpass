@@ -25,3 +25,4 @@ class Home(HomeTemplate):
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""
     open_form('NewRuleset')
+    

@@ -1,4 +1,4 @@
-from ._anvil_designer import rule_match_tagTemplate
+from ._anvil_designer import new_rule_buttonTemplate
 from anvil import *
 import anvil.server
 import anvil.google.auth, anvil.google.drive
@@ -8,15 +8,10 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-class rule_match_tag(rule_match_tagTemplate):
-  
+
+class new_rule_button(new_rule_buttonTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.tag = {
-      "type": "Match Tag",
-      "key": "",
-      "value": "",
-    }
 
     # Any code you write here will run before the form opens.
