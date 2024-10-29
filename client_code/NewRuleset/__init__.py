@@ -31,11 +31,13 @@ class NewRuleset(NewRulesetTemplate):
     ]
 
     #Add plus (TODO: Convert to function)
+    self.add_new_plus(self.content_panel)
+
+  def add_new_plus(self, form):
     newRuleButton = new_rule_button()
-    newRuleButton.new_rule.handle_click = self.new_rule_click
-    self.content_panel.add_component(newRuleButton)
-
-
+    newRuleButton.raise_event("x-hookClick", func=self.new_rule_click)
+    form.add_component(newRuleButton)
+  
   def add_new_rule(self, name):
     foundRule = None
     for rule in self.ruleData:
@@ -48,14 +50,18 @@ class NewRuleset(NewRulesetTemplate):
     #Make the UI
     copy = foundRule['form']()
     self.add_component(copy)
-
-    #Update the structure
+    return copy
     
   def get_rule_selection(self):
-    dropdown = DropDown()
-  
+    names = [item["name"] for item in self.ruleData]
+    dropdown = DropDown(items=names)
+    alert(content=dropdown,
+      title="Please select a rule type",
+      dismissible=False)
+    return dropdown.selected_value
+
+
   def new_rule_click(self, **event_args):
     """This method is called when the button is clicked"""
-    print(event_args)
-    self.add_component("Match Tag")
-    #self.add_new_rule("rule_match_tag")
+    option = self.get_rule_selection()
+    self.add_new_rule(option)

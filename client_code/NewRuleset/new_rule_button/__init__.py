@@ -15,3 +15,13 @@ class new_rule_button(new_rule_buttonTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.clickHook = lambda: 1+1
+    self.add_event_handler("x-hookClick", self.clickHooker)
+
+  def clickHooker(self, sender, event_name, func):
+    print("Successfully received event x-hookClick. Hooking click event")
+    self.clickHook = func
+
+  def button_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    self.clickHook()

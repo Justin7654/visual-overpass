@@ -21,25 +21,29 @@ components:
         vertical_align: full
       type: FlowPanel
     - components:
-      - name: name
-        properties: {}
+      - event_bindings: {change: key_change}
+        layout_properties: {}
+        name: key
+        properties: {placeholder: key}
         type: TextBox
       - layout_properties: {}
         name: label_2
         properties: {align: center, font_size: 20, text: =}
         type: Label
-      - name: value
-        properties: {}
+      - event_bindings: {change: value_change}
+        layout_properties: {}
+        name: value
+        properties: {placeholder: value}
         type: TextBox
       layout_properties: {expand: true}
-      name: flow_panel_middle
+      name: flow_panel_right
       properties:
         align: right
         spacing:
           padding: [null, '20', null, '0']
       type: FlowPanel
     layout_properties: {grid_position: 'MGOQOO,EEJGOE'}
-    name: flow_panel_1
+    name: main_flow
     properties:
       align: center
       spacing:
