@@ -33,18 +33,34 @@ class NewRuleset(NewRulesetTemplate):
     ]
     
     #Add plus (TODO: Convert to function)
-    self.rule_group.tag = "rule_group"
+    self.rule_group.tag = {"rule_group": True}
+    print(self.rule_group)
     self.initRuleGroups(self)
     
     #self.add_new_plus(self.ruleset_group)
 
   def initRuleGroups(self, form):
+    #print("Starting")
     children = form.get_components()
-    print("rule_group" in children)
+    #print("Children: ",children)
     for child in children:
-      if child.tag == "rule_group":
-        child = form[child]
-        self.add_new_plus(child)
+      print(child)
+      try:
+        child.get_components()
+      except AttributeError:
+        pass
+      else:
+        self.initRuleGroups(child)
+        
+      try:
+        if hasattr(child.tag, '__iter__') and "rule_group" in child.tag:
+          print("Child: ",child)
+          print("1")
+          child = form[child]
+          print("2")
+          self.add_new_plus(child)
+      except TypeError as e: #TypeError: 'ColumnPanel' does not support indexing
+        print(child,"was compatible but failed because:",e)
         
   
   
