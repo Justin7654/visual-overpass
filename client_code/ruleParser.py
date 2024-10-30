@@ -7,7 +7,7 @@ import anvil.server
 #    Module1.say_hello()
 #
 
-def get_structure():
+def get_structure(loadingBarParent):
   pass
 
 def parse():

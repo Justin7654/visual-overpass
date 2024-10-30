@@ -7,7 +7,6 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from anvil_extras.utils import import_module
 
 #UI
 from .new_rule_button import new_rule_button
@@ -28,7 +27,7 @@ class NewRuleset(NewRulesetTemplate):
         "form": form,
         "name": name
       }
-    #Find the rules
+    #Find the rules    
     self.ruleData = [
       genRuleData(rule_match_tag, "Match Tag"),
       genRuleData(rule_has_tag, "Has Tag"),
