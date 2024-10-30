@@ -18,9 +18,26 @@ components:
         spacing:
           margin: [null, null, null, '50']
           padding: [null, null, null, '0']
-        vertical_align: full
+        vertical_align: middle
       type: FlowPanel
     - components:
+      - components:
+        - layout_properties: {slot: invert_switch}
+          name: switch_1
+          properties: {}
+          type: form:dep_803t20b0qsk9h:Switch
+        layout_properties: {}
+        name: rich_text_1
+        properties:
+          align: right
+          content: Not {invert_switch}
+          format: markdown
+          spacing:
+            margin: ['0', null, null, null]
+            padding: ['0', null, '0', null]
+          spacing_above: none
+          spacing_below: none
+        type: RichText
       - event_bindings: {change: key_change}
         layout_properties: {}
         name: key
