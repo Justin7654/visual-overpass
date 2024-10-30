@@ -7,6 +7,8 @@ import anvil.server
 #    Module1.say_hello()
 #
 
+def get_structure():
+  pass
 
-def say_hello():
-  print("Hello, world")
+def parse():
+  pass

@@ -32,7 +32,7 @@ db_schema:
     server: full
     title: Users
 dependencies: []
-metadata: {title: OSM VisualOP}
+metadata: {title: Visual Overpass}
 name: Visual Overpass
 package_name: Visual_Overpass
 renamed: true

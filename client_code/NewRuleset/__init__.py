@@ -31,10 +31,23 @@ class NewRuleset(NewRulesetTemplate):
       genRuleData(rule_match_tag, "Match Tag"),
       genRuleData(rule_has_tag, "Has Tag")
     ]
-
+    
     #Add plus (TODO: Convert to function)
-    self.add_new_plus(self.ruleset_linear_panel)
+    self.rule_group.tag = "rule_group"
+    self.initRuleGroups(self)
+    
+    #self.add_new_plus(self.ruleset_group)
 
+  def initRuleGroups(self, form):
+    children = form.get_components()
+    print("rule_group" in children)
+    for child in children:
+      if child.tag == "rule_group":
+        child = form[child]
+        self.add_new_plus(child)
+        
+  
+  
   def add_new_plus(self, form):
     newRuleButton = new_rule_button()
     newRuleButton.raise_event("x-hookClick", func=self.new_rule_click)
@@ -50,10 +63,12 @@ class NewRuleset(NewRulesetTemplate):
       exit("No rule found with that name")
 
     #Make the UI
+    currentSize = len(self.ruleset_linear_panel.get_components()) #Use custom index to keep the plus at the bottom
     copy = foundRule["form"]()
-    self.ruleset_linear_panel.add_component(copy)
+    self.initRuleGroups(copy)
+    self.ruleset_linear_panel.add_component(copy, index=currentSize-1)
     return copy
-    
+
   def get_rule_selection(self):
     names = [item["name"] for item in self.ruleData]
     dropdown = DropDown(items=names)
