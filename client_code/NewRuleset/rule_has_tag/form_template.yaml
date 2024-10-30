@@ -21,7 +21,7 @@ components:
         vertical_align: full
       type: FlowPanel
     - components:
-      - event_bindings: {change: value_change}
+      - event_bindings: {change: key_change}
         layout_properties: {}
         name: key
         properties: {placeholder: key}
@@ -43,7 +43,7 @@ components:
     type: FlowPanel
   layout_properties: {full_width_row: false, grid_position: 'PXPDSG,KKKOGY'}
   name: outlined_card_1
-  properties: {col_spacing: medium, role: outlined-card}
+  properties: {background: 'theme:Dark Overlay 1', col_spacing: medium, role: elevated-card}
   type: ColumnPanel
 container: {type: ColumnPanel}
 is_package: true

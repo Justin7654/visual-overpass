@@ -11,7 +11,7 @@ components:
     type: Button
   layout_properties: {column: OJLQEN}
   name: flow_panel_1
-  properties: {gap: tiny}
+  properties: {align: right, gap: tiny}
   type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true

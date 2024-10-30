@@ -24,4 +24,4 @@ class new_rule_button(new_rule_buttonTemplate):
 
   def button_click(self, **event_args):
     """This method is called when the button is clicked"""
-    self.clickHook()
+    self.clickHook(otherSelf=self.parent, **event_args)
