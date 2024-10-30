@@ -4,11 +4,11 @@ components:
   name: button
   properties:
     font_size: 17
-    role: outlined-button
+    role: filled-button
     spacing:
       margin: ['4', null, '4', null]
     text: +
-    tooltip: Create a new rule box
+    tooltip: ''
   type: Button
 container: {type: ColumnPanel}
 is_package: true
