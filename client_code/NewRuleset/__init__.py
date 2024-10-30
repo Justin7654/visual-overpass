@@ -13,6 +13,7 @@ from .new_rule_button import new_rule_button
 
 #Rules
 from .rule_match_tag import rule_match_tag
+from .rule_has_tag import rule_has_tag
 
 class NewRuleset(NewRulesetTemplate):
   def __init__(self, **properties):
@@ -22,16 +23,17 @@ class NewRuleset(NewRulesetTemplate):
 
     def genRuleData(form, name):
       return {
-        "form": rule_match_tag,
+        "form": form,
         "name": name
       }
     #Find the rules
     self.ruleData = [
-      genRuleData(rule_match_tag, "Match Tag")
+      genRuleData(rule_match_tag, "Match Tag"),
+      genRuleData(rule_has_tag, "Has Tag")
     ]
 
     #Add plus (TODO: Convert to function)
-    self.add_new_plus(self.content_panel)
+    self.add_new_plus(self.ruleset_linear_panel)
 
   def add_new_plus(self, form):
     newRuleButton = new_rule_button()
@@ -48,8 +50,8 @@ class NewRuleset(NewRulesetTemplate):
       exit("No rule found with that name")
 
     #Make the UI
-    copy = foundRule['form']()
-    self.add_component(copy)
+    copy = foundRule["form"]()
+    self.ruleset_linear_panel.add_component(copy)
     return copy
     
   def get_rule_selection(self):

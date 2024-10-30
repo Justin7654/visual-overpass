@@ -1,4 +1,4 @@
-from ._anvil_designer import rule_match_tagTemplate
+from ._anvil_designer import rule_has_tagTemplate
 from anvil import *
 import anvil.server
 import anvil.google.auth, anvil.google.drive
@@ -8,20 +8,16 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-class rule_match_tag(rule_match_tagTemplate):
-  
+
+class rule_has_tag(rule_has_tagTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.tag = {
-      "type": "Match Tag",
+      "type": "Has Tag",
       "key": "",
-      "value": "",
     }
     self.key.tag = {
-      "required": True
-    }
-    self.value.tag = {
       "required": True
     }
 
@@ -30,7 +26,3 @@ class rule_match_tag(rule_match_tagTemplate):
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
     self.tag["key"] = self.key.text
-
-  def value_change(self, **event_args):
-    """This method is called when the text in this text box is edited"""
-    self.tag["value"] = self.value.text
