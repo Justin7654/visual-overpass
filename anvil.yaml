@@ -31,7 +31,10 @@ db_schema:
       type: simpleObject
     server: full
     title: Users
-dependencies: []
+dependencies:
+- dep_id: dep_803t20b0qsk9h
+  resolution_hints: {app_id: C6ZZPAPN4YYF5NVJ, name: Anvil Extras, package_name: anvil_extras}
+  version: {version_tag: v3.0.0}
 metadata: {title: Visual Overpass}
 name: Visual Overpass
 package_name: Visual_Overpass

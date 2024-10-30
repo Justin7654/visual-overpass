@@ -7,6 +7,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+from anvil_extras.utils import import_module
 
 #UI
 from .new_rule_button import new_rule_button
