@@ -14,13 +14,17 @@ def is_rule_group(component):
 def get_structure(form, loadingBarParent):
   def try_expand_search(component):
     #If the given component has children, it will scan the children
-    component.get_components()
-    scan(component)
+    try:
+      component.get_components()
+      scan(component)
+    except AttributeError:
+      return
   
   def scan(form):
-    form.get_components()
-    for child in form:
-      print(child)
+    print("Starting scan")
+    children = form.get_components()
+    for child in children:      
+      try_expand_search(child)
       
     
     

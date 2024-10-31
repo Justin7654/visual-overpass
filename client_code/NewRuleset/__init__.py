@@ -52,8 +52,7 @@ class NewRuleset(NewRulesetTemplate):
         self.initRuleGroups(child)
         
       try:
-        #if its iterable (avoid error), has the rule_group key in its tag, and isn't already setup
-        if hasattr(child.tag, '__iter__') and "rule_group" in child.tag:
+        if ruleParser.is_rule_group(child):
           #check if its already setup, if so dont setup again
           if "RuleGroupSetup" not in child.tag:
             child.tag["RuleGroupSetup"] = True
@@ -79,11 +78,15 @@ class NewRuleset(NewRulesetTemplate):
     else:
       exit("No rule found with that name")
 
-    #Make the UI
+    #Make the and/or text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
+    operationText = Label(text="AND", align="Center", font_size=15)
+    form.add_component(operationText, index=currentSize-1)
+    
+    #Make the UI
     copy = foundRule["form"]()
     self.initRuleGroups(copy)
-    form.add_component(copy, index=currentSize-1)
+    form.add_component(copy, index=currentSize)
     return copy
 
   def get_rule_selection(self):
