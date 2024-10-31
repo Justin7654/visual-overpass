@@ -7,6 +7,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+from .. import ruleParser
 
 #UI
 from .new_rule_button import new_rule_button
@@ -101,4 +102,4 @@ class NewRuleset(NewRulesetTemplate):
   
   def run_click(self, **event_args):
     """This method is called when the button is clicked"""
-    pass
+    ruleParser.get_structure(self, self)
