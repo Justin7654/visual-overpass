@@ -21,10 +21,12 @@ def get_structure(form, loadingBarParent):
       return
   
   def scan(form):
-    print("Starting scan")
     children = form.get_components()
     for child in children:      
       try_expand_search(child)
+      if is_rule_group(child):
+        print("Rule group items:")
+        print(child.items)
       
     
     

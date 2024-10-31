@@ -1,0 +1,7 @@
+components:
+- layout_properties: {grid_position: 'QMPAMC,ITDBNZ'}
+  name: text
+  properties: {align: center, font_size: 15, text: AND}
+  type: Label
+container: {type: ColumnPanel}
+is_package: true

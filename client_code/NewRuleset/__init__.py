@@ -11,6 +11,7 @@ from .. import ruleParser
 
 #UI
 from .new_rule_button import new_rule_button
+from .operation_text import operation_text
 
 #Rules
 from .rule_match_tag import rule_match_tag
@@ -80,13 +81,15 @@ class NewRuleset(NewRulesetTemplate):
 
     #Make the and/or text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
-    operationText = Label(text="AND", align="Center", font_size=15)
-    form.add_component(operationText, index=currentSize-1)
+    if currentSize > 1:
+      operationText = operation_text()
+      form.add_component(operationText, index=currentSize-1)
+      currentSize += 1
     
     #Make the UI
     copy = foundRule["form"]()
     self.initRuleGroups(copy)
-    form.add_component(copy, index=currentSize)
+    form.add_component(copy, index=currentSize-1)
     return copy
 
   def get_rule_selection(self):
