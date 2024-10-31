@@ -1,4 +1,5 @@
 import anvil.server
+
 # This is a module.
 # You can define variables and functions here, and use them from any form. For example, in a top-level form:
 #
@@ -7,8 +8,12 @@ import anvil.server
 #    Module1.say_hello()
 #
 
-def get_structure(loadingBarParent):
-  pass
+def get_structure(form, loadingBarParent):
+  def scan(form):
+    form.get_components()
+    
+
+  scan(form)
 
 def parse():
   pass

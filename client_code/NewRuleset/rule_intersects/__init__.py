@@ -15,6 +15,7 @@ class rule_intersects(rule_intersectsTemplate):
     self.init_components(**properties)
     self.tag = {
       "type": "Match Tag",
+      "not": False,
       "group1": self.rule_group_1,
       "group2": self.rule_group_2
     }
@@ -22,3 +23,7 @@ class rule_intersects(rule_intersectsTemplate):
     self.rule_group_2.tag = {"rule_group": True}
 
     # Any code you write here will run before the form opens.
+
+  def notSwitch_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    self.tag["not"] = self.notSwitch.checked

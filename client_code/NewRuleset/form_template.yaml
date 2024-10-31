@@ -10,7 +10,8 @@ components:
     properties: {height: 32}
     type: Spacer
   - components:
-    - name: outlined_button_1
+    - event_bindings: {click: run_click}
+      name: run
       properties: {role: outlined-button, text: Run}
       type: Button
     - layout_properties: {}

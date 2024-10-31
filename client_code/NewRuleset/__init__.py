@@ -35,7 +35,6 @@ class NewRuleset(NewRulesetTemplate):
     ]
     
     self.rule_group.tag = {"rule_group": True}
-    print(self.rule_group)
     self.initRuleGroups(self)
     
     #self.add_new_plus(self.ruleset_group)
@@ -99,3 +98,7 @@ class NewRuleset(NewRulesetTemplate):
     option = self.get_rule_selection()
     print(otherSelf)
     self.add_new_rule(option, otherSelf or self)
+  
+  def run_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    pass

@@ -22,8 +22,9 @@ components:
       type: FlowPanel
     - components:
       - components:
-        - layout_properties: {slot: invert_switch}
-          name: switch_1
+        - event_bindings: {change: notSwitch_change}
+          layout_properties: {slot: invert_switch}
+          name: notSwitch
           properties: {}
           type: form:dep_803t20b0qsk9h:Switch
         layout_properties: {}

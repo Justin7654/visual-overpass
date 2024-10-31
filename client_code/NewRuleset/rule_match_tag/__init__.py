@@ -17,6 +17,7 @@ class rule_match_tag(rule_match_tagTemplate):
       "type": "Match Tag",
       "key": "",
       "value": "",
+      "not": False
     }
     self.key.tag = {
       "required": True
@@ -34,3 +35,7 @@ class rule_match_tag(rule_match_tagTemplate):
   def value_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
     self.tag["value"] = self.value.text
+
+  def notSwitch_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    self.tag["not"] = self.notSwitch.checked

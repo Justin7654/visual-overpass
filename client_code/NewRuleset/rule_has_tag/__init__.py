@@ -18,6 +18,7 @@ class rule_has_tag(rule_has_tagTemplate):
     self.tag = {
       "type": "Has Tag",
       "key": "",
+      "not": False,
     }
     self.key.tag = {
       "required": True
@@ -26,3 +27,7 @@ class rule_has_tag(rule_has_tagTemplate):
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
     self.tag["key"] = self.key.text
+
+  def notSwitch_change(self, **event_args):
+    """This method is called when this checkbox is checked or unchecked"""
+    self.tag["not"] = self.notSwitch.checked
