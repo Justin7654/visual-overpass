@@ -19,14 +19,13 @@ class rule_has_tag(rule_has_tagTemplate):
       "type": "Has Tag",
       "key": "",
       "not": False,
-    }
-    self.key.tag = {
-      "required": True
+      "requiredTextInputs": [self.key]
     }
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
-    self.tag["key"] = self.key.text
+    self.tag["key"] = self.key.text.trim()
+    self.key.text = self.tag["key"] #Prevent white space
 
   def notSwitch_change(self, **event_args):
     """This method is called when this checkbox is checked or unchecked"""

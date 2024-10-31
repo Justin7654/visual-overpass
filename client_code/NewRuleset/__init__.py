@@ -17,6 +17,7 @@ from .operation_text import operation_text
 from .rule_match_tag import rule_match_tag
 from .rule_has_tag import rule_has_tag
 from .rule_intersects import rule_intersects
+from .rule_or_group import rule_or_group
 
 class NewRuleset(NewRulesetTemplate):
   def __init__(self, **properties):
@@ -33,7 +34,8 @@ class NewRuleset(NewRulesetTemplate):
     self.ruleData = [
       genRuleData(rule_match_tag, "Match Tag"),
       genRuleData(rule_has_tag, "Has Tag"),
-      genRuleData(rule_intersects, "Intersects")
+      genRuleData(rule_intersects, "Intersects"),
+      genRuleData(rule_or_group, "OR Group")
     ]
     
     self.rule_group.tag = {"rule_group": True}
@@ -108,4 +110,4 @@ class NewRuleset(NewRulesetTemplate):
   
   def run_click(self, **event_args):
     """This method is called when the button is clicked"""
-    ruleParser.get_structure(self, self)
+    print(ruleParser.get_structure(self.rule_group, self))

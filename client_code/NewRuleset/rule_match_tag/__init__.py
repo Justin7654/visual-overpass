@@ -17,13 +17,8 @@ class rule_match_tag(rule_match_tagTemplate):
       "type": "Match Tag",
       "key": "",
       "value": "",
-      "not": False
-    }
-    self.key.tag = {
-      "required": True
-    }
-    self.value.tag = {
-      "required": True
+      "not": False,
+      "requiredTextInputs": [self.key, self.value]
     }
 
     # Any code you write here will run before the form opens.
