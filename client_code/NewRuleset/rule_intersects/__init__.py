@@ -17,7 +17,7 @@ class rule_intersects(rule_intersectsTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.tag = {
-      "type": "Match Tag",
+      "type": "Intersects",
       "not": False,
       "group1": self.rule_group_1,
       "group2": self.rule_group_2

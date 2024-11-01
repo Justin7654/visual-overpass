@@ -78,7 +78,34 @@ def get_structure(form, loadingBarParent):
   else:
     print("WARNING: Attempted to get structure of a non rule group")
     return
-  
 
-def parse():
+'''
+Parsing the structure and turning it into text.
+'''
+
+'''
+Type parsing functions
+Each rule type gets a different handler that turns it into text
+'''
+
+typeParsers = {
+  "Match Tag": None,
+  "Has Tag": None,
+  "Intersects": None,
+  "OR": None,
+}
+
+'''
+Helper Functions
+'''
+
+def group_by_types(ruleGroupList):
+  #All the items are AND in each ruleGroup, so combine them by type for easier processing
+  pass
+
+'''
+Main Function
+'''
+
+def parse(structure):
   pass

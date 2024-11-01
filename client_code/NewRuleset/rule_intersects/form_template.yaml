@@ -9,7 +9,7 @@ components:
           italic: false
           spacing:
             padding: [null, null, null, '0']
-          text: Intersects
+          text: Intersecting
         type: Label
       layout_properties: {expand: false, width: null}
       name: flow_panel_left
