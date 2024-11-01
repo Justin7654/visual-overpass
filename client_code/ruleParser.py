@@ -1,4 +1,7 @@
 import anvil.server
+import _ruleParserParseTypes as parseTypeModule
+from collections import defaultdict
+
 
 # This is a module.
 # You can define variables and functions here, and use them from any form. For example, in a top-level form:
@@ -41,7 +44,6 @@ def get_structure(form, loadingBarParent):
     for child in children:      
       #If we are in a rule group, and the current component is a rule form
       if is_group and is_rule(child):
-        print("Found rule")
         tag = child.tag
         structureItem = tag
         #Check its group tags and if it has a groupx tag, scan it and replace the tag
@@ -89,23 +91,38 @@ Each rule type gets a different handler that turns it into text
 '''
 
 typeParsers = {
-  "Match Tag": None,
-  "Has Tag": None,
-  "Intersects": None,
-  "OR": None,
+  "Match Tag": parseTypeModule.match_tag,
+  "Has Tag": parseTypeModule.has_tag,
+  "Intersects": parseTypeModule.intersects,
+  "OR": parseTypeModule.OR,
 }
 
 '''
 Helper Functions
 '''
 
-def group_by_types(ruleGroupList):
+def group_by_type(ruleGroupList):
   #All the items are AND in each ruleGroup, so combine them by type for easier processing
-  pass
+  grouped = defaultdict(list)
+  for item in ruleGroupList:
+      item_type = item.get("type") #item.get wont make a error if "type" doesn't exist
+      if item_type is not None:
+        grouped[item_type].append(item)
+  return dict(grouped)
+
 
 '''
 Main Function
 '''
 
 def parse(structure):
-  pass
+  grouped = group_by_type(structure)
+  output = ""
+  for key, list in grouped.items():
+    handler = typeParsers.get(key)
+    if handler is None:
+      print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
+      continue
+    result = handler(list)
+    print(f'{key} returned:\n{result}')
+    output += result

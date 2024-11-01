@@ -23,7 +23,7 @@ class rule_has_tag(rule_has_tagTemplate):
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
-    self.tag["key"] = self.key.text.trim()
+    self.tag["key"] = self.key.text.lstrip()
     self.key.text = self.tag["key"] #Prevent white space
 
   def notSwitch_change(self, **event_args):

@@ -24,12 +24,12 @@ class rule_match_tag(rule_match_tagTemplate):
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
-    self.key.text = self.key.text.strip()
+    self.key.text = self.key.text.lstrip()
     self.tag["key"] = self.key.text
 
   def value_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
-    self.value.text = self.value.text.strip()
+    self.value.text = self.value.text.lstrip()
     self.tag["value"] = self.value.text
 
   def notSwitch_change(self, **event_args):

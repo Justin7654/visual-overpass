@@ -110,4 +110,7 @@ class NewRuleset(NewRulesetTemplate):
   
   def run_click(self, **event_args):
     """This method is called when the button is clicked"""
-    alert(ruleParser.get_structure(self.rule_group, self))
+    print("-------------- GETTING STRUCTURE ----------------")
+    struct = ruleParser.get_structure(self.rule_group, self)
+    print("------------------ PARSING ---------------------")
+    ruleParser.parse(struct)
