@@ -18,17 +18,18 @@ class rule_match_tag(rule_match_tagTemplate):
       "key": "",
       "value": "",
       "not": False,
-      "requiredTextInputs": [self.key, self.value]
     }
 
     # Any code you write here will run before the form opens.
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
+    self.key.text = self.key.text.strip()
     self.tag["key"] = self.key.text
 
   def value_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
+    self.value.text = self.value.text.strip()
     self.tag["value"] = self.value.text
 
   def notSwitch_change(self, **event_args):

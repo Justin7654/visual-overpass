@@ -20,6 +20,11 @@ def is_rule(component):
 
 def get_structure(form, loadingBarParent):
   global disable
+  def startError(text, focusTo):
+    global disable
+    anvil.alert(text)
+    focusTo.scroll_into_view()
+    disable = True
   def try_expand_search(component):
     #If the given component has children, it will scan the children
     try:
@@ -43,18 +48,17 @@ def get_structure(form, loadingBarParent):
         for i in range(5):
           key = "group"+str(i)
           if tag_has_key(tag, key) and tag[key] is not None:
-            print("Found group inside rule. Scanning too")
             structureItem[key] = scan(tag[key])
+            if len(structureItem[key]) == 0:
+              #Group was left empty
+              return startError("Group was left empty", structureItem[key])
+              
         
         #Make sure all required text inputs are filled
-        if tag_has_key(tag, "key") and tag["key"] != "":
-          anvil.alert("Key input was left blank on "+tag.type+" rule")
-          child.scroll_into_view()
-          return
-        if tag_has_key(tag, "value") and tag["value"] != "":
-          anvil.alert("Value input was left blank on "+tag.type+" rule")
-          child.scroll_into_view()
-          return
+        if tag_has_key(tag, "key") and len(tag["key"]) == 0:
+          return startError("Key input was left blank", child)
+        if tag_has_key(tag, "value") and len(tag["value"]) == 0:
+          return startError("Value input was left blank", child)
             
 
         #Final

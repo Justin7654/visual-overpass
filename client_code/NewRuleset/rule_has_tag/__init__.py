@@ -19,7 +19,6 @@ class rule_has_tag(rule_has_tagTemplate):
       "type": "Has Tag",
       "key": "",
       "not": False,
-      "requiredTextInputs": [self.key]
     }
 
   def key_change(self, **event_args):
