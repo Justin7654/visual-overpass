@@ -75,7 +75,7 @@ def get_structure(form, loadingBarParent):
     if disable:
       disable = False
       result = []
-      print("Cancelled result because it was cancelled at some point.")
+      print("Result invalidated")
     return result
   else:
     print("WARNING: Attempted to get structure of a non rule group")
