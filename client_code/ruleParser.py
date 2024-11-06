@@ -11,7 +11,6 @@ from collections import defaultdict
 #
 #    Module1.say_hello()
 #
-disable = False
 
 def tag_has_key(tag, key):
   return hasattr(tag, '__iter__') and key in tag
@@ -23,12 +22,11 @@ def is_rule(component):
   return tag_has_key(component.tag, "type")
 
 def get_structure(form, loadingBarParent):
-  global disable
-  def startError(text, focusTo):
-    global disable
+  def customException(text, focusTo):
     anvil.alert(text)
     focusTo.scroll_into_view()
-    disable = True
+    return Exception(text)
+  
   def try_expand_search(component):
     #If the given component has children, it will scan the children
     try:
@@ -40,13 +38,12 @@ def get_structure(form, loadingBarParent):
   def scan(form):
     is_group = is_rule_group(form)
     structure = []
-    
     children = form.get_components()
     for child in children:      
       #If we are in a rule group, and the current component is a rule form
       if is_group and is_rule(child):
         tag = child.tag
-        structureItem = tag
+        structureItem = tag #Copy that we can modify
         #Check its group tags and if it has a groupx tag, scan it and replace the tag
         for i in range(5):
           key = "group"+str(i)
@@ -54,14 +51,14 @@ def get_structure(form, loadingBarParent):
             structureItem[key] = scan(tag[key])
             if len(structureItem[key]) == 0:
               #Group was left empty
-              return startError("Group was left empty", structureItem[key])
+              raise customException("Group was left empty", structureItem[key])
               
         
         #Make sure all required text inputs are filled
         if tag_has_key(tag, "key") and len(tag["key"]) == 0:
-          return startError("Key input was left blank", child)
+          raise customException("Key input was left blank", child)
         if tag_has_key(tag, "value") and len(tag["value"]) == 0:
-          return startError("Value input was left blank", child)
+          raise customException("Value input was left blank", child)
             
 
         #Final
@@ -72,12 +69,12 @@ def get_structure(form, loadingBarParent):
     return structure
 
   if is_rule_group(form):
-    result = scan(form)
-    if disable:
-      disable = False
-      result = []
-      print("Result invalidated")
-    return result
+    try:
+      result = scan(form)
+      return result
+    except Exception as e:
+      print(e)
+      return []
   else:
     print("WARNING: Attempted to get structure of a non rule group")
     return
@@ -116,7 +113,7 @@ def group_by_type(ruleGroupList):
 Main Function
 '''
 
-def parse(structure):
+def parse(structure, includeTypes):
   grouped = group_by_type(structure)
   output = ""
   for key, list in grouped.items():
@@ -124,6 +121,7 @@ def parse(structure):
     if handler is None:
       print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
       continue
-    result = handler(list)
+    result = handler(list, includeTypes)
     print(f'{key} returned:\n{result}')
     output += result
+  return output

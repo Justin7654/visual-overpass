@@ -39,7 +39,14 @@ class NewRuleset(NewRulesetTemplate):
       genRuleData(rule_or_group, "OR Group")
     ]
     
-    self.rule_group.tag = {"rule_group": True}
+    self.rule_group.tag = {
+      "rule_group": True,
+      "include": {
+        "node":True,
+        "way":True,
+        "relation":True,
+      }
+    }
     self.initRuleGroups(self)
     
     #self.add_new_plus(self.ruleset_group)
@@ -113,5 +120,15 @@ class NewRuleset(NewRulesetTemplate):
     """This method is called when the button is clicked"""
     print("-------------- GETTING STRUCTURE ----------------")
     struct = ruleParser.get_structure(self.rule_group, self)
+    print(struct)
     print("------------------ PARSING ---------------------")
-    ruleParser.parse(struct)
+    parsed = ruleParser.parse(struct, self.rule_group.tag["include"])
+
+  def includeNodes_change(self, **event_args):
+    self.rule_group.tag["include"]["node"] = event_args["sender"].checked
+
+  def includeWays_change(self, **event_args):
+    self.rule_group.tag["include"]["way"] = event_args["sender"].checked
+
+  def includeRelations_change(self, **event_args):
+    self.rule_group.tag["include"]["relation"] = event_args["sender"].checked

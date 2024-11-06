@@ -1,5 +1,31 @@
 components:
 - components:
+  - components:
+    - data_bindings: []
+      event_bindings: {change: includeNodes_change}
+      layout_properties: {}
+      name: includeNodes
+      properties: {checked: true, text: Nodes}
+      type: CheckBox
+    - event_bindings: {change: includeWays_change}
+      layout_properties: {}
+      name: includeWays
+      properties: {checked: true, text: Ways}
+      type: CheckBox
+    - event_bindings: {change: includeRelations_change}
+      layout_properties: {}
+      name: includeRelations
+      properties: {checked: true, text: Relations}
+      type: CheckBox
+    layout_properties: {grid_position: 'CORLSB,LIFXHZ'}
+    name: types_checkboxes
+    properties:
+      border: ''
+      gap: medium
+      spacing:
+        margin: ['0', null, '0', null]
+      vertical_align: middle
+    type: FlowPanel
   - components: []
     layout_properties: {grid_position: 'SAFOKN,UBTEWW', row_background: ''}
     name: rule_group
