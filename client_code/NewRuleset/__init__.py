@@ -122,7 +122,7 @@ class NewRuleset(NewRulesetTemplate):
     struct = ruleParser.get_structure(self.rule_group, self)
     print(struct)
     print("------------------ PARSING ---------------------")
-    parsed = ruleParser.parse(struct, self.rule_group.tag["include"])
+    parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
 
   def includeNodes_change(self, **event_args):
     self.rule_group.tag["include"]["node"] = event_args["sender"].checked

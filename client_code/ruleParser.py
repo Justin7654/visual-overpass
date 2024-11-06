@@ -113,7 +113,7 @@ def group_by_type(ruleGroupList):
 Main Function
 '''
 
-def parse(structure, includeTypes):
+def parse(structure, includeTypes, parentStructLists):
   grouped = group_by_type(structure)
   output = ""
   for key, list in grouped.items():
@@ -121,7 +121,7 @@ def parse(structure, includeTypes):
     if handler is None:
       print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
       continue
-    result = handler(list, includeTypes)
+    result = handler(list, includeTypes, parentStructLists)
     print(f'{key} returned:\n{result}')
     output += result
   return output

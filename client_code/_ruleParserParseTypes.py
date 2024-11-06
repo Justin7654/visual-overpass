@@ -1,3 +1,5 @@
+import ruleParser
+
 def addTypeFilter(includeTypes, text):
   #If all of them are true, just use nwr since thats all of them combined
   if all(includeTypes.values()): #value for value in includeTypes.values()):
@@ -10,7 +12,7 @@ def addTypeFilter(includeTypes, text):
   return output
   
 
-def match_tag(list, includeTypes):
+def match_tag(list, includeTypes, parentStructLists):
     quary = ""
     for tag in list:
         key = tag.get("key")
@@ -25,7 +27,7 @@ def match_tag(list, includeTypes):
     #
     return addTypeFilter(includeTypes, quary+";")
 
-def has_tag(list, includeTypes):
+def has_tag(list, includeTypes, parentStructLists):
   quary = ""
   for tag in list:
     key = tag.get("key")
@@ -39,5 +41,11 @@ def has_tag(list, includeTypes):
 def intersects(list):
   pass
 
-def OR(list, includeTypes):
-  pass
+def OR(list, includeTypes, parentStructLists):
+  for value in list:
+    group1 = value["group1"]
+    #group2 = value["group2"]
+    result = ruleParser.parse(group1+parentStructLists, group1["include"], parentStructLists)
+    print("OR Group 1 Parse:")
+    print(result)
+    
