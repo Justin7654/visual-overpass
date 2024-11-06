@@ -20,7 +20,7 @@ class new_rule_button(new_rule_buttonTemplate):
     self.add_event_handler("x-hookClick", self.clickHooker)
 
   def clickHooker(self, sender, event_name, func):
-    print("Successfully received event x-hookClick. Hooking click event")
+    #print("Successfully received event x-hookClick. Hooking click event")
     self.clickHook = func
 
   def button_click(self, **event_args):

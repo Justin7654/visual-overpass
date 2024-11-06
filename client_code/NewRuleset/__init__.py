@@ -113,7 +113,6 @@ class NewRuleset(NewRulesetTemplate):
 
   def new_rule_click(self, otherSelf, **event_args):
     option = self.get_rule_selection()
-    print(otherSelf)
     self.add_new_rule(option, otherSelf or self)
   
   def run_click(self, **event_args):

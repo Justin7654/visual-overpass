@@ -42,10 +42,19 @@ def intersects(list):
   pass
 
 def OR(list, includeTypes, parentStructLists):
+  '''
+  Parse each side like normal, and put them in a OR format next to each other in a union
+  Also give it the rules above it to be parsed so those ANDs also need to work
+  '''
+  output = ""
   for value in list:
     group1 = value["group1"]
-    #group2 = value["group2"]
-    result = ruleParser.parse(group1+parentStructLists, group1["include"], parentStructLists)
-    print("OR Group 1 Parse:")
+    group1Tags = value["group1tag"]
+    group2 = value["group2"]
+    group2Tags = value["group2tag"]
+
+    print("OR Group 1 Parsing...\n--------------------")
+    result = ruleParser.parse(group1+parentStructLists, group1Tags["include"], parentStructLists)
+    print("OR Group 1 Parse Result:")
     print(result)
     

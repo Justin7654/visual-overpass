@@ -48,6 +48,8 @@ def get_structure(form, loadingBarParent):
         for i in range(5):
           key = "group"+str(i)
           if tag_has_key(tag, key) and tag[key] is not None:
+            #Add a new key to the tag to keep its tags accessible
+            structureItem[key+"tag"] = structureItem[key].tag
             structureItem[key] = scan(tag[key])
             if len(structureItem[key]) == 0:
               #Group was left empty
