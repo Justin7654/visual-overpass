@@ -20,11 +20,9 @@ class rule_intersects(rule_intersectsTemplate):
     self.tag = {
       "type": "Intersects",
       "not": False,
-      "group1": self.rule_group_1,
-      "group2": self.rule_group_2
+      "group1": self.rule_group_1.rule_group,
+      "group2": self.rule_group_2.rule_group
     }
-    self.rule_group_1.tag = {"rule_group": True}
-    self.rule_group_2.tag = {"rule_group": True}
 
     # Any code you write here will run before the form opens.
 

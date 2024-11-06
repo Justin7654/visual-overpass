@@ -12,7 +12,7 @@ def match_tag(tags):
           quary += f'["{key}"="{value}"]'
     
     # Join all parts with an empty string (no space) to form the Overpass API query
-    return quary
+    return quary+";
 
 def has_tag(list):
   pass

@@ -16,4 +16,21 @@ class rule_group(rule_groupTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
-    self.rule_group.tag = {"rule_group": True}
+    self.rule_group.tag = {
+      "rule_group": True,
+      "include": {
+        "node":True,
+        "way":True,
+        "relation":True,
+      }
+    }
+
+  def includeNodes_change(self, **event_args):
+    self.rule_group.tag["include"]["node"] = event_args["sender"].checked
+
+  def includeWays_change(self, **event_args):
+    self.rule_group.tag["include"]["way"] = event_args["sender"].checked
+
+  def includeRelations_change(self, **event_args):
+    self.rule_group.tag["include"]["relation"] = event_args["sender"].checked
+    
