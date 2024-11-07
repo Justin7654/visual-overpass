@@ -57,4 +57,4 @@ def OR(list, includeTypes, parentStructLists):
     result = ruleParser.parse(group1+parentStructLists, group1Tags["include"], parentStructLists)
     print("OR Group 1 Parse Result:")
     print(result)
-    
+  return ""
