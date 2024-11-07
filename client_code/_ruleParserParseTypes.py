@@ -50,7 +50,7 @@ def OR(list, includeTypes, parentStructLists):
   Parse each side like normal, and put them in a OR format next to each other in a union
   Also give it the rules above it to be parsed so those ANDs also need to work
   '''
-  parentStructLists = filterParentStructList(parentStructLists)
+  #parentStructLists = filterParentStructList(parentStructLists)
   
   output = ""
   for value in list:
@@ -59,7 +59,12 @@ def OR(list, includeTypes, parentStructLists):
     group2 = value["group2"]
     group2Tags = value["group2tag"]
 
-    result1 = ruleParser.parse(group1+parentStructLists, group1Tags["include"], parentStructLists)
-    result2 = ruleParser.parse(group2+parentStructLists, group2Tags["include"], parentStructLists)
-    output += f'({result1};{result2});'
+    print("Parent struct:")
+    print(parentStructLists)
+    print("--- End parent struct")
+    combined1 = group1+parentStructLists
+    combined2 = group2+parentStructLists
+    result1 = ruleParser.parse(combined1, group1Tags["include"], parentStructLists)
+    result2 = ruleParser.parse(combined2, group2Tags["include"], parentStructLists)
+    output += f'({result1}{result2});'
   return output

@@ -102,6 +102,9 @@ groupTypes = ["OR","Intersects"]
 '''
 Helper Functions
 '''
+def filterParentStructList(data):
+  blackList = ["OR","Intersects"]
+  return [item for item in data if item.get("type") not in blackList]
 
 def group_by_type(ruleGroupList):
   #All the items are AND in each ruleGroup, so combine them by type for easier processing
@@ -118,6 +121,7 @@ Main Function
 '''
 
 def parse(structure, includeTypes, parentStructLists):
+  parentStructLists += filterParentStructList(structure)
   grouped = group_by_type(structure)
   output = ""
   for key, list in grouped.items():
