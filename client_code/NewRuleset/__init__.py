@@ -113,14 +113,14 @@ class NewRuleset(NewRulesetTemplate):
     print(parsed)
   
   def saveSet(self):
-    currentUser = anvil.users.get_user()
     structure = ruleParser.get_structure(self.rule_group)
     name = self.ruleset_name.text.strip()
-    date = datetime.now()
     if len(structure) == 0:
       return False
-    if name == "Unnamed Ruleset":
-      confirm("You havent changed the sets name yet. Would you like to do so?")
+    if not anvil.server.is_app_online():
+      alert("Connect to the internet and try again later", title="No Internet")
+      return False
+    anvil.server.call("saveRuleset", name, structure)
     
     
     

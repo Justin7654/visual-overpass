@@ -74,7 +74,7 @@ runtime_options:
   server_version: python3-sandbox
   version: 2
 services:
-- client_config: {}
+- client_config: {enable_v2: true}
   server_config: {}
   source: /runtime/services/tables.yml
 - client_config: {allow_remember_me: true, allow_signup: true, confirm_email: true, enable_automatically: true, mfa_timeout_days: 0, remember_me_days: 365, require_mfa: false, require_secure_passwords: true, use_email: true, use_facebook: false, use_google: true}

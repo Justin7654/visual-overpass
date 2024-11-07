@@ -6,6 +6,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
+import datetime
 import OSMPythonTools
 
 # This is a server module. It runs on the Anvil server,
@@ -33,8 +34,12 @@ def getUserRulesets():
   
 
 @anvil.server.callable(require_user=True)
-def saveRuleset(structure):
-  pass
+def saveRuleset(name, structure):
+  user = anvil.users.get_user()
+  date = datetime.now()
+  app_tables.user_rulesets.add_row(
+    
+  )
 
 @anvil.server.callable(require_user=True)
 def deleteRuleset(record):
@@ -43,3 +48,6 @@ def deleteRuleset(record):
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
   pass
+
+def getUserRow(user):
+  app_tables.users.get()
