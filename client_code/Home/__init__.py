@@ -18,13 +18,6 @@ class Home(HomeTemplate):
     #anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
     #with anvil.server.loading_indicator(self.saved_datagrid):
       #self.loadHistory()
-
-    with anvil.server.loading_indicator(self.saved_datagrid):
-      #self.loadRulesets()
-      print("Loading rulesets")
-      result = anvil.server.call("getUserRulesets")
-      self.loadRulesets(result)
-      print("Done")
       
 
   def loadHistory(self):
@@ -39,4 +32,10 @@ class Home(HomeTemplate):
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""
     open_form('NewRuleset')
+
+  def ruleset_datagrid_show(self, **event_args):
+    with anvil.server.loading_indicator(self.ruleset_datagrid):
+      #self.loadRulesets()
+      result = anvil.server.call("getUserRulesets")
+      self.loadRulesets(result)
     
