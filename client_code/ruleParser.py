@@ -25,7 +25,7 @@ def get_structure(form, loadingBarParent):
   def customException(text, focusTo):
     anvil.alert(text)
     focusTo.scroll_into_view()
-    return Exception(text)
+    return NameError(text)
   
   def try_expand_search(component):
     #If the given component has children, it will scan the children
@@ -74,7 +74,7 @@ def get_structure(form, loadingBarParent):
     try:
       result = scan(form)
       return result
-    except Exception as e:
+    except NameError as e:
       print(e)
       return []
   else:
