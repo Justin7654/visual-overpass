@@ -3,11 +3,20 @@ components:
   - event_bindings: {click: button_2_click}
     layout_properties: {}
     name: button_2
-    properties: {icon: 'fa:folder-open', text: View}
+    properties:
+      icon: fa:folder-open
+      spacing:
+        padding: [null, '15', null, '15']
+      text: View
     type: Button
   - layout_properties: {}
     name: button_1
-    properties: {align: right, icon: 'fa:trash', text: Delete}
+    properties:
+      align: right
+      icon: fa:trash
+      spacing:
+        padding: [null, '15', null, '15']
+      text: Delete
     type: Button
   layout_properties: {column: OJLQEN}
   name: flow_panel_1

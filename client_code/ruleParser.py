@@ -21,7 +21,7 @@ def is_rule_group(component):
 def is_rule(component):
   return tag_has_key(component.tag, "type")
 
-def get_structure(form, loadingBarParent):
+def get_structure(form):
   def customException(text, focusTo):
     anvil.alert(text)
     focusTo.scroll_into_view()

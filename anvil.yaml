@@ -5,6 +5,15 @@ db_schema:
     columns: []
     server: full
     title: userHistory
+  userrulesets:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: user
+      target: users
+      type: link_single
+    server: full
+    title: userRulesets
   users:
     client: none
     columns:
@@ -54,7 +63,7 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-- client_config: {allow_remember_me: true, allow_signup: true, confirm_email: true, enable_automatically: true, mfa_timeout_days: 0, remember_me_days: 365, require_mfa: false, require_secure_passwords: true, use_email: true, use_facebook: true, use_google: true}
+- client_config: {allow_remember_me: true, allow_signup: true, confirm_email: true, enable_automatically: true, mfa_timeout_days: 0, remember_me_days: 365, require_mfa: false, require_secure_passwords: true, use_email: true, use_facebook: false, use_google: true}
   server_config: {user_table: users}
   source: /runtime/services/anvil/users.yml
 - client_config: {}

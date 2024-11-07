@@ -21,6 +21,9 @@ class rule_match_tag(rule_match_tagTemplate):
       "not": False,
     }
 
+    if properties["load"]:
+      print("Load")
+
     # Any code you write here will run before the form opens.
 
   def key_change(self, **event_args):

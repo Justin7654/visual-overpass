@@ -18,7 +18,7 @@ components:
       properties:
         columns:
         - {data_key: column_1, expand: false, id: JKSDUP, title: Date, width: 123.33331298828125}
-        - {data_key: column_2, expand: false, id: VJQQOR, title: Name, width: 610}
+        - {data_key: column_2, expand: false, id: VJQQOR, title: Name, width: 572}
         - {data_key: column_3, id: OJLQEN, title: Actions}
       type: DataGrid
     layout_properties: {grid_position: 'NWALGM,ETTDJW'}
@@ -53,9 +53,8 @@ components:
     name: data_grid_1
     properties:
       columns:
-      - {data_key: column_1, expand: false, id: JKSDUP, title: Enabled, width: 74.33331298828125}
-      - {data_key: column_2, expand: false, id: VJQQOR, title: Name, width: 661}
-      - {data_key: column_3, id: OJLQEN, title: Actions}
+      - {data_key: name, expand: false, id: VJQQOR, title: Name, width: 623}
+      - {data_key: actions, id: OJLQEN, title: Actions}
     type: DataGrid
   layout_properties: {slot: default}
   name: content_panel

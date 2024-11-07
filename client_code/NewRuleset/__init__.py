@@ -102,6 +102,10 @@ class NewRuleset(NewRulesetTemplate):
     form.add_component(copy, index=currentSize-1)
     return copy
 
+  def save(self):
+    structure = ruleParser.get_structure(self.ruleGroup)
+    
+
   def get_rule_selection(self):
     names = [item["name"] for item in self.ruleData]
     dropdown = DropDown(items=names)
@@ -118,7 +122,7 @@ class NewRuleset(NewRulesetTemplate):
   def run_click(self, **event_args):
     """This method is called when the button is clicked"""
     print("-------------- GETTING STRUCTURE ----------------")
-    struct = ruleParser.get_structure(self.rule_group, self)
+    struct = ruleParser.get_structure(self.rule_group)
     print(struct)
     print("---------------- PARSING MAIN -------------------")
     parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])

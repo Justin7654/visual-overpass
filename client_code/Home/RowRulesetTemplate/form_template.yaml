@@ -1,20 +1,32 @@
 components:
-- layout_properties: {column: JKSDUP}
-  name: check_box_1
-  properties: {align: center, text: ''}
-  type: CheckBox
 - components:
-  - layout_properties: {}
+  - name: ruleset_run
+    properties:
+      icon: fa:code
+      spacing:
+        padding: [null, '15', null, '15']
+      text: Run
+    type: Button
+  - event_bindings: {click: ruleset_edit_click}
+    layout_properties: {}
     name: ruleset_edit
-    properties: {icon: 'fa:pencil', text: ' Edit'}
+    properties:
+      icon: fa:pencil
+      spacing:
+        padding: [null, '15', null, '15']
+      text: ' Edit'
     type: Button
   - layout_properties: {}
-    name: button_1
-    properties: {icon: 'fa:trash', text: ' Delete'}
+    name: ruleset_delete
+    properties:
+      icon: fa:trash
+      spacing:
+        padding: [null, '15', null, '15']
+      text: ' Delete'
     type: Button
   layout_properties: {column: OJLQEN}
   name: flow_panel_1
-  properties: {align: right, gap: tiny}
+  properties: {align: right, gap: none, vertical_align: middle}
   type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true

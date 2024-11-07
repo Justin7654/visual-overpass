@@ -15,6 +15,7 @@ class Home(HomeTemplate):
     self.init_components(**properties)
       
     # Any code you write here will run before the form opens.
+    anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
     self.loadHistory()
 
   def loadHistory(self):

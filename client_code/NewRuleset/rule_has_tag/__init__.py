@@ -30,3 +30,4 @@ class rule_has_tag(rule_has_tagTemplate):
   def notSwitch_change(self, **event_args):
     """This method is called when this checkbox is checked or unchecked"""
     self.tag["not"] = self.notSwitch.checked
+ 
