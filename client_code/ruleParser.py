@@ -97,6 +97,8 @@ typeParsers = {
   "OR": parseTypeModule.OR,
 }
 
+groupTypes = ["OR","Intersects"]
+
 '''
 Helper Functions
 '''
