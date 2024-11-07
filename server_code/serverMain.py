@@ -35,10 +35,15 @@ def getUserRulesets():
 
 @anvil.server.callable(require_user=True)
 def saveRuleset(name, structure):
+  if name == "":
+    name = "Unnamed Ruleset"
   user = anvil.users.get_user()
   date = datetime.now()
   app_tables.user_rulesets.add_row(
-    
+    user=user,
+    date=date,
+    name=name,
+    savedStructure=structure
   )
 
 @anvil.server.callable(require_user=True)
@@ -48,6 +53,3 @@ def deleteRuleset(record):
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
   pass
-
-def getUserRow(user):
-  app_tables.users.get()
