@@ -7,6 +7,7 @@ import anvil.users
 import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
+from datetime import datetime
 from anvil.tables import app_tables
 from .. import ruleParser
 
@@ -102,9 +103,25 @@ class NewRuleset(NewRulesetTemplate):
     form.add_component(copy, index=currentSize-1)
     return copy
 
-  def save(self):
-    currentUser =anvil.users.get_user()
-    structure = ruleParser.get_structure(self.ruleGroup)
+  def runSet(self):
+    print("-------------- GETTING STRUCTURE ----------------")
+    struct = ruleParser.get_structure(self.rule_group)
+    print(struct)
+    print("---------------- PARSING MAIN -------------------")
+    parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
+    print("----------------- PARSE RESULT ------------------")
+    print(parsed)
+  
+  def saveSet(self):
+    currentUser = anvil.users.get_user()
+    structure = ruleParser.get_structure(self.rule_group)
+    name = self.ruleset_name.text.strip()
+    date = datetime.now()
+    if len(structure) == 0:
+      return False
+    if name == "Unnamed Ruleset":
+      confirm("You havent changed the sets name yet. Would you like to do so?")
+    
     
     
 
@@ -123,13 +140,7 @@ class NewRuleset(NewRulesetTemplate):
   
   def run_click(self, **event_args):
     """This method is called when the button is clicked"""
-    print("-------------- GETTING STRUCTURE ----------------")
-    struct = ruleParser.get_structure(self.rule_group)
-    print(struct)
-    print("---------------- PARSING MAIN -------------------")
-    parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
-    print("----------------- PARSE RESULT ------------------")
-    print(parsed)
+    self.runSet()
 
   def includeNodes_change(self, **event_args):
     self.rule_group.tag["include"]["node"] = event_args["sender"].checked
@@ -139,3 +150,9 @@ class NewRuleset(NewRulesetTemplate):
 
   def includeRelations_change(self, **event_args):
     self.rule_group.tag["include"]["relation"] = event_args["sender"].checked
+
+  def save_and_run_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    success = self.saveSet()
+    if success or success is None:
+      self.runSet()

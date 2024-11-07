@@ -15,9 +15,7 @@ class Home(HomeTemplate):
     self.init_components(**properties)
       
     # Any code you write here will run before the form opens.
-    #anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
-    #with anvil.server.loading_indicator(self.saved_datagrid):
-      #self.loadHistory()
+    anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
       
 
   def loadHistory(self):
@@ -36,6 +34,11 @@ class Home(HomeTemplate):
   def ruleset_datagrid_show(self, **event_args):
     with anvil.server.loading_indicator(self.ruleset_datagrid):
       #self.loadRulesets()
-      result = anvil.server.call("getUserRulesets")
+      try:
+        result = anvil.server.call("getUserRulesets")
+      except anvil.users.AuthenticationFailed:
+        Notification("Must be logged in to show this information", title="ERR: 401 Unauthorized", style="warning").show()
+        anvil.users.login_with_form(allow_cancel=False)
+        return self.ruleset_datagrid_show()
       self.loadRulesets(result)
     
