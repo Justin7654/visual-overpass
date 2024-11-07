@@ -16,13 +16,19 @@ class Home(HomeTemplate):
       
     # Any code you write here will run before the form opens.
     anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
-    self.loadHistory()
+    #with anvil.server.loading_indicator(self.saved_datagrid):
+      #self.loadHistory()
+    with anvil.server.loading_indicator(self.ruleset_datagrid):
+      self.loadRulesets()
 
   def loadHistory(self):
     pass  
 
   def addNewHistoryItem(self):
     pass
+
+  def loadRulesets(self):
+    anvil.server.call("getUserRulesets")
   
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""

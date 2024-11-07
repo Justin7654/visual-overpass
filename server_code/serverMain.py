@@ -6,6 +6,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
+import OSMPythonTools
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
@@ -19,3 +20,26 @@ import anvil.server
 #   print("Hello, " + name + "!")
 #   return 42
 #
+
+@anvil.server.callable(require_user=True)
+def getUserRulesets():
+  currentUser = anvil.users.get_user()
+  if currentUser is None:
+    return
+  return app_tables.user_rulesets.search(
+    tables.order_by("date", ascending=False),
+    user = currentUser
+  )
+  
+
+@anvil.server.callable(require_user=True)
+def saveRuleset(structure):
+  pass
+
+@anvil.server.callable(require_user=True)
+def deleteRuleset(record):
+  pass
+
+@anvil.server.background_task()
+def runQuaryTask(quaryText):
+  pass
