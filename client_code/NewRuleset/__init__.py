@@ -103,7 +103,9 @@ class NewRuleset(NewRulesetTemplate):
     return copy
 
   def save(self):
+    currentUser =anvil.users.get_user()
     structure = ruleParser.get_structure(self.ruleGroup)
+    
     
 
   def get_rule_selection(self):
