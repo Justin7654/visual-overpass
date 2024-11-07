@@ -59,9 +59,7 @@ def OR(list, includeTypes, parentStructLists):
     group2 = value["group2"]
     group2Tags = value["group2tag"]
 
-    print(parentStructLists)
-    print("OR Group 1 Parsing...\n--------------------")
-    result = ruleParser.parse(group1+parentStructLists, group1Tags["include"], parentStructLists)
-    print("OR Group 1 Parse Result:")
-    print(result)
-  return ""
+    result1 = ruleParser.parse(group1+parentStructLists, group1Tags["include"], parentStructLists)
+    result2 = ruleParser.parse(group2+parentStructLists, group2Tags["include"], parentStructLists)
+    output += f'({result1};{result2});'
+  return output
