@@ -36,7 +36,7 @@ class NewRuleset(NewRulesetTemplate):
       genRuleData(rule_match_tag, "Match Tag"),
       genRuleData(rule_has_tag, "Has Tag"),
       genRuleData(rule_intersects, "Intersects"),
-      genRuleData(rule_or_group, "OR Group")
+      genRuleData(rule_or_group, "OR")
     ]
     
     self.rule_group.tag = {
@@ -130,6 +130,7 @@ class NewRuleset(NewRulesetTemplate):
     self.includeRelations.checked = topIncludes["relation"]
     #Add the rules
     def parse(list, targetForm):
+      print(targetForm)
       for rule in list:
         #Add
         newRuleComponent = self.add_new_rule(rule["type"], targetForm, preset=rule)
