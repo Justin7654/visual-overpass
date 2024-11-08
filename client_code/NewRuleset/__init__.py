@@ -21,7 +21,7 @@ from .rule_intersects import rule_intersects
 from .rule_or_group import rule_or_group
 
 class NewRuleset(NewRulesetTemplate):
-  def __init__(self, preset, **properties):
+  def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.colorDepths = []
@@ -121,7 +121,8 @@ class NewRuleset(NewRulesetTemplate):
       return False
     anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
     
-    
+  def loadSet(self, data):
+    pass
     
 
   def get_rule_selection(self):
