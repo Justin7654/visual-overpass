@@ -34,7 +34,8 @@ components:
         name: flow_panel_1
         properties: {gap: none, vertical_align: middle}
         type: FlowPanel
-      - event_bindings: {change: key_change}
+      - data_bindings: []
+        event_bindings: {change: key_change}
         layout_properties: {}
         name: key
         properties: {placeholder: key}

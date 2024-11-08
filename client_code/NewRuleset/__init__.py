@@ -47,13 +47,11 @@ class NewRuleset(NewRulesetTemplate):
         "relation":True,
       }
     }
-
-    if properties["preset"]:
-      print(properties["preset"])
     
     self.initRuleGroups(self)
-    
-    #self.add_new_plus(self.ruleset_group)
+
+    if properties["preset"]:
+      self.loadSet(properties["preset"])
 
   def initRuleGroups(self, form):
     #Loops through all descendents of the given form and adds plus icons to each rule group
@@ -74,9 +72,7 @@ class NewRuleset(NewRulesetTemplate):
             self.add_new_plus(child)
       except TypeError as e:
         print(child,"was compatible but failed because:",e)
-        
-  
-  
+         
   def add_new_plus(self, form):
     # Adds a new plus button to the bottom of the specified form which can be used to add new rules to its parent
     newRuleButton = new_rule_button()
@@ -126,7 +122,26 @@ class NewRuleset(NewRulesetTemplate):
     anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
     
   def loadSet(self, data):
-    pass
+    savedStructure = data["savedStructure"]
+    topIncludes = data["topLayerIncludeTypes"]
+    #Check the top includes
+    self.includeNodes.checked = topIncludes["node"]
+    self.includeWays.checked = topIncludes["way"]
+    self.includeRelations.checked = topIncludes["relation"]
+    #Add the rules
+    def parse(list, targetForm):
+      for rule in list:
+        #Add
+        newRuleComponent = self.add_new_rule(rule["type"], targetForm)
+        #Update state
+        
+        #Search for inner groups
+        for i in range(5):
+          key = "group"+str(i)
+          if ruleParser.tag_has_key(rule, key) and rule[key] is not None:
+            parse(rule[key], newRuleComponent)
+        
+    parse(savedStructure, self.rule_group)
     
 
   def get_rule_selection(self):
