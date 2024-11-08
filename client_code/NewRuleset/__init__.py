@@ -21,7 +21,7 @@ from .rule_intersects import rule_intersects
 from .rule_or_group import rule_or_group
 
 class NewRuleset(NewRulesetTemplate):
-  def __init__(self, **properties):
+  def __init__(self, preset, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.colorDepths = []

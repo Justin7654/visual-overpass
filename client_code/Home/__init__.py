@@ -24,7 +24,6 @@ class Home(HomeTemplate):
     pass
 
   def loadRulesets(self, data):
-    print(data)
     self.ruleset_repeating_panel.items = data
   
   def new_ruleset_button_click(self, **event_args):
