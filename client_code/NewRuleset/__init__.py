@@ -87,7 +87,7 @@ class NewRuleset(NewRulesetTemplate):
         foundRule = rule
         break
     else:
-      exit("No rule found with that name")
+      exit("No rule found with the name '"+name+"'")
 
     #Make the and/or text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
