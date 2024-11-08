@@ -10,7 +10,7 @@ from anvil.tables import app_tables
 
 
 class rule_has_tag(rule_has_tagTemplate):
-  def __init__(self, **properties):
+  def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     
@@ -20,6 +20,8 @@ class rule_has_tag(rule_has_tagTemplate):
       "key": "",
       "not": False,
     }
+    if lastTag:
+      self.key.text = lastTag["key"]
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""

@@ -10,7 +10,7 @@ from anvil.tables import app_tables
 
 class rule_match_tag(rule_match_tagTemplate):
   
-  def __init__(self, **properties):
+  def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.tag = {
@@ -19,7 +19,10 @@ class rule_match_tag(rule_match_tagTemplate):
       "value": "",
       "not": False,
     }
-
+    if lastTag:
+      self.key.text = lastTag["key"]
+      self.value.text = lastTag["value"]
+      self.notSwitch.checked = lastTag["checked"]
 
     # Any code you write here will run before the form opens.
 

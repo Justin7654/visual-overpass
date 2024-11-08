@@ -26,7 +26,9 @@ components:
           name: label_2
           properties: {align: right, text: Not}
           type: Label
-        - event_bindings: {change: notSwitch_change}
+        - data_bindings:
+          - {code: 'self.item['''']', property: enabled, writeback: false}
+          event_bindings: {change: notSwitch_change}
           name: notSwitch
           properties: {}
           type: form:dep_803t20b0qsk9h:Switch

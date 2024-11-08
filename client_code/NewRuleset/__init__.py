@@ -79,7 +79,7 @@ class NewRuleset(NewRulesetTemplate):
     newRuleButton.raise_event("x-hookClick", func=self.new_rule_click)
     form.add_component(newRuleButton)
   
-  def add_new_rule(self, name, form):
+  def add_new_rule(self, name, form, preset=False):
     # Adds a new rule form in the specified location. Name is the user-friendly name of the target rule.
     foundRule = None
     for rule in self.ruleData:
@@ -97,7 +97,7 @@ class NewRuleset(NewRulesetTemplate):
       currentSize += 1
     
     #Make the UI
-    copy = foundRule["form"]()
+    copy = foundRule["form"](lastTag=preset)
     self.initRuleGroups(copy)
     form.add_component(copy, index=currentSize-1)
     return copy
@@ -132,8 +132,14 @@ class NewRuleset(NewRulesetTemplate):
     def parse(list, targetForm):
       for rule in list:
         #Add
-        newRuleComponent = self.add_new_rule(rule["type"], targetForm)
-        #Update state
+        newRuleComponent = self.add_new_rule(rule["type"], targetForm, preset=rule)
+        #Update state (automated - if there is a special case all ruleforms get a "lastTag" arg passed too with rule)
+        if ruleParser.tag_has_key(rule,"key"):
+          newRuleComponent.item["key"] = rule["key"]
+        if ruleParser.tag_has_key(rule,"value"):
+          newRuleComponent.item["value"] = rule["value"]
+        if ruleParser.tag_has_key(rule,"not"):
+          newRuleComponent.item["not"] = rule["not"]
         
         #Search for inner groups
         for i in range(5):

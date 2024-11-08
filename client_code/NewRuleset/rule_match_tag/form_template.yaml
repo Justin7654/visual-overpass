@@ -22,7 +22,8 @@ components:
       type: FlowPanel
     - components:
       - components:
-        - event_bindings: {change: notSwitch_change}
+        - data_bindings: []
+          event_bindings: {change: notSwitch_change}
           layout_properties: {slot: invert_switch}
           name: notSwitch
           properties: {}
@@ -39,7 +40,8 @@ components:
           spacing_above: none
           spacing_below: none
         type: RichText
-      - event_bindings: {change: key_change}
+      - data_bindings: []
+        event_bindings: {change: key_change}
         layout_properties: {}
         name: key
         properties: {placeholder: key}
@@ -48,7 +50,8 @@ components:
         name: label_2
         properties: {align: center, font_size: 20, text: =}
         type: Label
-      - event_bindings: {change: value_change}
+      - data_bindings: []
+        event_bindings: {change: value_change}
         layout_properties: {}
         name: value
         properties: {placeholder: value}
