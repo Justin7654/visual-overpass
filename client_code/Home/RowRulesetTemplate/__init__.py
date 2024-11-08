@@ -19,7 +19,7 @@ class RowRulesetTemplate(RowRulesetTemplateTemplate):
 
   def ruleset_edit_click(self, **event_args):
     """This method is called when the button is clicked"""
-    open_form("NewRuleset")
+    open_form("NewRuleset", preset=self.item)
 
   def ruleset_run_click(self, **event_args):
     """This method is called when the button is clicked"""

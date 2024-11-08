@@ -47,6 +47,10 @@ class NewRuleset(NewRulesetTemplate):
         "relation":True,
       }
     }
+
+    if properties["preset"]:
+      print(properties["preset"])
+    
     self.initRuleGroups(self)
     
     #self.add_new_plus(self.ruleset_group)
