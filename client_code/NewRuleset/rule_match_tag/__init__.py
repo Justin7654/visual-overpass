@@ -22,7 +22,7 @@ class rule_match_tag(rule_match_tagTemplate):
     if lastTag:
       self.key.text = lastTag["key"]
       self.value.text = lastTag["value"]
-      self.notSwitch.checked = lastTag["checked"]
+      self.notSwitch.checked = lastTag["not"]
 
     # Any code you write here will run before the form opens.
 
