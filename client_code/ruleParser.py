@@ -1,4 +1,3 @@
-import anvil.facebook.auth
 import anvil.server
 import _ruleParserParseTypes as parseTypeModule
 from collections import defaultdict

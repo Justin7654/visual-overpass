@@ -38,7 +38,7 @@ components:
     properties: {align: center, enabled: false, text: All selected rules must be true, tooltip: 'If selected it acts like: rule1 AND rule2.  If not selected it acts like: rule1 OR rule2'}
     type: CheckBox
   - components:
-    - name: repeating_panel_1
+    - name: ruleset_repeating_panel
       properties: {item_template: Home.RowRulesetTemplate}
       type: RepeatingPanel
     - name: spacer_1

@@ -1,6 +1,5 @@
 from ._anvil_designer import NewRulesetTemplate
 from anvil import *
-import anvil.facebook.auth
 import anvil.google.auth, anvil.google.drive
 from anvil.google.drive import app_files
 import anvil.users
@@ -120,7 +119,7 @@ class NewRuleset(NewRulesetTemplate):
     if not anvil.server.is_app_online():
       alert("Connect to the internet and try again later", title="No Internet")
       return False
-    anvil.server.call("saveRuleset", name, structure)
+    anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
     
     
     

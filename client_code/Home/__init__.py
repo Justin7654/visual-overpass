@@ -1,6 +1,5 @@
 from ._anvil_designer import HomeTemplate
 from anvil import *
-import anvil.facebook.auth
 import anvil.google.auth, anvil.google.drive
 from anvil.google.drive import app_files
 import anvil.users
@@ -26,6 +25,7 @@ class Home(HomeTemplate):
 
   def loadRulesets(self, data):
     print(data)
+    self.ruleset_repeating_panel.items = data
   
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""

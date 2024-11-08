@@ -1,4 +1,3 @@
-import anvil.facebook.auth
 import anvil.google.auth, anvil.google.drive, anvil.google.mail
 from anvil.google.drive import app_files
 import anvil.users
@@ -34,7 +33,7 @@ def getUserRulesets():
   
 
 @anvil.server.callable(require_user=True)
-def saveRuleset(name, structure):
+def saveRuleset(name, structure, topLayerIncludes):
   if name == "":
     name = "Unnamed Ruleset"
   user = anvil.users.get_user()
@@ -43,7 +42,8 @@ def saveRuleset(name, structure):
     user=user,
     date=date,
     name=name,
-    savedStructure=structure
+    savedStructure=structure,
+    topLayerIncludeTypes=topLayerIncludes
   )
 
 @anvil.server.callable(require_user=True)

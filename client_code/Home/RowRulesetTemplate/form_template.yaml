@@ -1,6 +1,7 @@
 components:
 - components:
-  - name: ruleset_run
+  - event_bindings: {click: ruleset_run_click}
+    name: ruleset_run
     properties:
       icon: fa:code
       spacing:

@@ -1,6 +1,5 @@
 from ._anvil_designer import operation_textTemplate
 from anvil import *
-import anvil.facebook.auth
 import anvil.server
 
 
