@@ -48,6 +48,7 @@ def get_structure(form):
           key = "group"+str(i)
           if tag_has_key(tag, key) and tag[key] is not None:
             #Add a new key to the tag to keep its tags accessible
+            print(key+"tag")
             structureItem[key+"tag"] = structureItem[key].tag
             structureItem[key] = scan(tag[key])
             if len(structureItem[key]) == 0:
