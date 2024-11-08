@@ -12,15 +12,15 @@ db_schema:
       name: user
       target: users
       type: link_single
-    - admin_ui: {order: 1, width: 200}
-      name: date
-      type: date
     - admin_ui: {order: 2, width: 200}
       name: name
       type: string
     - admin_ui: {order: 3, width: 200}
       name: savedStructure
       type: simpleObject
+    - admin_ui: {order: 1, width: 200}
+      name: date
+      type: datetime
     server: full
     title: user_rulesets
   users:

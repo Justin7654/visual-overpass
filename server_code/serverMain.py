@@ -39,7 +39,7 @@ def saveRuleset(name, structure):
     name = "Unnamed Ruleset"
   user = anvil.users.get_user()
   date = datetime.now()
-    app_tables.user_rulesets.add_row(
+  app_tables.user_rulesets.add_row(
     user=user,
     date=date,
     name=name,
