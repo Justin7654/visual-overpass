@@ -114,7 +114,10 @@ class NewRuleset(NewRulesetTemplate):
   
   def saveSet(self):
     #Check if to overwrite or do a new set
-
+    mode = "new"
+    if self.saveRow != None:
+      buttons = [("Overwrite", "overwrite"),("Create New", "new"),("Cancel",None)]
+      mode = confirm("Would you like to overwrite the existing set?", buttons=buttons, dismissible=True)
     #
     structure = ruleParser.get_structure(self.rule_group)
     name = self.ruleset_name.text.strip()
