@@ -50,6 +50,7 @@ class NewRuleset(NewRulesetTemplate):
     
     self.initRuleGroups(self)
 
+    self.saveRow = None
     if properties["preset"]:
       self.loadSet(properties["preset"])
 
@@ -112,6 +113,9 @@ class NewRuleset(NewRulesetTemplate):
     print(parsed)
   
   def saveSet(self):
+    #Check if to overwrite or do a new set
+
+    #
     structure = ruleParser.get_structure(self.rule_group)
     name = self.ruleset_name.text.strip()
     if len(structure) == 0:
@@ -122,15 +126,16 @@ class NewRuleset(NewRulesetTemplate):
     anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
     
   def loadSet(self, data):
+    self.saveRow = data
     savedStructure = data["savedStructure"]
     topIncludes = data["topLayerIncludeTypes"]
     #Check the top includes
     self.includeNodes.checked = topIncludes["node"]
     self.includeWays.checked = topIncludes["way"]
     self.includeRelations.checked = topIncludes["relation"]
+    self.ruleset_name.text = data["name"]
     #Add the rules
     def parse(list, targetForm):
-      print(targetForm)
       for rule in list:
         #Add
         newRuleComponent = self.add_new_rule(rule["type"], targetForm, preset=rule)
@@ -146,7 +151,13 @@ class NewRuleset(NewRulesetTemplate):
         for i in range(5):
           key = "group"+str(i)
           if ruleParser.tag_has_key(rule, key) and rule[key] is not None:
-            parse(rule[key], newRuleComponent)
+            includes = rule[key+"tag"]["include"]
+            groupComponent = newRuleComponent.tag[key]
+            upperGroup = groupComponent.parent.parent
+            upperGroup.includeNodes.checked = includes["node"]
+            upperGroup.includeWays.checked = includes["way"]
+            upperGroup.includeRelations.checked = includes["relation"]
+            parse(rule[key], groupComponent)
         
     parse(savedStructure, self.rule_group)
     
