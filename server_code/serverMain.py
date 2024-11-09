@@ -44,7 +44,8 @@ def saveRuleset(name, structure, topLayerIncludes):
     topLayerIncludeTypes=topLayerIncludes
   )
 
-def updateRuleset()
+def updateRuleset(row, name, structure, topLayerIncludes):
+  
 
 @anvil.server.callable(require_user=True)
 def deleteRuleset(record):
