@@ -45,6 +45,7 @@ def saveRuleset(name, structure, topLayerIncludes):
   )
 
 def updateRuleset(row, name, structure, topLayerIncludes):
+  pass
   
 
 @anvil.server.callable(require_user=True)
