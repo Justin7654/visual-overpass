@@ -27,3 +27,8 @@ class RowRulesetTemplate(RowRulesetTemplateTemplate):
     structure = data["savedStructure"]
     parsed = ruleParser.parse(structure, data["topLayerIncludeTypes"], [])
     print(parsed)
+    alert(parsed, title="Debug")
+
+  def ruleset_delete_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    alert("WIP")

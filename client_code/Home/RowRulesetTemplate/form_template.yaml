@@ -17,7 +17,8 @@ components:
         padding: [null, '15', null, '15']
       text: ' Edit'
     type: Button
-  - layout_properties: {}
+  - event_bindings: {click: ruleset_delete_click}
+    layout_properties: {}
     name: ruleset_delete
     properties:
       icon: fa:trash

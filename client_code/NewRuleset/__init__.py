@@ -107,10 +107,13 @@ class NewRuleset(NewRulesetTemplate):
     print("-------------- GETTING STRUCTURE ----------------")
     struct = ruleParser.get_structure(self.rule_group)
     print(struct)
+    Notification("Scanned structure").show()
     print("---------------- PARSING MAIN -------------------")
     parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
+    Notification("Parsed structure").show()
     print("----------------- PARSE RESULT ------------------")
     print(parsed)
+    alert(parsed, title="(DEBUGGING) Parsed result", large=True, dismissible=True)
   
   def saveSet(self):
     #Check if to overwrite or do a new set
@@ -127,6 +130,7 @@ class NewRuleset(NewRulesetTemplate):
       alert("Connect to the internet and try again later", title="No Internet")
       return False
     anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
+    Notification("Saved").show()
     
   def loadSet(self, data):
     self.saveRow = data
