@@ -52,6 +52,12 @@ def updateRuleset(row, name, structure, topLayerIncludes):
 def deleteRuleset(record):
   pass
 
+@anvil.server.callable
+def runQuary(quaryText):
+  task = anvil.server.launch_background_task("runQuaryTask", quaryText)
+  return task
+  
+
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
-  pass
+  print("Running task")

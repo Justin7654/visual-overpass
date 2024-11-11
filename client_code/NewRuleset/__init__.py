@@ -113,7 +113,9 @@ class NewRuleset(NewRulesetTemplate):
     Notification("Parsed structure").show()
     print("----------------- PARSE RESULT ------------------")
     print(parsed)
-    alert(parsed, title="(DEBUGGING) Parsed result", large=True, dismissible=True)
+    #alert(parsed, title="(DEBUGGING) Parsed result", large=True, dismissible=True)
+    task = anvil.server.call("runQuary", parsed)
+    print(task.is_completed())
   
   def saveSet(self):
     #Check if to overwrite or do a new set
