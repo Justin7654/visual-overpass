@@ -9,6 +9,7 @@ import anvil.tables.query as q
 from datetime import datetime
 from anvil.tables import app_tables
 from .. import ruleParser
+from .. import RunRulesetPopup
 
 #UI
 from .new_rule_button import new_rule_button
@@ -107,15 +108,14 @@ class NewRuleset(NewRulesetTemplate):
     print("-------------- GETTING STRUCTURE ----------------")
     struct = ruleParser.get_structure(self.rule_group)
     print(struct)
-    Notification("Scanned structure").show()
-    print("---------------- PARSING MAIN -------------------")
-    parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
-    Notification("Parsed structure").show()
-    print("----------------- PARSE RESULT ------------------")
-    print(parsed)
+    #print("---------------- PARSING MAIN -------------------")
+    #parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
+    #print("----------------- PARSE RESULT ------------------")
+    #print(parsed)
+    open_form("RunRuleset", structure=struct, topIncludes=self.rule_group.tag["include"])
     #alert(parsed, title="(DEBUGGING) Parsed result", large=True, dismissible=True)
-    task = anvil.server.call("runQuary", parsed)
-    print(task.is_completed())
+    #task = anvil.server.call("runQuary", parsed)
+    #print(task.is_completed())
   
   def saveSet(self):
     #Check if to overwrite or do a new set
