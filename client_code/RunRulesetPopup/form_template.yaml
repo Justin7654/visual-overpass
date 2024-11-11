@@ -8,8 +8,16 @@ components:
   properties: {}
   type: form:dep_803t20b0qsk9h:ProgressBar.Indeterminate
 - layout_properties: {grid_position: 'EFHRXJ,XCLZEZ'}
-  name: label_2
-  properties: {align: center, text: Build Structure...}
+  name: build_struct
+  properties: {align: center, text: Build Structure..., visible: false}
+  type: Label
+- layout_properties: {grid_position: 'DAULHB,VRGTCE'}
+  name: parse_struct
+  properties: {align: center, text: Parsing Structure..., visible: false}
+  type: Label
+- layout_properties: {grid_position: 'ZGJDJY,OLKLAF'}
+  name: wait_overpass
+  properties: {align: center, text: Waiting for Overpass API..., visible: false}
   type: Label
 container: {type: ColumnPanel}
 is_package: true
