@@ -9,7 +9,6 @@ import anvil.tables.query as q
 from datetime import datetime
 from anvil.tables import app_tables
 from .. import ruleParser
-from .. import RunRulesetPopup
 
 #UI
 from .new_rule_button import new_rule_button
@@ -108,14 +107,9 @@ class NewRuleset(NewRulesetTemplate):
     print("-------------- GETTING STRUCTURE ----------------")
     struct = ruleParser.get_structure(self.rule_group)
     print(struct)
-    #print("---------------- PARSING MAIN -------------------")
-    #parsed = ruleParser.parse(struct, self.rule_group.tag["include"], [])
-    #print("----------------- PARSE RESULT ------------------")
-    #print(parsed)
+    if len(struct) == 0:
+      return None
     open_form("RunRuleset", structure=struct, topIncludes=self.rule_group.tag["include"])
-    #alert(parsed, title="(DEBUGGING) Parsed result", large=True, dismissible=True)
-    #task = anvil.server.call("runQuary", parsed)
-    #print(task.is_completed())
   
   def saveSet(self):
     #Check if to overwrite or do a new set
@@ -148,13 +142,6 @@ class NewRuleset(NewRulesetTemplate):
       for rule in list:
         #Add
         newRuleComponent = self.add_new_rule(rule["type"], targetForm, preset=rule)
-        #Update state (automated - if there is a special case all ruleforms get a "lastTag" arg passed too with rule)
-        if ruleParser.tag_has_key(rule,"key"):
-          newRuleComponent.item["key"] = rule["key"]
-        if ruleParser.tag_has_key(rule,"value"):
-          newRuleComponent.item["value"] = rule["value"]
-        if ruleParser.tag_has_key(rule,"not"):
-          newRuleComponent.item["not"] = rule["not"]
         
         #Search for inner groups
         for i in range(5):

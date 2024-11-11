@@ -23,6 +23,8 @@ class rule_has_tag(rule_has_tagTemplate):
     if lastTag:
       self.key.text = lastTag["key"]
       self.notSwitch.checked = lastTag["not"]
+      self.key_change()
+      self.notSwitch_change()
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""

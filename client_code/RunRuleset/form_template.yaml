@@ -11,7 +11,8 @@ components:
   name: progressText
   properties: {align: center}
   type: Label
-- layout_properties: {grid_position: 'XKERKP,RFCLIS'}
+- event_bindings: {tick: recheckTask_tick}
+  layout_properties: {grid_position: 'XKERKP,RFCLIS'}
   name: recheckTask
   properties: {interval: 0}
   type: Timer

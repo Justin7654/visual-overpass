@@ -23,7 +23,9 @@ class rule_match_tag(rule_match_tagTemplate):
       self.key.text = lastTag["key"]
       self.value.text = lastTag["value"]
       self.notSwitch.checked = lastTag["not"]
-
+      self.key_change()
+      self.value_change()
+      self.notSwitch_change()
     # Any code you write here will run before the form opens.
 
   def key_change(self, **event_args):
