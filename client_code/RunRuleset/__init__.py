@@ -19,7 +19,7 @@ class RunRuleset(RunRulesetTemplate):
     print("---------------- PARSING MAIN -------------------")
     self.addProgress("Parsing structure... ")
     startTime = time.time()
-    parsed = ruleParser.parse(self.structure, self.topIncludes, [])
+    parsed = ruleParser.parse(self.structure, self.topIncludes, []) + "out body;"
     totalTime = (time.time() - startTime)*1000
     self.appenedLastProgress(f'done ({totalTime:.0f}ms)')
     print("----------------- PARSE RESULT ------------------")
