@@ -48,6 +48,8 @@ def runQuary(quaryText):
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
   from OSMPythonTools.overpass import Overpass
+  import logging
+  logging.getLogger('OSMPythonTools').setLevel(logging.ERROR)
   import zlib
   print("Running task")
   overpass = Overpass()
