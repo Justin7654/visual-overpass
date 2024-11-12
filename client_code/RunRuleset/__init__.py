@@ -26,7 +26,8 @@ class RunRuleset(RunRulesetTemplate):
     print("----------------- PARSE RESULT ------------------")
     self.addProgress("Waiting for Overpass API... ")
     with anvil.server.no_loading_indicator:
-      self.task = anvil.server.call("runQuary", parsed)
+      self.task = anvil.server.call_s("runQuary", parsed)
+      pass
     #Set up a timer
     self.recheckTask.interval = 0.2
   
