@@ -4,7 +4,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
-import OSMPythonTools
+from OSMPythonTools.overpass import Overpass
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
@@ -61,3 +61,6 @@ def runQuary(quaryText):
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
   print("Running task")
+  overpass = Overpass()
+  result = overpass.quary(quaryText) #the result is a number of objects, which can be accessed by result.elements()
+  return result

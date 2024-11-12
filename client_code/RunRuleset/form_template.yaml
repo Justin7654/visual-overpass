@@ -16,5 +16,7 @@ components:
   name: recheckTask
   properties: {interval: 0}
   type: Timer
-container: {type: ColumnPanel}
+container:
+  event_bindings: {show: form_show}
+  type: ColumnPanel
 is_package: true

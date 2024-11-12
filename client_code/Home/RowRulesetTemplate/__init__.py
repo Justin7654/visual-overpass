@@ -24,10 +24,8 @@ class RowRulesetTemplate(RowRulesetTemplateTemplate):
   def ruleset_run_click(self, **event_args):
     """This method is called when the button is clicked"""
     data = self.item
-    structure = data["savedStructure"]
-    parsed = ruleParser.parse(structure, data["topLayerIncludeTypes"], [])
-    print(parsed)
-    alert(parsed, title="Debug")
+    print("Open")
+    open_form("RunRuleset", structure=data["savedStructure"], topIncludes=data["topLayerIncludeTypes"])
 
   def ruleset_delete_click(self, **event_args):
     """This method is called when the button is clicked"""

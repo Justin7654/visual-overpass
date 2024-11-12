@@ -132,4 +132,4 @@ def parse(structure, includeTypes, parentStructLists):
     result = handler(list, includeTypes, parentStructLists)
     print(f'{key} returned:\n{result}')
     output += result
-  return output
+  return output +"out body;"
