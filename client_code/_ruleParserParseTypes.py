@@ -24,7 +24,7 @@ def match_tag(list, includeTypes, parentStructLists):
         is_not = tag.get("not", False)
         
         if is_not:
-          quary += f'[!"{key}"="{value}"]'
+          quary += f'["{key}"!="{value}"]'
         else:
           quary += f'["{key}"="{value}"]'
     

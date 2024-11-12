@@ -49,7 +49,7 @@ def get_structure(form):
           if tag_has_key(tag, key) and tag[key] is not None:
             #Add a new key to the tag to keep its tags accessible
             print(key+"tag")
-            structureItem[key+"tag"] = structureItem[key].tag
+            structureItem[key+"tag"] = tag[key].tag
             structureItem[key] = scan(tag[key])
             if len(structureItem[key]) == 0:
               #Group was left empty
@@ -130,6 +130,5 @@ def parse(structure, includeTypes, parentStructLists):
       print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
       continue
     result = handler(list, includeTypes, parentStructLists)
-    print(f'{key} returned:\n{result}')
     output += result
   return output

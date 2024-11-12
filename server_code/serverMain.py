@@ -4,7 +4,6 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
-from OSMPythonTools.overpass import Overpass
 
 @anvil.server.callable(require_user=True)
 def getUserRulesets():
@@ -31,6 +30,7 @@ def saveRuleset(name, structure, topLayerIncludes):
     topLayerIncludeTypes=topLayerIncludes
   )
 
+@anvil.server.callable(require_user=True)
 def updateRuleset(row, name, structure, topLayerIncludes):
   pass
   
@@ -39,7 +39,7 @@ def updateRuleset(row, name, structure, topLayerIncludes):
 def deleteRuleset(record):
   pass
 
-@anvil.server.callable
+@anvil.server.callable(require_user=True)
 def runQuary(quaryText):
   task = anvil.server.launch_background_task("runQuaryTask", quaryText)
   return task
@@ -47,7 +47,10 @@ def runQuary(quaryText):
 
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
+  from OSMPythonTools.overpass import Overpass
+  import zlib
   print("Running task")
   overpass = Overpass()
-  result = overpass.query(quaryText) #the result is a number of objects, which can be accessed by result.elements()
-  return result
+  result = overpass.query(quaryText, timeout=999) #the result is a number of objects, which can be accessed by result.elements()
+  jsonVersion = result.toJSON()
+  return jsonVersion

@@ -22,6 +22,7 @@ class RunRuleset(RunRulesetTemplate):
     parsed = ruleParser.parse(self.structure, self.topIncludes, []) + "out body;"
     totalTime = (time.time() - startTime)*1000
     self.appenedLastProgress(f'done ({totalTime:.0f}ms)')
+    print("Parse final result:", parsed, sep="\n")
     print("----------------- PARSE RESULT ------------------")
     self.addProgress("Waiting for Overpass API... ")
     with anvil.server.no_loading_indicator:
@@ -32,6 +33,8 @@ class RunRuleset(RunRulesetTemplate):
   def onTaskSuccess(self):
     self.appenedLastProgress("done")
     self.addProgress("Processing results... ")
+    self.result = self.task.get_return_value()
+    print(self.result)
 
   def onTaskFail(self):
     self.appenedLastProgress("error")
@@ -51,15 +54,19 @@ class RunRuleset(RunRulesetTemplate):
     if self.task is None:
       return
     task = self.task
-    print("Task State:",task.get_termination_status())
-    if task.is_completed():
+    if not task.is_running():
       self.recheckTask.interval = 0
       state = task.get_termination_status()
+      print("Finish state:",state)
       if state == "completed":
         self.taskReturn = task.get_return_value()
         return self.onTaskSuccess()
       elif state == "failed":
-        Notification("A unknown error occured",title="error",style="warning",timeout=4).show()
+        try:
+          task.get_error()
+        except Exception as err:
+          msg = str(err)
+          Notification("A error occured: "+msg,title="error",style="warning",timeout=6).show()
       elif state == "killed":
         Notification("Quary task was unexpectedly killed",title="error",style="warning",timeout=4).show()
       elif state == "missing":
