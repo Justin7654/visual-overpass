@@ -33,14 +33,14 @@ class RunRuleset(RunRulesetTemplate):
     self.recheckTask.interval = 0.2
   
   def onTaskSuccess(self):
-    self.appenedLastProgress("done")
-    self.addProgress("Processing results... ")
+    self.appenedLastProgress("... done")
+    self.addProgress("Processing results")
     self.result = self.task.get_return_value()
     print(self.result)
 
   def onTaskFail(self):
     self.appenedLastProgress("error")
-    self.addProgress("Attempting alternate method...") #Use users browser to send request
+    self.addProgress("Attempting alternate method") #Use users browser to send request
   
   def addProgress(self, text):
     self.progress.append(text)
