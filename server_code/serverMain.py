@@ -8,8 +8,6 @@ from datetime import datetime
 @anvil.server.callable(require_user=True)
 def getUserRulesets():
   currentUser = anvil.users.get_user()
-  if currentUser is None:
-    return
   return app_tables.user_rulesets.search(
     tables.order_by("date", ascending=False),
     user = currentUser
@@ -36,8 +34,8 @@ def updateRuleset(row, name, structure, topLayerIncludes):
   
 
 @anvil.server.callable(require_user=True)
-def deleteRuleset(record):
-  pass
+def deleteRuleset(ruleset):
+  ruleset.delete()
 
 @anvil.server.callable(require_user=True)
 def runQuary(quaryText):

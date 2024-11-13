@@ -1,7 +1,7 @@
 components:
-- event_bindings: {click: button_click}
+- event_bindings: {click: add_rule_click}
   layout_properties: {grid_position: 'VGCJCL,REOZFF'}
-  name: button
+  name: add_rule
   properties:
     font_size: 17
     role: filled-button

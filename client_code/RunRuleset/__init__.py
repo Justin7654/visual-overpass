@@ -39,7 +39,7 @@ class RunRuleset(RunRulesetTemplate):
     print(self.result)
 
   def onTaskFail(self):
-    self.appenedLastProgress("error")
+    self.appenedLastProgress("... error")
     self.addProgress("Attempting alternate method") #Use users browser to send request
   
   def addProgress(self, text):

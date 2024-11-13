@@ -54,7 +54,7 @@ components:
     name: ruleset_datagrid
     properties:
       columns:
-      - {data_key: name, expand: false, id: VJQQOR, title: Name, width: 623}
+      - {data_key: name, expand: false, id: VJQQOR, title: Name, width: 448}
       - {data_key: actions, id: OJLQEN, title: Actions}
     type: DataGrid
   layout_properties: {slot: default}

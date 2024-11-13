@@ -47,6 +47,7 @@ class NewRuleset(NewRulesetTemplate):
         "relation":True,
       }
     }
+    self.dirty = False
     
     self.initRuleGroups(self)
 
@@ -101,9 +102,13 @@ class NewRuleset(NewRulesetTemplate):
     copy = foundRule["form"](lastTag=preset)
     self.initRuleGroups(copy)
     form.add_component(copy, index=currentSize-1)
+    self.dirty = True
     return copy
 
   def runSet(self):
+    if self.dirty:
+      if not confirm("All unsaved changes will be lost. Are you sure?"):
+        return
     print("-------------- GETTING STRUCTURE ----------------")
     struct = ruleParser.get_structure(self.rule_group)
     print(struct)
@@ -127,6 +132,7 @@ class NewRuleset(NewRulesetTemplate):
       return False
     anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
     Notification("Saved").show()
+    self.dirty = False
     
   def loadSet(self, data):
     self.saveRow = data
@@ -184,8 +190,8 @@ class NewRuleset(NewRulesetTemplate):
   def includeRelations_change(self, **event_args):
     self.rule_group.tag["include"]["relation"] = event_args["sender"].checked
 
-  def save_and_run_click(self, **event_args):
+  def save_click(self, **event_args):
     """This method is called when the button is clicked"""
     success = self.saveSet()
-    if success or success is None:
-      self.runSet()
+    #if success or success is None:
+      #self.runSet()

@@ -22,6 +22,6 @@ class new_rule_button(new_rule_buttonTemplate):
     #print("Successfully received event x-hookClick. Hooking click event")
     self.clickHook = func
 
-  def button_click(self, **event_args):
+  def add_rule_click(self, **event_args):
     """This method is called when the button is clicked"""
     self.clickHook(otherSelf=self.parent, **event_args)

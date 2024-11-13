@@ -15,7 +15,7 @@ class Home(HomeTemplate):
       
     # Any code you write here will run before the form opens.
     anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
-      
+    self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
 
   def loadHistory(self):
     pass  
@@ -40,4 +40,10 @@ class Home(HomeTemplate):
         anvil.users.login_with_form(allow_cancel=False)
         return self.ruleset_datagrid_show()
       self.loadRulesets(result)
+
+  def delete_ruleset(self, sender, event_name, item):
+    if confirm(f'Do you really want to delete: {item["name"]}?'):
+      anvil.server.call("deleteRuleset", item)
+      #refresh the Data Grid
+      self.ruleset_datagrid_show()
     

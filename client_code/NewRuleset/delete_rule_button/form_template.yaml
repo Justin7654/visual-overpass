@@ -1,0 +1,7 @@
+components:
+- layout_properties: {grid_position: 'FXGLSY,EWOENV'}
+  name: delete_rule
+  properties: {background: 'theme:Primary', border: '', foreground: 'theme:Primary Container', icon: 'fa:trash', icon_align: left, role: elevated-button, text: ''}
+  type: Button
+container: {type: ColumnPanel}
+is_package: true
