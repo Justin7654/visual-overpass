@@ -12,19 +12,20 @@ class RunRuleset(RunRulesetTemplate):
 
     # Any code you write here will run before the form opens.
     self.progress = []
+    self.dots = 0
     self.structure = properties["structure"]
     self.topIncludes = properties["topIncludes"]
 
   def form_show(self, **event_args):
     print("---------------- PARSING MAIN -------------------")
-    self.addProgress("Parsing structure... ")
+    self.addProgress("Parsing structure")
     startTime = time.time()
     parsed = ruleParser.parse(self.structure, self.topIncludes, []) + "out body;"
     totalTime = (time.time() - startTime)*1000
-    self.appenedLastProgress(f'done ({totalTime:.0f}ms)')
+    self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
     print("----------------- PARSE RESULT ------------------")
-    self.addProgress("Waiting for Overpass API... ")
+    self.addProgress("Waiting for Overpass API")
     with anvil.server.no_loading_indicator:
       self.task = anvil.server.call_s("runQuary", parsed)
       pass
@@ -73,3 +74,14 @@ class RunRuleset(RunRulesetTemplate):
       elif state == "missing":
         Notification("Quary task went missing. This is most likely caused by issues with our hosting provider",title="missing",timeout=4).show()
       self.onTaskFail()
+
+  def progressDots_tick(self, **event_args):
+    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
+    #Loop dot amount
+    self.dots += 1
+    if self.dots >= 4:
+      self.dots = 1
+    #Create a string with the amount of dots, and append it to the current progress text
+    #Dont change self.progress
+    dotsToAppend = "."*self.dots
+    self.progressText.text = "\n".join(self.progress) + dotsToAppend
