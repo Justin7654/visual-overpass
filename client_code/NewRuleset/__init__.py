@@ -1,11 +1,7 @@
 from ._anvil_designer import NewRulesetTemplate
 from anvil import *
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
 import anvil.users
 import anvil.server
-import anvil.tables as tables
-import anvil.tables.query as q
 from datetime import datetime
 from anvil.tables import app_tables
 from .. import ruleParser
@@ -50,7 +46,7 @@ class NewRuleset(NewRulesetTemplate):
     self.dirty = False
     
     self.initRuleGroups(self)
-
+    
     self.saveRow = None
     if properties["preset"]:
       self.loadSet(properties["preset"])
@@ -172,8 +168,7 @@ class NewRuleset(NewRulesetTemplate):
       title="Please select a rule type",
       dismissible=False)
     return dropdown.selected_value
-
-
+  
   def new_rule_click(self, otherSelf, **event_args):
     option = self.get_rule_selection()
     self.add_new_rule(option, otherSelf or self)
@@ -202,3 +197,7 @@ class NewRuleset(NewRulesetTemplate):
       if not confirm("All unsaved changes will be lost. Are you sure?"):
         return
     open_form("Home")
+
+  def delete_rule_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    

@@ -64,7 +64,22 @@ components:
   name: content_panel
   properties: {col_spacing: small, visible: true}
   type: ColumnPanel
-- layout_properties: {slot: nav-right}
+- components:
+  - event_bindings: {click: delete_rule_click}
+    layout_properties: {}
+    name: delete_rule
+    properties:
+      background: theme:Primary
+      border: ''
+      foreground: theme:Primary Container
+      icon: fa:trash
+      icon_align: left
+      role: elevated-button
+      spacing:
+        padding: [null, '20', null, '20']
+      text: ''
+    type: Button
+  layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}
   type: FlowPanel
