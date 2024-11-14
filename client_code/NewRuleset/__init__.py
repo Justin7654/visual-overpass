@@ -195,3 +195,9 @@ class NewRuleset(NewRulesetTemplate):
     success = self.saveSet()
     #if success or success is None:
       #self.runSet()
+
+  def return_click(self, **event_args):
+    if self.dirty:
+      if not confirm("All unsaved changes will be lost. Are you sure?"):
+        return
+    open_form("Home")

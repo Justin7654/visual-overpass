@@ -80,9 +80,16 @@ components:
     role: outlined
     text: ''
   type: TextBox
-- layout_properties: {slot: top-left-btn}
+- event_bindings: {click: return_click}
+  layout_properties: {slot: top-left-btn}
   name: return
-  properties: {icon: 'fa:arrow-circle-left', role: outlined-button, text: ''}
+  properties:
+    icon: fa:arrow-circle-left
+    role: outlined-button
+    spacing:
+      margin: ['6', '0', '0', '0']
+      padding: ['0', '3', '0', '3']
+    text: ''
   type: Button
 container:
   properties: {html: '@theme:standard-page.html'}
