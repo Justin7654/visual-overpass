@@ -162,6 +162,7 @@ class NewRuleset(NewRulesetTemplate):
             parse(rule[key], groupComponent)
         
     parse(savedStructure, self.rule_group)
+    self.dirty = False
     
 
   def get_rule_selection(self):
