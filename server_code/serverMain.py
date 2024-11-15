@@ -54,4 +54,6 @@ def runQuaryTask(quaryText):
   jsonVersion = result.toJSON()
   return jsonVersion
 
-def renew_session()
+@anvil.server.callable
+def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
+  return True

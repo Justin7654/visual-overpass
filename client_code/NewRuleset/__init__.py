@@ -4,6 +4,7 @@ import anvil.users
 import anvil.server
 from datetime import datetime
 from anvil.tables import app_tables
+from anvil_extras.non_blocking import call_async
 from .. import ruleParser
 
 #UI
@@ -200,4 +201,10 @@ class NewRuleset(NewRulesetTemplate):
 
   def delete_rule_click(self, **event_args):
     """This method is called when the button is clicked"""
+
+  def renew_ression_tick(self, **event_args):
+    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
+    print("Renewing session...")
+    with anvil.server.no_loading_indicator:
+      call_async("renew_session").on_result(lambda a: print("Session renewed"))
     
