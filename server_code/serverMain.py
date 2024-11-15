@@ -53,3 +53,5 @@ def runQuaryTask(quaryText):
   result = overpass.query(quaryText, timeout=999) #the result is a number of objects, which can be accessed by result.elements()
   jsonVersion = result.toJSON()
   return jsonVersion
+
+def renew_session()

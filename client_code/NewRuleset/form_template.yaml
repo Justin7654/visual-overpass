@@ -60,6 +60,10 @@ components:
     name: finalize_options_flow
     properties: {align: center}
     type: FlowPanel
+  - layout_properties: {grid_position: 'VOPRCU,WWGLAG'}
+    name: renew_ression
+    properties: {}
+    type: Timer
   layout_properties: {slot: default}
   name: content_panel
   properties: {col_spacing: small, visible: true}
