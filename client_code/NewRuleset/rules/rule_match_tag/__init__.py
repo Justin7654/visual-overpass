@@ -9,7 +9,6 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 class rule_match_tag(rule_match_tagTemplate):
-  
   def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)

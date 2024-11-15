@@ -1,0 +1,4 @@
+components: []
+container: {type: ColumnPanel}
+custom_component: false
+is_package: true

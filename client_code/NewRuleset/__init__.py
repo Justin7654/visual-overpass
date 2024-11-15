@@ -12,29 +12,15 @@ from .new_rule_button import new_rule_button
 from .operation_text import operation_text
 
 #Rules
-from .rule_match_tag import rule_match_tag
-from .rule_has_tag import rule_has_tag
-from .rule_intersects import rule_intersects
-from .rule_or_group import rule_or_group
+from .rules import get_all_rule_data
 
 class NewRuleset(NewRulesetTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.colorDepths = []
     
-    def genRuleData(form, name):
-      return {
-        "form": form,
-        "name": name
-      }
     #Find the rules    
-    self.ruleData = [
-      genRuleData(rule_match_tag, "Match Tag"),
-      genRuleData(rule_has_tag, "Has Tag"),
-      genRuleData(rule_intersects, "Intersects"),
-      genRuleData(rule_or_group, "OR")
-    ]
+    self.ruleData = get_all_rule_data()
     
     self.rule_group.tag = {
       "rule_group": True,
