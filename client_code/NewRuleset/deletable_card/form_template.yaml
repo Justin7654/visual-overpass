@@ -1,4 +1,10 @@
-components: []
+components:
+- components: []
+  layout_properties: {grid_position: 'SQSEHI,JBJVVP'}
+  name: card
+  properties: {background: 'theme:Dark Overlay 1', col_spacing: medium, role: elevated-card}
+  type: ColumnPanel
 container: {type: ColumnPanel}
 custom_component: false
 is_package: true
+slots: {}

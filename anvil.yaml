@@ -65,12 +65,17 @@ dependencies:
 - dep_id: dep_803t20b0qsk9h
   resolution_hints: {app_id: C6ZZPAPN4YYF5NVJ, name: Anvil Extras, package_name: anvil_extras}
   version: {version_tag: v3.0.0}
+- dep_id: dep_1wwj9zki9lpwgc
+  resolution_hints: {app_id: 4UK6WHQ6UX7AKELK, name: Material 3 Theme, package_name: m3}
+  version: {version_tag: v1.2.1}
 metadata: {title: Visual Overpass}
 name: Visual Overpass
+native_deps: null
 package_name: Visual_Overpass
 renamed: true
 runtime_options:
   client_version: '3'
+  legacy_features: {__dict__: true, bootstrap3: true, class_names: true, root_container: true}
   server_spec: {base: python310-minimal}
   server_spec_disabled:
     base: python310-minimal
@@ -78,7 +83,7 @@ runtime_options:
       OSMPythonTools
       git+https://github.com/enzet/map-machine
   server_version: python3-sandbox
-  version: 2
+  version: 3
 services:
 - client_config: {enable_v2: true}
   server_config: {}
