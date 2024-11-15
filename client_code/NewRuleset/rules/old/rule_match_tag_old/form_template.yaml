@@ -1,5 +1,5 @@
-components_by_slot:
-  content:
+components:
+- components:
   - components:
     - components:
       - layout_properties: {}
@@ -9,7 +9,7 @@ components_by_slot:
           italic: false
           spacing:
             padding: [null, null, null, '0']
-          text: Has Tag
+          text: Match Tag
         type: Label
       layout_properties: {expand: false, width: null}
       name: flow_panel_left
@@ -18,29 +18,43 @@ components_by_slot:
         spacing:
           margin: [null, null, null, '50']
           padding: [null, null, null, '0']
-        vertical_align: full
+        vertical_align: middle
       type: FlowPanel
     - components:
       - components:
-        - layout_properties: {}
-          name: label_2
-          properties: {align: right, text: Not}
-          type: Label
-        - data_bindings:
-          - {code: 'self.item['''']', property: enabled, writeback: false}
+        - data_bindings: []
           event_bindings: {change: notSwitch_change}
+          layout_properties: {slot: invert_switch}
           name: notSwitch
           properties: {}
           type: form:dep_803t20b0qsk9h:Switch
         layout_properties: {}
-        name: flow_panel_1_copy
-        properties: {gap: none, vertical_align: middle}
-        type: FlowPanel
+        name: rich_text_1
+        properties:
+          align: right
+          content: Not {invert_switch}
+          format: markdown
+          spacing:
+            margin: ['0', null, null, null]
+            padding: ['0', null, '0', null]
+          spacing_above: none
+          spacing_below: none
+        type: RichText
       - data_bindings: []
         event_bindings: {change: key_change}
         layout_properties: {}
         name: key
         properties: {placeholder: key}
+        type: TextBox
+      - layout_properties: {}
+        name: label_2
+        properties: {align: center, font_size: 20, text: =}
+        type: Label
+      - data_bindings: []
+        event_bindings: {change: value_change}
+        layout_properties: {}
+        name: value
+        properties: {placeholder: value}
         type: TextBox
       layout_properties: {expand: true}
       name: flow_panel_right
@@ -48,9 +62,8 @@ components_by_slot:
         align: right
         spacing:
           padding: [null, '20', null, '0']
-        vertical_align: middle
       type: FlowPanel
-    layout_properties: {}
+    layout_properties: {grid_position: 'MGOQOO,EEJGOE'}
     name: main_flow
     properties:
       align: center
@@ -58,5 +71,9 @@ components_by_slot:
         padding: [null, null, null, null]
       vertical_align: middle
     type: FlowPanel
+  layout_properties: {full_width_row: false, grid_position: 'PXPDSG,KKKOGY'}
+  name: outlined_card_1
+  properties: {background: 'theme:Dark Overlay 1', col_spacing: medium, role: elevated-card}
+  type: ColumnPanel
+container: {type: ColumnPanel}
 is_package: true
-layout: {type: 'form:NewRuleset.deletable_card'}

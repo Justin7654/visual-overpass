@@ -1,5 +1,5 @@
-components_by_slot:
-  content:
+components:
+- components:
   - components:
     - components:
       - layout_properties: {}
@@ -38,7 +38,7 @@ components_by_slot:
           padding: [null, '20', null, '0']
         vertical_align: middle
       type: FlowPanel
-    layout_properties: {}
+    layout_properties: {grid_position: 'MGOQOO,EEJGOE'}
     name: main_flow
     properties:
       align: center
@@ -46,28 +46,25 @@ components_by_slot:
         padding: [null, null, null, null]
       vertical_align: middle
     type: FlowPanel
-  - layout_properties: {}
+  - layout_properties: {grid_position: 'CQJRLN,NYDVEJ'}
     name: label_2
-    properties:
-      spacing:
-        margin: ['7', null, null, null]
-      spacing_above: small
-      text: Group 1
+    properties: {text: Group 1}
     type: Label
-  - layout_properties: {}
+  - layout_properties: {grid_position: 'DBECIZ,OGUWGA'}
     name: rule_group_1
     properties: {}
     type: form:NewRuleset.rule_group
-  - layout_properties: {}
+  - layout_properties: {grid_position: 'EYTHDI,GQHVUR'}
     name: label_3
-    properties:
-      spacing:
-        margin: ['7', null, null, null]
-      text: Group 2
+    properties: {text: Group 2}
     type: Label
-  - layout_properties: {}
+  - layout_properties: {grid_position: 'AYCDKC,HRAHTP'}
     name: rule_group_2
     properties: {}
     type: form:NewRuleset.rule_group
+  layout_properties: {full_width_row: false, grid_position: 'PXPDSG,KKKOGY'}
+  name: outlined_card_1
+  properties: {background: 'theme:Dark Overlay 1', col_spacing: medium, role: elevated-card}
+  type: ColumnPanel
+container: {type: ColumnPanel}
 is_package: true
-layout: {type: 'form:NewRuleset.deletable_card'}

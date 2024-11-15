@@ -1,5 +1,5 @@
-components_by_slot:
-  content:
+components:
+- components:
   - components:
     - components:
       - layout_properties: {}
@@ -33,7 +33,7 @@ components_by_slot:
           properties: {}
           type: form:dep_803t20b0qsk9h:Switch
         layout_properties: {}
-        name: flow_panel_1_copy
+        name: flow_panel_1
         properties: {gap: none, vertical_align: middle}
         type: FlowPanel
       - data_bindings: []
@@ -50,7 +50,7 @@ components_by_slot:
           padding: [null, '20', null, '0']
         vertical_align: middle
       type: FlowPanel
-    layout_properties: {}
+    layout_properties: {grid_position: 'MGOQOO,EEJGOE'}
     name: main_flow
     properties:
       align: center
@@ -58,5 +58,9 @@ components_by_slot:
         padding: [null, null, null, null]
       vertical_align: middle
     type: FlowPanel
+  layout_properties: {full_width_row: false, grid_position: 'PXPDSG,KKKOGY'}
+  name: outlined_card_1
+  properties: {background: 'theme:Dark Overlay 1', col_spacing: medium, role: elevated-card}
+  type: ColumnPanel
+container: {type: ColumnPanel}
 is_package: true
-layout: {type: 'form:NewRuleset.deletable_card'}
