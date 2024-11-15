@@ -16,10 +16,16 @@ components:
       layout_properties: {}
       name: saved_datagrid
       properties:
+        auto_header: true
         columns:
         - {data_key: column_1, expand: false, id: JKSDUP, title: Date, width: 123.33331298828125}
         - {data_key: column_2, expand: false, id: VJQQOR, title: Name, width: 572}
         - {data_key: column_3, id: OJLQEN, title: Actions}
+        margin: [null, null, null, '0']
+        role: null
+        rows_per_page: 10
+        show_page_controls: true
+        spacing_above: small
       type: DataGrid
     layout_properties: {grid_position: 'NWALGM,ETTDJW'}
     name: saved_linear_panel

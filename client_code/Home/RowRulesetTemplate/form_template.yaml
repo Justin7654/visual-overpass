@@ -30,5 +30,7 @@ components:
   name: flow_panel_1
   properties: {align: right, gap: none, vertical_align: middle}
   type: FlowPanel
-container: {type: DataRowPanel}
+container:
+  properties: {align: left}
+  type: DataRowPanel
 is_package: true
