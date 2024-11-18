@@ -11,5 +11,6 @@ class deletable_card(deletable_cardTemplate):
     augment.add_event_handler(self, "hover", self.hover)
 
   def hover(self, **event_args):
-    print("Hover")
-    print(event_args)
+    pass
+    #print("Hover")
+    #print(event_args)

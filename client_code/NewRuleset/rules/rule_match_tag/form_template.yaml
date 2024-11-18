@@ -1,2 +1,75 @@
+components_by_slot:
+  content:
+  - components:
+    - components:
+      - layout_properties: {}
+        name: label_1
+        properties:
+          font_size: 20
+          italic: false
+          spacing:
+            padding: [null, null, null, '0']
+          text: Match Tag
+        type: Label
+      layout_properties: {expand: false, width: null}
+      name: flow_panel_left
+      properties:
+        align: center
+        spacing:
+          margin: [null, null, null, '50']
+          padding: [null, null, null, '0']
+        vertical_align: middle
+      type: FlowPanel
+    - components:
+      - components:
+        - data_bindings: []
+          event_bindings: {change: notSwitch_change}
+          layout_properties: {slot: invert_switch}
+          name: notSwitch
+          properties: {}
+          type: form:dep_803t20b0qsk9h:Switch
+        layout_properties: {}
+        name: rich_text_1
+        properties:
+          align: right
+          content: Not {invert_switch}
+          format: markdown
+          spacing:
+            margin: ['0', null, null, null]
+            padding: ['0', null, '0', null]
+          spacing_above: none
+          spacing_below: none
+        type: RichText
+      - data_bindings: []
+        event_bindings: {change: key_change}
+        layout_properties: {}
+        name: key
+        properties: {placeholder: key}
+        type: TextBox
+      - layout_properties: {}
+        name: label_2
+        properties: {align: center, font_size: 20, text: =}
+        type: Label
+      - data_bindings: []
+        event_bindings: {change: value_change}
+        layout_properties: {}
+        name: value
+        properties: {placeholder: value}
+        type: TextBox
+      layout_properties: {expand: true}
+      name: flow_panel_right
+      properties:
+        align: right
+        spacing:
+          padding: [null, '20', null, '0']
+      type: FlowPanel
+    layout_properties: {}
+    name: main_flow
+    properties:
+      align: center
+      spacing:
+        padding: [null, null, null, null]
+      vertical_align: middle
+    type: FlowPanel
 is_package: true
 layout: {type: 'form:NewRuleset.deletable_card'}

@@ -84,8 +84,8 @@ class NewRuleset(NewRulesetTemplate):
     
     #Make the UI
     copy = foundRule["form"](lastTag=preset)
-    copy = copy.layout.slots['content']
-    self.initRuleGroups(copy)
+    copySlot = copy.layout.slots['content']
+    self.initRuleGroups(copySlot)
     form.add_component(copy, index=currentSize-1)
     self.dirty = True
     return copy
