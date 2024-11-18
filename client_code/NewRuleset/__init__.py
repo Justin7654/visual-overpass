@@ -37,6 +37,7 @@ class NewRuleset(NewRulesetTemplate):
     self.saveRow = None
     if properties["preset"]:
       self.loadSet(properties["preset"])
+    
 
   def initRuleGroups(self, form):
     #Loops through all descendents of the given form and adds plus icons to each rule group
@@ -83,6 +84,7 @@ class NewRuleset(NewRulesetTemplate):
     
     #Make the UI
     copy = foundRule["form"](lastTag=preset)
+    print(copy)
     self.initRuleGroups(copy)
     form.add_component(copy, index=currentSize-1)
     self.dirty = True

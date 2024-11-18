@@ -26,7 +26,7 @@ class Home(HomeTemplate):
     open_form('NewRuleset', preset=False)
 
   def ruleset_datagrid_show(self, **event_args):
-    with anvil.server.loading_indicator(self.ruleset_datagrid):
+    with anvil.server.loading_indicator(self.ruleset_repeating_panel, min_height=200):
       #self.loadRulesets()
       try:
         result = anvil.server.call("getUserRulesets")
