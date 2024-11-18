@@ -10,8 +10,8 @@ def get_all_rule_data():
       "name": name
     }
   #Find the rules    
-  copy = rule_has_tag()
-  print(copy.layout.slots['content'].get_components())
+  #copy = rule_has_tag()
+  #print(copy.layout.slots['content'].get_components())
   
   return [
     genRuleData(rule_match_tag, "Match Tag"),
