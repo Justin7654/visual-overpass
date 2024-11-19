@@ -1,18 +1,47 @@
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
-# This is a module.
-# You can define variables and functions here, and use them from any form. For example, in a top-level form:
-#
-#    from .NewRuleset import Module1
-#
-#    Module1.say_hello()
-#
+hovering = []
+default_color = None
+enabled = True
 
+def setEnabled(bool):
+  global enabled
+  enabled = bool
 
-def say_hello():
-  print("Hello, world")
+def onHoverEnter(item):
+  global default_color
+  hovering.append(item)
+
+  if default_color is None:
+    default_color = item.outlined_card_1.background
+  
+  update_colors()
+
+def onHoverEnd(item):
+  global default_color
+  try:
+    item.outlined_card_1.background = default_color
+    hovering.remove(item)
+    update_colors()
+  except ValueError:
+    print("(onHoverEnd) WARNING: item is not in list")
+  
+def update_colors():
+  global default_color
+  global enabled
+
+  if not enabled:
+    return
+  
+  prim = get_primary()
+  for i in hovering:
+    if i == prim:
+      i.outlined_card_1.background = "red"
+    else:
+      i.outlined_card_1.background = default_color
+
+def get_primary():
+  if len(hovering) == 0:
+    return None
+  return hovering[-1]
+
+def printDebug():
+  print(hovering)

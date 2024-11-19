@@ -1,5 +1,6 @@
 from ._anvil_designer import deletable_cardTemplate
 from anvil_extras import augment
+from .. import hoverTracking
 
 
 class deletable_card(deletable_cardTemplate):
@@ -8,9 +9,19 @@ class deletable_card(deletable_cardTemplate):
     self.init_components(**properties)
   
     # Any code you write here will run before the form opens.
-    augment.add_event_handler(self, "hover", self.hover)
+    augment.add_event_handler(self, "mouseenter", self.hoverStart)
+    augment.add_event_handler(self, "mouseleave", self.hoverEnd)
+    augment.add_event_handler(self, "click", self.onClick)
 
-  def hover(self, **event_args):
-    pass
-    #print("Hover")
-    #print(event_args)
+  def hoverStart(self, **event_args):
+    hoverTracking.onHoverEnter(self)
+
+  def hoverEnd(self, **event_args):
+    hoverTracking.onHoverEnd(self)
+
+  def onClick(self, **event_args):
+    print("Click")
+    if self == hoverTracking.get_primary():
+      self.remove_from_parent()
+      self.outlined_card_1.remove_from_parent()
+      
