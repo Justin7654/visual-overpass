@@ -1,10 +1,14 @@
 hovering = []
 default_color = None
-enabled = True
+enabled = False
 
 def setEnabled(bool):
   global enabled
   enabled = bool
+
+def getState():
+  global enabled
+  return enabled
 
 def onHoverEnter(item):
   global default_color

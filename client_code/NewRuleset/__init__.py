@@ -3,8 +3,8 @@ from anvil import *
 import anvil.users
 import anvil.server
 from datetime import datetime
-from anvil.tables import app_tables
 from anvil_extras.non_blocking import call_async
+from . import hoverTracking
 from .. import ruleParser
 
 #UI
@@ -188,7 +188,12 @@ class NewRuleset(NewRulesetTemplate):
     open_form("Home")
 
   def delete_rule_click(self, **event_args):
-    """This method is called when the button is clicked"""
+    newState = not hoverTracking.getState()
+    hoverTracking.setEnabled(newState)
+    if newState:
+      self.delete_rule.role = "filled-button"
+    else:
+      self.delete_rule.role = "elevated-button"
 
   def renew_ression_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
