@@ -44,7 +44,7 @@ class Home(HomeTemplate):
           notifStr = "An error occured while loading your data. Please refresh the page or try again later.\
           \n\nRuntimeUnavailableError: "+str(err)
           Notification(notifStr, title="Unexpected Server Error", style="warning", timeout=15).show()
-          return
+          return anvil.server.reset_session()
       self.loadRulesets(result)
 
   def delete_ruleset(self, sender, event_name, item):
