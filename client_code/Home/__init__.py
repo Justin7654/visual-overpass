@@ -34,6 +34,12 @@ class Home(HomeTemplate):
         Notification("Must be logged in to show this information", title="ERR: 401 Unauthorized", style="warning").show()
         anvil.users.login_with_form(allow_cancel=False)
         return self.ruleset_datagrid_show()
+      except anvil.server.RuntimeUnavailableError as err:
+        notifStr = "An error occured while loading your data. Please refresh the page or try again later.\
+        \n\nRuntimeUnavailableError: "+str(err)
+        Notification(notifStr, title="Unexpected Server Error", style="warning", timeout=10).show()
+        anvil.server.reset_session()
+        return
       self.loadRulesets(result)
 
   def delete_ruleset(self, sender, event_name, item):

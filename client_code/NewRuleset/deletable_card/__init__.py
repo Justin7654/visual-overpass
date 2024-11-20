@@ -12,6 +12,7 @@ class deletable_card(deletable_cardTemplate):
     augment.add_event_handler(self, "mouseenter", self.hoverStart)
     augment.add_event_handler(self, "mouseleave", self.hoverEnd)
     augment.add_event_handler(self, "click", self.onClick)
+    
 
   def hoverStart(self, **event_args):
     hoverTracking.onHoverEnter(self)
