@@ -191,9 +191,9 @@ class NewRuleset(NewRulesetTemplate):
     newState = not hoverTracking.getState()
     hoverTracking.setEnabled(newState)
     if newState:
-      self.delete_rule.role = "filled-button"
+      self.delete_rule.icon = "fa:trash"
     else:
-      self.delete_rule.role = "elevated-button"
+      self.delete_rule.icon = "fa:trash-o"
 
   def renew_ression_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""

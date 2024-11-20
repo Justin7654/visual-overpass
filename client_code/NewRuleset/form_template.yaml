@@ -77,7 +77,7 @@ components:
       background: theme:Primary
       border: ''
       foreground: theme:Primary Container
-      icon: fa:trash
+      icon: fa:trash-o
       icon_align: left
       role: elevated-button
       spacing:
