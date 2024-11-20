@@ -9,6 +9,7 @@ class Home(HomeTemplate):
     self.init_components(**properties)
       
     # Any code you write here will run before the form opens.
+    self.serverFails = 0
     anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
 
@@ -35,11 +36,15 @@ class Home(HomeTemplate):
         anvil.users.login_with_form(allow_cancel=False)
         return self.ruleset_datagrid_show()
       except anvil.server.RuntimeUnavailableError as err:
-        notifStr = "An error occured while loading your data. Please refresh the page or try again later.\
-        \n\nRuntimeUnavailableError: "+str(err)
-        Notification(notifStr, title="Unexpected Server Error", style="warning", timeout=10).show()
-        anvil.server.reset_session()
-        return
+        self.serverFails += 1
+        if self.serverFails <= 3:
+          print("Retrying... attempt ",self.serverFails)
+          return self.ruleset_datagrid_show()
+        else:
+          notifStr = "An error occured while loading your data. Please refresh the page or try again later.\
+          \n\nRuntimeUnavailableError: "+str(err)
+          Notification(notifStr, title="Unexpected Server Error", style="warning", timeout=15).show()
+          return
       self.loadRulesets(result)
 
   def delete_ruleset(self, sender, event_name, item):
