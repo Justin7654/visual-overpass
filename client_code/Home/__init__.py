@@ -41,4 +41,3 @@ class Home(HomeTemplate):
       anvil.server.call("deleteRuleset", item)
       #refresh the Data Grid
       self.ruleset_datagrid_show()
-    

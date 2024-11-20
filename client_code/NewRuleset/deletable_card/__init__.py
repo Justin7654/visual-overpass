@@ -23,5 +23,5 @@ class deletable_card(deletable_cardTemplate):
     print("Click")
     if self == hoverTracking.get_primary():
       self.remove_from_parent()
-      self.outlined_card_1.remove_from_parent()
+      #self.outlined_card_1.remove_from_parent()
       
