@@ -6,7 +6,9 @@ components:
   type: ColumnPanel
 container: {type: ColumnPanel}
 custom_component: false
+events: []
 is_package: true
+properties: []
 slots:
   content:
     index: 0

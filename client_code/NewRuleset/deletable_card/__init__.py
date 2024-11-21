@@ -12,6 +12,7 @@ class deletable_card(deletable_cardTemplate):
     augment.add_event_handler(self, "mouseenter", self.hoverStart)
     augment.add_event_handler(self, "mouseleave", self.hoverEnd)
     augment.add_event_handler(self, "click", self.onClick)
+    self.tag.deleted = False
     
 
   def hoverStart(self, **event_args):
@@ -23,7 +24,7 @@ class deletable_card(deletable_cardTemplate):
   def onClick(self, **event_args):
     print("Click")
     if hoverTracking.getState() and self == hoverTracking.get_primary():
+      self.clear()
       self.remove_from_parent()
-      self.outlined_card_1.remove_from_parent()
-      self.tag = {}
+      self.tag.deleted = True
       

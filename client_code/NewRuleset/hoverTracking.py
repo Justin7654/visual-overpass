@@ -18,6 +18,7 @@ def onHoverEnter(item):
     default_color = item.outlined_card_1.background
   
   update_colors()
+  print("Start hover")
 
 def onHoverEnd(item):
   global default_color
@@ -25,6 +26,7 @@ def onHoverEnd(item):
     item.outlined_card_1.background = default_color
     hovering.remove(item)
     update_colors()
+    print("Exit hover")
   except ValueError:
     print("(onHoverEnd) WARNING: item is not in list")
   

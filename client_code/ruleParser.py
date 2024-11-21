@@ -43,6 +43,11 @@ def get_structure(form):
       if is_group and is_rule(child):
         tag = child.tag
         structureItem = tag #Copy that we can modify
+
+        #Check if its not deleted
+        if child.layout.tag.deleted:
+          continue
+        
         #Check its group tags and if it has a groupx tag, scan it and replace the tag
         for i in range(5):
           key = "group"+str(i)
@@ -55,7 +60,6 @@ def get_structure(form):
               #Group was left empty
               raise customException("Group was left empty", structureItem[key])
               
-        
         #Make sure all required text inputs are filled
         if tag_has_key(tag, "key") and len(tag["key"]) == 0:
           raise customException("Key input was left blank", child)
