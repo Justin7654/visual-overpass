@@ -13,6 +13,7 @@ class deletable_card(deletable_cardTemplate):
     augment.add_event_handler(self, "mouseleave", self.hoverEnd)
     augment.add_event_handler(self, "click", self.onClick)
     self.tag.deleted = False
+    #TODO: Check parent children to remove AND
     
 
   def hoverStart(self, **event_args):
