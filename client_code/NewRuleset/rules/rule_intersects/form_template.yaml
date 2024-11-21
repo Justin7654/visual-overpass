@@ -9,7 +9,7 @@ components_by_slot:
           italic: false
           spacing:
             padding: [null, null, null, '0']
-          text: Intersecting
+          text: Intersects
         type: Label
       layout_properties: {expand: false, width: null}
       name: flow_panel_left
@@ -56,17 +56,6 @@ components_by_slot:
     type: Label
   - layout_properties: {}
     name: rule_group_1
-    properties: {}
-    type: form:NewRuleset.rule_group
-  - layout_properties: {}
-    name: label_3
-    properties:
-      spacing:
-        margin: ['7', null, null, null]
-      text: Group 2
-    type: Label
-  - layout_properties: {}
-    name: rule_group_2
     properties: {}
     type: form:NewRuleset.rule_group
 is_package: true
