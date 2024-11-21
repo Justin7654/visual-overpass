@@ -37,7 +37,7 @@ class Home(HomeTemplate):
         return self.ruleset_datagrid_show()
       except anvil.server.RuntimeUnavailableError as err:
         self.serverFails += 1
-        if self.serverFails <= 3:
+        if self.serverFails <= 2:
           print("Retrying... attempt ",self.serverFails)
           return self.ruleset_datagrid_show()
         else:
