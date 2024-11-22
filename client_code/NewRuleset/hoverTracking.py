@@ -23,7 +23,7 @@ def onHoverEnter(item):
 def onHoverEnd(item):
   global default_color
   try:
-    item.outlined_card_1.background = default_color
+    #item.outlined_card_1.background = default_color
     hovering.remove(item)
     update_colors()
     print("Exit hover")

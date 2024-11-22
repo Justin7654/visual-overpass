@@ -4,6 +4,7 @@ import anvil.users
 import anvil.server
 from datetime import datetime
 from anvil_extras.non_blocking import call_async
+from anvil_extras import augment
 from . import hoverTracking
 from .. import ruleParser
 
@@ -77,6 +78,7 @@ class NewRuleset(NewRulesetTemplate):
 
     #Make the and/or text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
+    operation_text = False
     if currentSize > 1:
       operationText = operation_text()
       form.add_component(operationText, index=currentSize-1)
@@ -88,6 +90,22 @@ class NewRuleset(NewRulesetTemplate):
     self.initRuleGroups(copySlot)
     form.add_component(copy, index=currentSize-1)
     self.dirty = True
+
+    def hoverStart(**event_args):
+      hoverTracking.onHoverEnter(copy)
+    def hoverEnd(**event_args):
+      hoverTracking.onHoverEnd(copy)
+    def onClick(**event_args):
+      print("OnClick")
+      if hoverTracking.getState() and copy == hoverTracking.get_primary():
+        copy.clear()
+        copy.remove_from_parent()
+        copy.tag.deleted = True
+    
+    #augment.add_event_handler(copy, "mouseenter", hoverStart)
+    #augment.add_event_handler(copy, "mouseleave", hoverEnd)
+    #augment.add_event_handler(self, "click", hoverEnd)
+    
     return copy
 
   def runSet(self):
