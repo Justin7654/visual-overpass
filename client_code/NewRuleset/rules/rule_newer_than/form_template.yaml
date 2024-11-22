@@ -9,7 +9,7 @@ components_by_slot:
           italic: false
           spacing:
             padding: [null, null, null, '0']
-          text: Has Tag
+          text: Newer Than
         type: Label
       layout_properties: {expand: false, width: null}
       name: flow_panel_left
@@ -21,27 +21,9 @@ components_by_slot:
         vertical_align: full
       type: FlowPanel
     - components:
-      - components:
-        - layout_properties: {}
-          name: label_2
-          properties: {align: right, text: Not}
-          type: Label
-        - data_bindings:
-          - {code: 'self.item['''']', property: enabled, writeback: false}
-          event_bindings: {change: notSwitch_change}
-          name: notSwitch
-          properties: {}
-          type: form:dep_803t20b0qsk9h:Switch
-        layout_properties: {}
-        name: flow_panel_1_copy
-        properties: {gap: none, vertical_align: middle}
-        type: FlowPanel
-      - data_bindings: []
-        event_bindings: {change: key_change}
-        layout_properties: {}
-        name: key
-        properties: {placeholder: key}
-        type: TextBox
+      - name: date_picker_1
+        properties: {}
+        type: DatePicker
       layout_properties: {expand: true}
       name: flow_panel_right
       properties:
