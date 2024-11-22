@@ -23,7 +23,9 @@ def is_rule(component):
 def get_structure(form):
   def customException(text, focusTo):
     anvil.alert(text)
-    focusTo.scroll_into_view()
+    
+    if hasattr(focusTo, "scroll_into_view"):
+      focusTo.scroll_into_view()
     return NameError(text)
   
   def try_expand_search(component):
@@ -46,6 +48,7 @@ def get_structure(form):
 
         #Check if its not deleted
         if child.layout.tag.deleted:
+          print("Skipping deleted rule")
           continue
         
         #Check its group tags and if it has a groupx tag, scan it and replace the tag

@@ -78,7 +78,7 @@ class NewRuleset(NewRulesetTemplate):
 
     #Make the and/or text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
-    operation_text = False
+    operationText = False
     if currentSize > 1:
       operationText = operation_text()
       form.add_component(operationText, index=currentSize-1)
@@ -91,20 +91,12 @@ class NewRuleset(NewRulesetTemplate):
     form.add_component(copy, index=currentSize-1)
     self.dirty = True
 
-    def hoverStart(**event_args):
-      hoverTracking.onHoverEnter(copy)
-    def hoverEnd(**event_args):
-      hoverTracking.onHoverEnd(copy)
-    def onClick(**event_args):
-      print("OnClick")
-      if hoverTracking.getState() and copy == hoverTracking.get_primary():
-        copy.clear()
-        copy.remove_from_parent()
-        copy.tag.deleted = True
-    
-    #augment.add_event_handler(copy, "mouseenter", hoverStart)
-    #augment.add_event_handler(copy, "mouseleave", hoverEnd)
-    #augment.add_event_handler(self, "click", hoverEnd)
+    def onDelete(**event_args):
+      copy.remove_from_parent()
+      if operation_text:
+        operationText.remove_from_parent()
+
+    copy.layout.tag.onDeleteCallback = onDelete
     
     return copy
 

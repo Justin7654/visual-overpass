@@ -12,7 +12,9 @@ class deletable_card(deletable_cardTemplate):
     augment.add_event_handler(self, "mouseenter", self.hoverStart)
     augment.add_event_handler(self, "mouseleave", self.hoverEnd)
     augment.add_event_handler(self, "click", self.onClick)
+    
     self.tag.deleted = False
+    self.tag.onDeleteCallback = False
     #TODO: Check parent children to remove AND
     
 
@@ -24,7 +26,13 @@ class deletable_card(deletable_cardTemplate):
 
   def onClick(self, **event_args):
     if hoverTracking.getState() and self == hoverTracking.get_primary():
+      if self.tag.onDeleteCallback:
+        self.tag.onDeleteCallback()
+      else:
+        print("No external callback found")
+      
       self.clear()
       self.remove_from_parent()
       self.tag.deleted = True
+      print("Run main delete")
       
