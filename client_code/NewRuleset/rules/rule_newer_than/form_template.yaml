@@ -21,7 +21,7 @@ components_by_slot:
         vertical_align: full
       type: FlowPanel
     - components:
-      - name: date_picker_1
+      - name: date_picker
         properties: {}
         type: DatePicker
       layout_properties: {expand: true}
