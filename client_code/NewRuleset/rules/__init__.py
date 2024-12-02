@@ -1,3 +1,4 @@
+import anvil.server
 from .rule_match_tag import rule_match_tag
 from .rule_has_tag import rule_has_tag
 from .rule_intersects import rule_intersects

@@ -59,6 +59,8 @@ def runQuaryTask(quaryText):
 @anvil.server.callable
 def generateGeoJson(data):
   import osmtogeojson
+  from inspect import getmembers, isfunction
+  print(getmembers(osmtogeojson, isfunction))
   return osmtogeojson.process_osm_json(data)
 
 @anvil.server.callable

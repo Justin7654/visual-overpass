@@ -1,3 +1,4 @@
+import anvil.server
 import ruleParser
 
 def filterParentStructList(data):

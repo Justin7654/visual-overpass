@@ -1,5 +1,6 @@
 from ._anvil_designer import rule_has_tagTemplate
 from anvil import *
+import anvil.server
 
 
 class rule_has_tag(rule_has_tagTemplate):

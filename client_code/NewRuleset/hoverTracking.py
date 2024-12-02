@@ -1,3 +1,4 @@
+import anvil.server
 hovering = []
 default_color = None
 enabled = False

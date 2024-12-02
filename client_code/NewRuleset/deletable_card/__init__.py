@@ -1,3 +1,4 @@
+import anvil.server
 from ._anvil_designer import deletable_cardTemplate
 from anvil_extras import augment
 from .. import hoverTracking

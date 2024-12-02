@@ -1,5 +1,6 @@
 from ._anvil_designer import rule_match_tagTemplate
 from anvil import *
+import anvil.server
 
 
 class rule_match_tag(rule_match_tagTemplate):
