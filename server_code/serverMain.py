@@ -59,7 +59,7 @@ def runQuaryTask(quaryText):
 @anvil.server.callable
 def generateGeoJson(data):
   import osmtogeojson
-  return osmtogeojson.osmtogeojson(data)
+  return osmtogeojson.process_osm_json(data)
 
 @anvil.server.callable
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
