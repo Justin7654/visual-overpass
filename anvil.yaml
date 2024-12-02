@@ -70,7 +70,7 @@ dependencies:
   version: {version_tag: v1.2.1}
 metadata: {title: Visual Overpass}
 name: Visual Overpass
-native_deps: null
+native_deps: {head_html: ''}
 package_name: Visual_Overpass
 renamed: true
 runtime_options:
