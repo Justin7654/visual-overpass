@@ -40,7 +40,10 @@ def deleteRuleset(ruleset):
 def runQuary(quaryText):
   task = anvil.server.launch_background_task("runQuaryTask", quaryText)
   return task
-  
+
+@anvil.server.callable(require_user=True)
+def cancelQuary(task):
+  task.kill()
 
 @anvil.server.background_task()
 def runQuaryTask(quaryText):
@@ -52,6 +55,11 @@ def runQuaryTask(quaryText):
   result = overpass.query(quaryText, timeout=30) #the result is a number of objects, which can be accessed by result.elements()
   jsonVersion = result.toJSON()
   return jsonVersion
+
+@anvil.server.callable
+def generateGeoJson(data):
+  import osmtogeojson
+  return osmtogeojson(data)
 
 @anvil.server.callable
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring

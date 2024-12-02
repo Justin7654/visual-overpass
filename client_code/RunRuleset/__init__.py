@@ -37,6 +37,9 @@ class RunRuleset(RunRulesetTemplate):
     self.addProgress("Processing results")
     self.result = self.task.get_return_value()
     print(self.result)
+    self.geojson = anvil.server.call_s('generateGeoJson', self.result)
+    print(self.geojson)
+    open_form("RunRusult", json=self.result, geojson=self.geojson)
 
   def onTaskFail(self):
     self.appenedLastProgress("... error")
@@ -85,3 +88,12 @@ class RunRuleset(RunRulesetTemplate):
     #Dont change self.progress
     dotsToAppend = "."*self.dots
     self.progressText.text = "\n".join(self.progress) + dotsToAppend
+
+  def abort_click(self, **event_args):
+    confirmed = confirm("Are you sure you would like to abort this quary?")
+    if confirmed:
+      if hasattr(self, "task") and self.task is not None and self.task.is_running():
+        print("Cancelling")
+        anvil.server.call("cancelQuary", self.task)
+      print("Exiting")
+      open_form("Home")

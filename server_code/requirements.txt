@@ -1,3 +1,4 @@
 OSMPythonTools
 git+https://github.com/enzet/map-machine
 leaflet
+osmtogeojson
