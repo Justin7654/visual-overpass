@@ -2,10 +2,7 @@ from ._anvil_designer import RulesetResultTemplate
 from anvil import *
 import anvil.server
 import anvil.users
-import anvil.tables as tables
 import anvil.js
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 class RulesetResult(RulesetResultTemplate):
   def __init__(self, json={}, geojson={}, **properties):
@@ -13,6 +10,8 @@ class RulesetResult(RulesetResultTemplate):
     self.init_components(**properties)
    
     # Any code you write here will run before the form opens.
+    self.json = json
+    self.geojson = geojson
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
