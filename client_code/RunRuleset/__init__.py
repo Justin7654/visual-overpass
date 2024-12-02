@@ -25,11 +25,17 @@ class RunRuleset(RunRulesetTemplate):
     self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
     print("----------------- PARSE RESULT ------------------")
-    self.addProgress("Waiting for Overpass API")
-    with anvil.server.no_loading_indicator:
-      self.task = anvil.server.call_s("runQuary", parsed)
-      pass
+    self.addProgress("Connecting to server")
+    try:
+      with anvil.server.no_loading_indicator:
+        self.task = anvil.server.call_s("runQuary", parsed)
+    except anvil.server.RuntimeUnavailableError as err:
+      self.progressDots.interval = 0
+      self.appenedLastProgress("... "+str(err))
+      return
     #Set up a timer
+    self.appenedLastProgress("... done")
+    self.addProgress("Waiting for Overpass API")
     self.recheckTask.interval = 0.2
   
   def onTaskSuccess(self):
@@ -37,7 +43,7 @@ class RunRuleset(RunRulesetTemplate):
     self.addProgress("Processing results")
     self.result = self.task.get_return_value()
     print(self.result)
-    self.geojson = anvil.server.call_s('generateGeoJson', self.result)
+    #self.geojson = anvil.server.call_s('generateGeoJson', self.result)
     print(self.geojson)
     open_form("RunRusult", json=self.result, geojson=self.geojson)
 
@@ -92,8 +98,11 @@ class RunRuleset(RunRulesetTemplate):
   def abort_click(self, **event_args):
     confirmed = confirm("Are you sure you would like to abort this quary?")
     if confirmed:
+      #Cancel the background task if needed
       if hasattr(self, "task") and self.task is not None and self.task.is_running():
-        print("Cancelling")
+        print("Cancelling background task")
         anvil.server.call("cancelQuary", self.task)
       print("Exiting")
+      self.recheckTask.interval = 0
+      self.progressDots.interval = 0
       open_form("Home")
