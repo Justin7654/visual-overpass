@@ -22,7 +22,9 @@ class RulesetResult(RulesetResultTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
-    leaf.geoJSON(self.geojson).addTo(map)
+    self.geoLayer = leaf.geoJSON(self.geojson)
+    self.geoLayer.addTo(map)
+    self.map = map
 
 
     

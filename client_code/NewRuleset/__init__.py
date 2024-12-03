@@ -114,7 +114,7 @@ class NewRuleset(NewRulesetTemplate):
   def saveSet(self):
     #Check if to overwrite or do a new set
     mode = "new"
-    if self.saveRow != None:
+    if self.saveRow is not None:
       buttons = [("Overwrite", "overwrite"),("Create New", "new"),("Cancel",None)]
       mode = confirm("Would you like to overwrite the existing set?", buttons=buttons, dismissible=True)
     #
@@ -125,10 +125,13 @@ class NewRuleset(NewRulesetTemplate):
     if not anvil.server.is_app_online():
       alert("Connect to the internet and try again later", title="No Internet")
       return False
-    anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
-    Notification("Saved").show()
-    self.dirty = False
-    
+
+    if mode == "new":
+      anvil.server.call("saveRuleset", name, structure, self.rule_group.tag["include"])
+      Notification("Saved").show()
+      self.dirty = False
+    elif mode == "overwrite":
+      Notification("Overwriting is not yet supported").show()
   def loadSet(self, data):
     self.saveRow = data
     savedStructure = data["savedStructure"]
