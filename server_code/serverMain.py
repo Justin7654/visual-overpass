@@ -12,12 +12,14 @@ def getUserRulesets():
   )
 
 def getSafeRulesetName(name):
+  def nameFree(name): return all([x["name"] != name for x in existingRulesets])
+  def getNewName(num): return name+f' ({num})'
   existingRulesets = getUserRulesets()
-  if name in existingRulesets["name"]:
+  if not nameFree(name):
     num = 1
-    while (name+f' ({num})') in existingRulesets["name"]:
+    while not nameFree(getNewName(num)):
       num += 1
-    return name+f' ({num})'
+    return getNewName(num)
   else:
     return name
   
@@ -39,7 +41,7 @@ def saveRuleset(name, structure, topLayerIncludes):
   )
 
 @anvil.server.callable(require_user=True)
-def updateRuleset(row, name, structure, topLayerIncludes):
+def updateRuleset(row, name, structure, topLayerIncludes):  
   #row = app_tables.user_rulesets.get_by_id(rowID)
   row["name"] = name
   row["savedStructure"] = structure
