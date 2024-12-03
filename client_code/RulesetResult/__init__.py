@@ -22,6 +22,7 @@ class RulesetResult(RulesetResultTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
-    marker = leaf.marker([51.5, -0.09]).addTo(map)
+    leaf.geoJSON(self.geojson).addTo(map)
+
 
     

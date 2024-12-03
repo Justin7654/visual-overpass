@@ -32,5 +32,4 @@ unique_ids:
     ruleParser: '1730242801884382962049285.9194'
   scripts: {}
   server_modules:
-    osmtogeojson: '1733161793807644814690959.1399'
     serverMain: '1729880529625650527140090.2704'
