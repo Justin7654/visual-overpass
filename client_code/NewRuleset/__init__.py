@@ -215,4 +215,3 @@ class NewRuleset(NewRulesetTemplate):
     print("Renewing session...")
     with anvil.server.no_loading_indicator:
       call_async("renew_session").on_result(lambda a: print("Session renewed"))
-    
