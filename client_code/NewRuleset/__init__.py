@@ -131,7 +131,9 @@ class NewRuleset(NewRulesetTemplate):
       Notification("Saved").show()
       self.dirty = False
     elif mode == "overwrite":
-      Notification("Overwriting is not yet supported").show()
+      anvil.server.call("updateRuleset", self.saveRow, name, structure, self.rule_group.tag["include"])
+      Notification("Overwritten").show()
+      self.dirty = False
   def loadSet(self, data):
     self.saveRow = data
     savedStructure = data["savedStructure"]

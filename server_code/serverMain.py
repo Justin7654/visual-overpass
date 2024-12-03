@@ -10,6 +10,16 @@ def getUserRulesets():
     tables.order_by("date", ascending=False),
     user = currentUser
   )
+
+def getSafeRulesetName(name):
+  existingRulesets = getUserRulesets()
+  if name in existingRulesets["name"]:
+    num = 1
+    while (name+f' ({num})') in existingRulesets["name"]:
+      num += 1
+    return name+f' ({num})'
+  else:
+    return name
   
 
 @anvil.server.callable(require_user=True)
@@ -17,6 +27,7 @@ def saveRuleset(name, structure, topLayerIncludes):
   from datetime import datetime
   if name == "":
     name = "Unnamed Ruleset"
+  name = getSafeRulesetName(name)
   user = anvil.users.get_user()
   date = datetime.now()
   app_tables.user_rulesets.add_row(
@@ -29,7 +40,10 @@ def saveRuleset(name, structure, topLayerIncludes):
 
 @anvil.server.callable(require_user=True)
 def updateRuleset(row, name, structure, topLayerIncludes):
-  pass
+  #row = app_tables.user_rulesets.get_by_id(rowID)
+  row["name"] = name
+  row["savedStructure"] = structure
+  row["topLayerIncludeTypes"] = topLayerIncludes
   
 
 @anvil.server.callable(require_user=True)
