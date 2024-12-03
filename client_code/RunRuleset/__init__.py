@@ -21,7 +21,7 @@ class RunRuleset(RunRulesetTemplate):
     self.addProgress("Parsing structure")
     startTime = time.time()
     #Add a rescurse statement at the end to get nodes inside ways and then the out mode
-    parsed = ruleParser.parse(self.structure, self.topIncludes, []) + "(._;>;); out body;"
+    parsed = "[timeout:500];" + ruleParser.parse(self.structure, self.topIncludes, []) + "(._;>;); out body;"
     totalTime = (time.time() - startTime)*1000
     self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
