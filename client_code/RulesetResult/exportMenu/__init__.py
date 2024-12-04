@@ -1,12 +1,5 @@
 from ._anvil_designer import exportMenuTemplate
 from anvil import *
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 
 class exportMenu(exportMenuTemplate):
@@ -17,5 +10,11 @@ class exportMenu(exportMenuTemplate):
     # Any code you write here will run before the form opens.
 
   def export_geojson_click(self, **event_args):
-    """This method is called when the component is clicked."""
-    pass
+    self.parent.raise_event("x-export-geojson")
+
+  def export_json_click(self, **event_args):
+    self.parent.raise_event("x-export-json")
+
+  def export_kml_click(self, **event_args):
+    self.parent.raise_event("x-export-kml")
+    

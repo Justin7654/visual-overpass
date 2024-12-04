@@ -13,7 +13,23 @@ class RulesetResult(RulesetResultTemplate):
     self.json = json
     self.geojson = geojson
     self.export_menu.visible = False
+    self.set_event_handler("x-export-geojson", self.export_geojson)
+    self.set_event_handler("x-export-json", self.export_json)
+    self.set_event_handler("x-export-geojson", self.export_kml)
 
+  def export_geojson(self):
+    file = BlobMedia("application/geo+json", None, name="exported.geojson")
+    anvil.download(file)
+
+
+  def export_json(self):
+    file = BlobMedia("application/json", None, name="exported.json")
+    anvil.download(file)
+
+  def export_kml(self):
+    file = BlobMedia("application/vnd.google-earth.kml+xml", None, name="exported.kml")
+    anvil.download(file)
+  
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
     renderAt = anvil.js.get_dom_node(self.map_placeholder)

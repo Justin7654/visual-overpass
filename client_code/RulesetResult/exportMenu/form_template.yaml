@@ -16,10 +16,12 @@ components:
     name: export_geojson
     properties: {align: center, appearance: filled, text: GeoJSON}
     type: form:dep_svn0zot51dwdba:_Components.Button
-  - name: export_json
+  - event_bindings: {click: export_json_click}
+    name: export_json
     properties: {align: center, text: JSON}
     type: form:dep_svn0zot51dwdba:_Components.Button
-  - name: export_kml
+  - event_bindings: {click: export_kml_click}
+    name: export_kml
     properties: {align: center, text: KML}
     type: form:dep_svn0zot51dwdba:_Components.Button
   layout_properties: {grid_position: 'BJHEBP,SPDKRQ'}
