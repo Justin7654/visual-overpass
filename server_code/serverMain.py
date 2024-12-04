@@ -67,7 +67,7 @@ def runQuaryTask(quaryText):
   import logging
   logging.getLogger('OSMPythonTools').setLevel(logging.ERROR)
   print("Running task")
-  overpass = Overpass(useragent="Visualized Overpass 2024-2025 Senior Mastery Project")
+  overpass = Overpass()
   result = overpass.query(quaryText, timeout=500) #the result is a number of objects, which can be accessed by result.elements()
   jsonVersion = result.toJSON()
   return jsonVersion
