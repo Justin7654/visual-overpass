@@ -18,16 +18,22 @@ class RulesetResult(RulesetResultTemplate):
     self.set_event_handler("x-export-geojson", self.export_kml)
 
   def export_geojson(self):
-    file = BlobMedia("application/geo+json", None, name="exported.geojson")
+    if self.geojson is None:
+      Notification("KML exporting not supported with current output", style="warn").show()
+    
+    file = BlobMedia("application/geo+json", self.geojson, name="exported.geojson")
     anvil.download(file)
 
 
   def export_json(self):
-    file = BlobMedia("application/json", None, name="exported.json")
+    file = BlobMedia("application/json", self.json, name="exported.json")
     anvil.download(file)
 
   def export_kml(self):
-    file = BlobMedia("application/vnd.google-earth.kml+xml", None, name="exported.kml")
+    from geo2kml import to_kml
+    if self.geojson is None:
+      Notification("KML exporting not supported with current output", style="warn").show()
+    file = BlobMedia("application/vnd.google-earth.kml+xml", to_kml(self.geojson), name="exported.kml")
     anvil.download(file)
   
   def form_show(self, **event_args):
