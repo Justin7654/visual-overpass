@@ -3,6 +3,8 @@ components:
   - layout_properties: {grid_position: 'XHWYBT,QJGZMN'}
     name: tabs
     properties:
+      active_tab_index: 0
+      role: ''
       tab_titles: [Map, export]
     type: form:dep_803t20b0qsk9h:Tabs
   - layout_properties: {grid_position: 'LVJZRR,DWJYFW'}

@@ -1,0 +1,7 @@
+components:
+- layout_properties: {grid_position: 'CKTRWJ,JVLSNR'}
+  name: button_1
+  properties: {align: center, text: GeoJSON}
+  type: form:dep_svn0zot51dwdba:_Components.Button
+container: {type: ColumnPanel}
+is_package: true
