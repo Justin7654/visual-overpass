@@ -5,6 +5,7 @@ components:
     name: tabs
     properties:
       active_tab_index: 0
+      bold: false
       role: ''
       tab_titles: [Map, export]
     type: form:dep_803t20b0qsk9h:Tabs

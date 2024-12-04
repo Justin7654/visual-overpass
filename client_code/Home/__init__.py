@@ -34,7 +34,7 @@ class Home(HomeTemplate):
       except anvil.users.AuthenticationFailed:
         Notification("Must be logged in to show this information", title="ERR: 401 Unauthorized", style="warning").show()
         anvil.users.login_with_form(allow_cancel=False)
-        return #self.ruleset_datagrid_show()
+        return self.ruleset_datagrid_show()
       except anvil.server.RuntimeUnavailableError as err:
         self.serverFails += 1
         if self.serverFails <= 2:
@@ -45,7 +45,7 @@ class Home(HomeTemplate):
           \n\nRuntimeUnavailableError: "+str(err)
           Notification(notifStr, title="Unexpected Server Error", style="warning", timeout=15).show()
           self.serverFails = 0
-          return self.ruleset_datagrid_show()
+          return #self.ruleset_datagrid_show()
           #return anvil.server.reset_session()
       self.loadRulesets(result)
 

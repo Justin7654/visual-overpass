@@ -18,13 +18,13 @@ class OutModeSelector(OutModeSelectorTemplate):
     INCLUDES_ID = "Includes the objects ID"
     INCLUDES_LOCATION = "Includes the objects location"
     INCLUDES_TAGS = "Includes the objects tags"
-    INCLUDES_META = "Includes the objects current version and information on the last changeset that edited it"
+    INCLUDES_META = "Includes the objects current version number and information on the last changeset that edited it"
     
     DOES_NOT_INCLUDE_TYPE = "Does not include the objects type"
     DOES_NOT_INCLUDE_ID = "Does not include the objects ID"
     DOES_NOT_INCLUDE_LOCATION = "Does not include the objects location"
     DOES_NOT_INCLUDE_TAGS = "Does not include the objects tags"
-    DOES_NOT_INCLUDE_META = "Does not include the objects current version and information on the last changeset that edited it"
+    DOES_NOT_INCLUDE_META = "Does not include the objects current version number and information on the last changeset that edited it"
     
     
     
@@ -68,3 +68,8 @@ class OutModeSelector(OutModeSelectorTemplate):
     mode = self.mode.selected_value
     if mode in self.textData:
       self.setContents(self.textData[mode]["pros"], self.textData[mode]["cons"])
+
+  def mode_show(self, **event_args):
+    """This method is called when the component is shown on the screen."""
+    self.mode.selected_value = "body"
+    self.mode_change()

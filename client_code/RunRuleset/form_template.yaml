@@ -4,7 +4,7 @@ components:
   properties: {align: center, bold: false, font_size: 30, italic: false, text: Running}
   type: Label
 - layout_properties: {grid_position: 'CGGRFS,AWFFAQ'}
-  name: indeterminate_1
+  name: loading
   properties: {}
   type: form:dep_803t20b0qsk9h:ProgressBar.Indeterminate
 - layout_properties: {grid_position: 'XFDMOX,UEEROQ'}

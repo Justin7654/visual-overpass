@@ -23,11 +23,13 @@ class RulesetResult(RulesetResultTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
-    self.geoLayer = leaf.geoJSON(self.geojson)
-    self.geoLayer.addTo(map)
-    #try:
-    map.fitBounds(self.geoLayer.getBounds())
-    #except:
+    if self.geojson:
+      self.geoLayer = leaf.geoJSON(self.geojson)
+      self.geoLayer.addTo(map)
+      map.fitBounds(self.geoLayer.getBounds())
+    else:
+      Notification("Map will not show previews because the current output mode does not include object locations", title="Locations unavailable", style="warning")
+    
     self.map = map
 
   def return_click(self, **event_args):

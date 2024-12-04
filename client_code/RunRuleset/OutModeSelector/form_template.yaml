@@ -1,7 +1,18 @@
 components:
+- layout_properties: {full_width_row: false, grid_position: 'CIRGAE,YPRPQE'}
+  name: heading_1
+  properties: {text: Please select a output mode}
+  type: form:dep_svn0zot51dwdba:_Components.Heading
+- layout_properties: {grid_position: 'JITVMW,GYCJVN'}
+  name: text_1
+  properties:
+    spacing:
+      margin: [null, null, '5', null]
+    text: or click "Choose for me" to use the default mode
+  type: form:dep_svn0zot51dwdba:_Components.Text
 - data_bindings:
-  - {code: 'self.item[''mode'']', property: selected_value, writeback: false}
-  event_bindings: {change: mode_change}
+  - {code: 'self.item[''mode'']', property: selected_value, writeback: true}
+  event_bindings: {change: mode_change, show: mode_show}
   layout_properties: {grid_position: 'JHMTFE,RPKTBJ'}
   name: mode
   properties:
@@ -9,11 +20,11 @@ components:
     label: ''
     supporting_text: ''
   type: form:dep_svn0zot51dwdba:_Components.DropdownMenu
-- layout_properties: {grid_position: 'GPFDXJ,KVPVBC'}
+- layout_properties: {full_width_row: false, grid_position: 'GPFDXJ,KVPVBC'}
   name: pros
-  properties: {align: center, scale: large, text: + Pros, text_color: green}
+  properties: {align: center, scale: large, text: + Loading..., text_color: green}
   type: form:dep_svn0zot51dwdba:_Components.Text
-- layout_properties: {grid_position: 'GCKWEH,RALGZH'}
+- layout_properties: {full_width_row: false, grid_position: 'GCKWEH,RALGZH'}
   name: cons
   properties:
     align: center
@@ -21,8 +32,56 @@ components:
     spacing:
       margin: ['5', null, null, null]
     style: body
-    text: + Cons
+    text: '- Loading...'
     text_color: red
   type: form:dep_svn0zot51dwdba:_Components.Text
-container: {type: ColumnPanel}
+- layout_properties: {grid_position: 'GSBZDW,IEXMWG'}
+  name: divider_1
+  properties: {}
+  type: form:dep_svn0zot51dwdba:_Components.Divider
+- components:
+  - data_bindings:
+    - {code: 'self.item[''recurse_down'']', property: checked, writeback: true}
+    - {code: 'self.item[''keep_blank_dfjkgh'']', property: text, writeback: false}
+    layout_properties: {}
+    name: do_recurse_down
+    properties:
+      align: center
+      allow_indeterminate: false
+      bold: false
+      checked: true
+      error: false
+      font_size: 16
+      italic: false
+      role: null
+      spacing:
+        padding: ['0', null, '0', null]
+      text: ''
+      tooltip: Also called recurse down, if a way is in the output, all the nodes that make it up will also included in the output. If a relation is in the output, all of its members will also be included..
+      underline: false
+    type: form:dep_svn0zot51dwdba:_Components.Checkbox
+  - layout_properties: {}
+    name: text_2
+    properties:
+      align: center
+      font_size: 16
+      spacing:
+        padding: ['2', null, '0', null]
+      style: label
+      text: Include object members (recommended)
+    type: form:dep_svn0zot51dwdba:_Components.Text
+  layout_properties: {grid_position: 'BMBNPS,AMSUGI'}
+  name: flow
+  properties:
+    align: center
+    gap: none
+    spacing:
+      padding: ['2', null, null, null]
+    spacing_above: small
+    spacing_below: none
+    vertical_align: middle
+  type: FlowPanel
+container:
+  properties: {col_widths: '{"AMSUGI":60}'}
+  type: ColumnPanel
 is_package: true

@@ -7,35 +7,40 @@ from .. import ruleParser
 
 
 class RunRuleset(RunRulesetTemplate):
-  def __init__(self, **properties):
+  def __init__(self, structure={}, topIncludes={"node":True,"way":True,"relation":True}, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
     self.progress = []
     self.dots = 0
-    self.structure = properties["structure"]
-    self.topIncludes = properties["topIncludes"]
+    self.structure = structure
+    self.topIncludes = topIncludes
 
   def form_show(self, **event_args):
     #Get the output mode
-    item = {}
-    promptForm = OutModeSelector(item=item)
-    outResponse = alert(content=promptForm, large=True, dismissible=False, buttons=[("Select",True),("Choose for me",False)])
-    outMode = "body"
-    if outResponse:
-      outMode = item["mode"]
+    self.loading.visible = False
+    options = {"mode":"body","recurse_down":True}
+    promptForm = OutModeSelector(item=options)
+    chooseDefault = alert(content=promptForm, large=True, dismissible=False, buttons=[("Select",False),("Choose for me",True)])
+    if chooseDefault:
+      options = {"mode":"body","recurse_down":True}
     
     #Start processing
-    print("---------------- PARSING MAIN -------------------")
+    self.loading.visible = True
+    print("------------- PARSING STRUCTURE ----------------")
     self.addProgress("Parsing structure")
     startTime = time.time()
     #Add a rescurse statement at the end to get nodes inside ways and then the out mode
-    parsed =  ruleParser.parse(self.structure, self.topIncludes, []) + f'(._;>;); out {outMode};'
+    parsed =  ruleParser.parse(self.structure, self.topIncludes, [])
     totalTime = (time.time() - startTime)*1000
     self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
-    print("----------------- PARSE RESULT ------------------")
+    #Modify the parsed string to include the out and a recurse down if selected
+    if options["recurse_down"]:
+      parsed += '(._;>;);'
+    parsed += f'out {options["mode"]}'
+    print("-------------- STARTING QUARY -----------------")
     self.addProgress("Connecting to server")
     try:
       with anvil.server.no_loading_indicator:
@@ -43,6 +48,7 @@ class RunRuleset(RunRulesetTemplate):
     except anvil.server.RuntimeUnavailableError as err:
       self.progressDots.interval = 0
       self.appenedLastProgress("... "+str(err))
+      self.loading.visible = False
       return
     #Set up a timer
     self.appenedLastProgress("... done")
@@ -61,7 +67,8 @@ class RunRuleset(RunRulesetTemplate):
 
   def onTaskFail(self):
     self.appenedLastProgress("... error")
-    self.addProgress("Attempting alternate method") #Use users browser to send request
+    self.loading.visible = False
+    #self.addProgress("Attempting alternate method") #Use users browser to send request
   
   def addProgress(self, text):
     self.progress.append(text)
