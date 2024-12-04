@@ -1,18 +1,14 @@
 components:
 - components:
-  - layout_properties: {grid_position: 'YGIHQP,AAEEAE'}
-    name: text_1
-    properties: {align: right, text: Test}
-    type: form:dep_svn0zot51dwdba:_Components.Text
-  - components:
-    - layout_properties: {expand: false, width: 400}
-      name: map_placeholder
-      properties: {height: '500'}
-      type: Spacer
-    layout_properties: {grid_position: 'NMKUOS,JVWYBC'}
-    name: flow_panel_1
-    properties: {}
-    type: FlowPanel
+  - layout_properties: {grid_position: 'XHWYBT,QJGZMN'}
+    name: tabs
+    properties:
+      tab_titles: [Map, export]
+    type: form:dep_803t20b0qsk9h:Tabs
+  - layout_properties: {grid_position: 'LVJZRR,DWJYFW'}
+    name: map_placeholder
+    properties: {height: '500'}
+    type: Spacer
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
@@ -21,6 +17,24 @@ components:
   name: navbar_links
   properties: {}
   type: FlowPanel
+- layout_properties: {slot: title}
+  name: heading_1
+  properties:
+    spacing:
+      margin: ['-15', null, null, null]
+    text: Results
+  type: form:dep_svn0zot51dwdba:_Components.Heading
+- event_bindings: {click: return_click}
+  layout_properties: {slot: top-left-btn}
+  name: return
+  properties:
+    icon: fa:arrow-circle-left
+    role: outlined-button
+    spacing:
+      margin: ['7', '0', '0', '0']
+      padding: ['0', '3', '0', '3']
+    text: ''
+  type: Button
 container:
   event_bindings: {show: form_show}
   properties: {html: '@theme:standard-page.html'}

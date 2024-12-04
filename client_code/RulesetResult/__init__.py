@@ -29,5 +29,8 @@ class RulesetResult(RulesetResultTemplate):
     #except:
     self.map = map
 
+  def return_click(self, **event_args):
+    open_form("Home")
+
 
     
