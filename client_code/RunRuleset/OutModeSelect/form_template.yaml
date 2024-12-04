@@ -1,0 +1,28 @@
+components:
+- data_bindings:
+  - {code: 'self.item[''mode'']', property: selected_value, writeback: false}
+  event_bindings: {change: mode_change}
+  layout_properties: {grid_position: 'JHMTFE,RPKTBJ'}
+  name: mode
+  properties:
+    items: [id, skel, body, tags, meta]
+    label: ''
+    supporting_text: ''
+  type: form:dep_svn0zot51dwdba:_Components.DropdownMenu
+- layout_properties: {grid_position: 'GPFDXJ,KVPVBC'}
+  name: pros
+  properties: {align: center, scale: large, text: + Pros, text_color: green}
+  type: form:dep_svn0zot51dwdba:_Components.Text
+- layout_properties: {grid_position: 'GCKWEH,RALGZH'}
+  name: cons
+  properties:
+    align: center
+    scale: large
+    spacing:
+      margin: ['5', null, null, null]
+    style: body
+    text: + Cons
+    text_color: red
+  type: form:dep_svn0zot51dwdba:_Components.Text
+container: {type: ColumnPanel}
+is_package: true
