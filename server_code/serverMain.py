@@ -10,28 +10,20 @@ def getUserRulesets():
     tables.order_by("date", ascending=False),
     user = currentUser
   )
-
-def getSafeRulesetName(name):
-  def nameFree(name): return all([x["name"] != name for x in existingRulesets])
-  def getNewName(num): return name+f' ({num})'
-  existingRulesets = getUserRulesets()
-  if not nameFree(name):
-    num = 1
-    while not nameFree(getNewName(num)):
-      num += 1
-    return getNewName(num)
-  else:
-    return name
   
 
 @anvil.server.callable(require_user=True)
 def saveRuleset(name, structure, topLayerIncludes):
   from datetime import datetime
+  #Modify input data
   if name == "":
     name = "Unnamed Ruleset"
   name = getSafeRulesetName(name)
+  structure = compress_structure_dict(structure)
+  #Get new data
   user = anvil.users.get_user()
   date = datetime.now()
+  #Uploud
   app_tables.user_rulesets.add_row(
     user=user,
     date=date,
@@ -75,10 +67,36 @@ def runQuaryTask(quaryText):
 @anvil.server.callable
 def generateGeoJson(data):
   import osm2geojson
-  #from inspect import getmembers, isfunction
-  #print(getmembers(osmtogeojson, isfunction))
   return osm2geojson.json2geojson(data, log_level="ERROR")
 
 @anvil.server.callable
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
   return True
+
+def compress_structure_dict(data):
+  import pyzstd #Compresses
+  byteData = encode_dict_to_byte(data)
+  return pyzstd.compress(byteData) #Eligable for training?
+
+def decompress_structure_dict():
+  pass
+
+def encode_dict_to_byte(dict):
+  import json
+  return json.dumps(dict).encode('utf-8')
+
+def decode_byte_to_dict(byte):
+  import json
+  return json.loads(byte.decode('utf-8'))
+
+def getSafeRulesetName(name):
+  def nameFree(name): return all([x["name"] != name for x in existingRulesets])
+  def getNewName(num): return name+f' ({num})'
+  existingRulesets = getUserRulesets()
+  if not nameFree(name):
+    num = 1
+    while not nameFree(getNewName(num)):
+      num += 1
+    return getNewName(num)
+  else:
+    return name
