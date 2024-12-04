@@ -11,7 +11,8 @@ components:
     underline: false
   type: form:dep_svn0zot51dwdba:_Components.Text
 - components:
-  - layout_properties: {}
+  - event_bindings: {click: export_geojson_click}
+    layout_properties: {}
     name: export_geojson
     properties: {align: center, appearance: filled, text: GeoJSON}
     type: form:dep_svn0zot51dwdba:_Components.Button

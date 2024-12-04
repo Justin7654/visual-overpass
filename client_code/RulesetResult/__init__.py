@@ -12,6 +12,7 @@ class RulesetResult(RulesetResultTemplate):
     # Any code you write here will run before the form opens.
     self.json = json
     self.geojson = geojson
+    self.export_menu.visible = False
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
@@ -31,6 +32,15 @@ class RulesetResult(RulesetResultTemplate):
 
   def return_click(self, **event_args):
     open_form("Home")
+
+  def tabs_tab_click(self, tab_index, tab_title, **event_args):
+    """This method is called when a tab is clicked"""
+    self.export_menu.visible = False
+    self.map_placeholder.visible = False
+    if tab_index == 1:
+      self.export_menu.visible = True
+    else:
+      self.map_placeholder.visible = True
 
 
     
