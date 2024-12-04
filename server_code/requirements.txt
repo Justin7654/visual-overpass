@@ -1,3 +1,4 @@
 OSMPythonTools
-git+https://github.com/enzet/map-machine
 osm2geojson
+pyzstd
+https://pypi.org/project/git+https://github.com/enzet/map-machine
