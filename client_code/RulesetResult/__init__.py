@@ -16,7 +16,7 @@ class RulesetResult(RulesetResultTemplate):
     self.export_menu.raise_event("x-hook", otherSelf=self)
     self.set_event_handler("x-export-geojson", self.export_geojson)
     self.set_event_handler("x-export-json", self.export_json)
-    self.set_event_handler("x-export-geojson", self.export_kml)
+    self.set_event_handler("x-export-kml", self.export_kml)
 
   def export_geojson(self, **args):
     if self.geojson is None:
