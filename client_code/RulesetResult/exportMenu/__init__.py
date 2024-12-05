@@ -8,13 +8,21 @@ class exportMenu(exportMenuTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.set_event_handler("x-hook", self.hook)
 
+  def hook(self, otherSelf=False, **event_args):
+    self.otherSelf = otherSelf
+    
+  
   def export_geojson_click(self, **event_args):
-    self.parent.raise_event("x-export-geojson")
+    print("Export geojson click")
+    print(self.parent)
+    self.otherSelf.raise_event("x-export-geojson")
+    
 
   def export_json_click(self, **event_args):
-    self.parent.raise_event("x-export-json")
+    self.otherSelf.raise_event("x-export-json")
 
   def export_kml_click(self, **event_args):
-    self.parent.raise_event("x-export-kml")
+    self.otherSelf.raise_event("x-export-kml")
     

@@ -5,7 +5,7 @@ import anvil.users
 import anvil.js
 
 class RulesetResult(RulesetResultTemplate):
-  def __init__(self, json={}, geojson={}, **properties):
+  def __init__(self, json=None, geojson=None, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
    
@@ -13,26 +13,32 @@ class RulesetResult(RulesetResultTemplate):
     self.json = json
     self.geojson = geojson
     self.export_menu.visible = False
+    self.export_menu.raise_event("x-hook", otherSelf=self)
     self.set_event_handler("x-export-geojson", self.export_geojson)
     self.set_event_handler("x-export-json", self.export_json)
     self.set_event_handler("x-export-geojson", self.export_kml)
 
-  def export_geojson(self):
+  def export_geojson(self, **args):
     if self.geojson is None:
-      Notification("KML exporting not supported with current output", style="warn").show()
+      return Notification("GeoJSON exporting not supported with current output", style="warning").show()
     
     file = BlobMedia("application/geo+json", self.geojson, name="exported.geojson")
     anvil.download(file)
 
 
-  def export_json(self):
-    file = BlobMedia("application/json", self.json, name="exported.json")
+  def export_json(self, **args):
+    import json
+    if self.json is None:
+      return Notification("JSON exporting not supported with current information", style="warning").show()
+
+    print(self.json)
+    file = BlobMedia("application/json", json.dumps(self.json).encode(), name="exported.json")
     anvil.download(file)
 
-  def export_kml(self):
+  def export_kml(self, **args):
     from geo2kml import to_kml
     if self.geojson is None:
-      Notification("KML exporting not supported with current output", style="warn").show()
+      return Notification("KML exporting not supported with current output", style="warning").show()
     file = BlobMedia("application/vnd.google-earth.kml+xml", to_kml(self.geojson), name="exported.kml")
     anvil.download(file)
   
