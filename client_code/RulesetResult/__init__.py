@@ -37,10 +37,9 @@ class RulesetResult(RulesetResultTemplate):
     anvil.download(file)
 
   def export_kml(self, **args):
-    from geo2kml import to_kml
     if self.geojson is None:
       return Notification("KML exporting not supported with current output", style="warning").show()
-    file = BlobMedia("application/vnd.google-earth.kml+xml", to_kml(self.geojson), name="exported.kml")
+    file = anvil.server.call("generateKmlMediafromGeoJson", self.geojson, "exported.kml")
     anvil.download(file)
   
   def form_show(self, **event_args):
