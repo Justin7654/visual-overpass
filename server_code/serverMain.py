@@ -73,8 +73,6 @@ def generateGeoJson(data):
 def generateKmlMediafromGeoJson(geojson, filename):
   from geo2kml import to_kml
   data = to_kml(geojson)
-  print(data)
-  print(type(data))
   return anvil.BlobMedia("application/vnd.google-earth.kml+xml", data.encode(), name=filename)
 
 @anvil.server.callable
@@ -82,10 +80,9 @@ def renew_session(): #Cliant can call this every once in a while to prevent the 
   return True
 
 def compress_structure_dict(data):
-  #import pyzstd #Compresses
-  #byteData = encode_dict_to_byte(data)
-  #return pyzstd.compress(byteData) #Eligable for training?
-  return data
+  import pyzstd #Compresses
+  byteData = encode_dict_to_byte(data)
+  return pyzstd.compress(byteData) #Eligable for training?
 
 def decompress_structure_dict():
   pass
