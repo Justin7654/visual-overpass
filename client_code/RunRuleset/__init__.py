@@ -39,7 +39,7 @@ class RunRuleset(RunRulesetTemplate):
     #Modify the parsed string to include the out and a recurse down if selected
     if options["recurse_down"]:
       parsed += '(._;>;);'
-    parsed += f'out {options["mode"]}'
+    parsed += f'out {options["mode"]};'
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
