@@ -16,7 +16,7 @@ db_schema:
       name: name
       type: string
     - admin_ui: {order: 3, width: 200}
-      name: savedStructure
+      name: savedStructure_old
       type: simpleObject
     - admin_ui: {order: 1, width: 200}
       name: date
@@ -24,6 +24,9 @@ db_schema:
     - admin_ui: {order: 4, width: 200}
       name: topLayerIncludeTypes
       type: simpleObject
+    - admin_ui: {order: 2.5, width: 200}
+      name: savedStructure
+      type: media
     server: full
     title: user_rulesets
   users:

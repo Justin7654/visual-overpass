@@ -82,13 +82,15 @@ def renew_session(): #Cliant can call this every once in a while to prevent the 
 def compress_structure_dict(data):
   import pyzstd #Compresses
   byteData = encode_dict_to_byte(data)
-  return pyzstd.compress(byteData) #Eligable for training?
+  compressed = pyzstd.compress(byteData) #Eligable for training?
+  return anvil.BlobMedia("application/zstd", compressed)
 
 def decompress_structure_dict():
   pass
 
 def encode_dict_to_byte(dict):
   import json
+  print("Ecoding: ",dict)
   return json.dumps(dict).encode('utf-8')
 
 def decode_byte_to_dict(byte):
