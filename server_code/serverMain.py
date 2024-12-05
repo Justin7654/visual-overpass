@@ -74,9 +74,10 @@ def renew_session(): #Cliant can call this every once in a while to prevent the 
   return True
 
 def compress_structure_dict(data):
-  import pyzstd #Compresses
-  byteData = encode_dict_to_byte(data)
-  return pyzstd.compress(byteData) #Eligable for training?
+  #import pyzstd #Compresses
+  #byteData = encode_dict_to_byte(data)
+  #return pyzstd.compress(byteData) #Eligable for training?
+  return data
 
 def decompress_structure_dict():
   pass

@@ -19,10 +19,11 @@ class RulesetResult(RulesetResultTemplate):
     self.set_event_handler("x-export-kml", self.export_kml)
 
   def export_geojson(self, **args):
+    import json
     if self.geojson is None:
       return Notification("GeoJSON exporting not supported with current output", style="warning").show()
     
-    file = BlobMedia("application/geo+json", self.geojson, name="exported.geojson")
+    file = BlobMedia("application/geo+json", json.dumps(self.geojson).encode(), name="exported.geojson")
     anvil.download(file)
 
 
