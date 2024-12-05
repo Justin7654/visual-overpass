@@ -41,6 +41,7 @@ class RunRuleset(RunRulesetTemplate):
       parsed += '(._;>;);'
     parsed += f'out {options["mode"]}'
     print("-------------- STARTING QUARY -----------------")
+    print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
     try:
       with anvil.server.no_loading_indicator:
@@ -48,6 +49,7 @@ class RunRuleset(RunRulesetTemplate):
     except anvil.server.RuntimeUnavailableError as err:
       self.progressDots.interval = 0
       self.appenedLastProgress("... "+str(err))
+      print(err)
       self.loading.visible = False
       return
     #Set up a timer
