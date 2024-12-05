@@ -72,7 +72,10 @@ def generateGeoJson(data):
 @anvil.server.callable
 def generateKmlMediafromGeoJson(geojson, filename):
   from geo2kml import to_kml
-  return anvil.BlobMedia("application/vnd.google-earth.kml+xml", to_kml(geojson), name=filename)
+  data = to_kml(geojson)
+  print(data)
+  print(type(data))
+  return anvil.BlobMedia("application/vnd.google-earth.kml+xml", data.encode(), name=filename)
 
 @anvil.server.callable
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring

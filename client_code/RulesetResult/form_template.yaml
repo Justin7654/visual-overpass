@@ -1,5 +1,10 @@
 components:
 - components:
+  - event_bindings: {tick: reset_map_cooldown_tick}
+    layout_properties: {grid_position: 'GKAZJB,QLVWIN'}
+    name: reset_map_cooldown
+    properties: {interval: 0}
+    type: Timer
   - event_bindings: {tab_click: tabs_tab_click}
     layout_properties: {grid_position: 'XHWYBT,QJGZMN'}
     name: tabs
@@ -17,6 +22,11 @@ components:
     name: map_placeholder
     properties: {height: '500'}
     type: Spacer
+  - event_bindings: {click: map_reset_click}
+    layout_properties: {grid_position: 'WZWIXH,CDVFEC'}
+    name: map_reset
+    properties: {role: outlined-button, text: Reset Map, tooltip: Hard reloads the map. Use incase it breaks}
+    type: Button
   layout_properties: {slot: default}
   name: content_panel
   properties: {}

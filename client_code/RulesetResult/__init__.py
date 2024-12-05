@@ -44,7 +44,11 @@ class RulesetResult(RulesetResultTemplate):
   
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    renderAt = anvil.js.get_dom_node(self.map_placeholder)
+    self.load_map(self.map_placeholder)
+    
+
+  def load_map(self, renderAt):
+    renderAt = anvil.js.get_dom_node(renderAt)
     leaf = anvil.js.window.leaflet
     map = leaf.map(renderAt).setView([0, 0], 1)
     leaf.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -54,12 +58,28 @@ class RulesetResult(RulesetResultTemplate):
     if self.geojson:
       self.geoLayer = leaf.geoJSON(self.geojson)
       self.geoLayer.addTo(map)
-      map.fitBounds(self.geoLayer.getBounds())
+      try:
+        map.fitBounds(self.geoLayer.getBounds())
+      except:
+        
+        '''Uncaught TypeError: Cannot read properties of undefined (reading '_leaflet_pos')
+    at getPosition (leaflet:2563:14)
+    at NewClass._getMapPanePos (leaflet:4601:12)
+    at NewClass._getNewPixelOrigin (leaflet:4618:69)
+    at NewClass._move (leaflet:4337:30)
+    at NewClass._onZoomTransitionEnd (leaflet:4839:10)
+      '''
     else:
       Notification("Map will not show previews because the current output mode does not include object locations", title="Locations unavailable", style="warning")
     
     self.map = map
-
+  
+  def reset_map(self):
+    self.map.off()
+    self.map.remove()
+    self.load_map(self.map_placeholder)
+    
+  
   def return_click(self, **event_args):
     open_form("Home")
 
@@ -67,10 +87,23 @@ class RulesetResult(RulesetResultTemplate):
     """This method is called when a tab is clicked"""
     self.export_menu.visible = False
     self.map_placeholder.visible = False
+    self.map_reset.visible = False
     if tab_index == 1:
       self.export_menu.visible = True
     else:
       self.map_placeholder.visible = True
+      self.map_reset.visible = True
+
+  def map_reset_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    self.map_reset.enabled = False
+    self.reset_map_cooldown.interval = 1
+    self.reset_map()
+
+  def reset_map_cooldown_tick(self, **event_args):
+    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
+    self.reset_map_cooldown.interval = 0
+    self.map_reset.enabled = True
 
 
     
