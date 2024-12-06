@@ -44,7 +44,7 @@ def get_structure(form):
       #If we are in a rule group, and the current component is a rule form
       if is_group and is_rule(child):
         tag = child.tag
-        structureItem = tag #Copy that we can modify
+        structureItem = dict(tag) #Copy that we can modify
 
         #Check if its not deleted
         if child.layout.tag.deleted:
@@ -56,8 +56,6 @@ def get_structure(form):
           key = "group"+str(i)
           if tag_has_key(tag, key) and tag[key] is not None:
             #Add a new key to the tag to keep its tags accessible
-            print("Searching for: "+key)
-            print("Inside: "+str(child))
             structureItem[key+"tag"] = tag[key].tag
             structureItem[key] = scan(tag[key])
             if len(structureItem[key]) == 0:
@@ -103,6 +101,13 @@ typeParsers = {
   "Has Tag": parseTypeModule.has_tag,
   "Intersects": parseTypeModule.intersects,
   "OR": parseTypeModule.OR,
+  "Newer Than": parseTypeModule.newer_than
+}
+
+typePriority = {
+  "1": ["Match Tag", "Has Tag"], #First part
+  "2": ["Newer Than, Intersects"], #After, usually inside ()
+  "3": ["OR"]
 }
 
 groupTypes = ["OR","Intersects"]

@@ -69,3 +69,6 @@ def OR(list, includeTypes, parentStructLists):
     result2 = ruleParser.parse(combined2, group2Tags["include"], parentStructLists)
     output += f'({result1}{result2});'
   return output
+
+def newer_than():
+  pass
