@@ -25,7 +25,10 @@ class RowRulesetTemplate(RowRulesetTemplateTemplate):
     """This method is called when the button is clicked"""
     data = self.item
     print("Open")
-    open_form("RunRuleset", structure=data["savedStructure"], topIncludes=data["topLayerIncludeTypes"])
+    structure = data["savedStructure"]
+    if structure is None:
+      structure = data["savedStructure_legacy"]
+    open_form("RunRuleset", structure=structure, topIncludes=data["topLayerIncludeTypes"])
 
   def ruleset_delete_click(self, **event_args):
     self.parent.raise_event("x-delete-ruleset",item=self.item)

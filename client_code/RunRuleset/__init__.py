@@ -25,9 +25,15 @@ class RunRuleset(RunRulesetTemplate):
     chooseDefault = alert(content=promptForm, large=True, dismissible=False, buttons=[("Select",False),("Choose for me",True)])
     if chooseDefault:
       options = {"mode":"body","recurse_down":True}
+
     
     #Start processing
     self.loading.visible = True
+    #Decompress structure if needed
+    if str(type(self.structure)) == "<class 'anvil.LazyMedia'>":
+      self.addProgress("Decompressing")
+      self.structure = anvil.server.call("decompress_structure_dict", self.structure)
+      self.appenedLastProgress("... done")
     print("------------- PARSING STRUCTURE ----------------")
     self.addProgress("Parsing structure")
     startTime = time.time()

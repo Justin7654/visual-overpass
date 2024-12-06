@@ -2,6 +2,7 @@ import anvil.users
 import anvil.tables as tables
 from anvil.tables import app_tables
 import anvil.server
+import time
 
 @anvil.server.callable(require_user=True)
 def getUserRulesets():
@@ -36,7 +37,7 @@ def saveRuleset(name, structure, topLayerIncludes):
 def updateRuleset(row, name, structure, topLayerIncludes):  
   #row = app_tables.user_rulesets.get_by_id(rowID)
   row["name"] = name
-  row["savedStructure"] = structure
+  row["savedStructure"] = compress_structure_dict(structure)
   row["topLayerIncludeTypes"] = topLayerIncludes
   
 
@@ -82,11 +83,17 @@ def renew_session(): #Cliant can call this every once in a while to prevent the 
 def compress_structure_dict(data):
   import pyzstd #Compresses
   byteData = encode_dict_to_byte(data)
+  startTime = time.time()
   compressed = pyzstd.compress(byteData) #Eligable for training?
+  totalTime = (time.time() - startTime)*1000
+  print(f'Compress took {totalTime:.0f}ms')
   return anvil.BlobMedia("application/zstd", compressed)
 
-def decompress_structure_dict():
-  pass
+@anvil.server.callable
+def decompress_structure_dict(data):
+  import pyzstd
+  original = pyzstd.decompress(data.get_bytes())
+  return decode_byte_to_dict(original)
 
 def encode_dict_to_byte(dict):
   import json

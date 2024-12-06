@@ -138,6 +138,11 @@ class NewRuleset(NewRulesetTemplate):
     self.saveRow = data
     savedStructure = data["savedStructure"]
     topIncludes = data["topLayerIncludeTypes"]
+    #Check if this still uses the old structure format
+    if savedStructure is not None:
+      savedStructure = anvil.server.call("decompress_structure_dict", savedStructure)
+    elif data["savedStructure_legacy"] is not None:
+      savedStructure = data["savedStructure_legacy"]
     #Check the top includes
     self.includeNodes.checked = topIncludes["node"]
     self.includeWays.checked = topIncludes["way"]

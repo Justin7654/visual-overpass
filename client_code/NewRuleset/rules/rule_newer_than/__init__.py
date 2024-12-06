@@ -1,13 +1,8 @@
 from ._anvil_designer import rule_newer_thanTemplate
 from anvil import *
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
+#Example quarry:
+#https://overpass-turbo.eu/?q=LyoKVGhpcyBoYcSGYmVlbiBnxI1lcmF0ZWQgYnkgdGhlIG92xJJwxIlzLXR1cmJvIHdpemFyZC7EgsSdxJ9yaWdpbmFsIHNlxLBjaMSsxIk6CsOiwoDCnMSEZ2h3YXk9KsWIwp0KKi8KW291dDpqc29uXVt0aW1lxZrFnDI1XTsKLy_Ej8SUxJ1yIHJlc3VsdHMKKAogIMWvIHF1xJLEmsSjcnQgZm9yOiDFiMWKxLjFjcWPxZHFk8W_IG5vZGVbIsWLxpR5Il0obmV3xJI6IjIwMTctxq3GsDFUMDA6xrXGtzBaIikoe3tixKp4fX0pxa3GgMWOecaexqDHicajxqXGp8apxqvGrcavxrHGrca0xrbGuMa1xrvGvca_x4Fvx4PHhceHxbVlbMSUacWgx4vGk8eNxqTGpsaoxo7HksauxrLGsseXxrnGucebxr7HgMeCx4THhgrHvMaCcMS3bsaKxbbFuMW6xbzFqMSYxpt5xa0-xa3IiHNrx6TGg3Q7&c=CITEGLvHTP
 
 class rule_newer_than(rule_newer_thanTemplate):
   def __init__(self, lastTag=False, **properties):
@@ -16,21 +11,13 @@ class rule_newer_than(rule_newer_thanTemplate):
 
     # Any code you write here will run before the form opens.
     self.tag = {
-      "type": "Has Tag",
-      "key": "",
-      "not": False,
+      "type": "Newer Than",
+      "date": self.date_picker.date,
     }
     if lastTag:
-      self.key.text = lastTag["key"]
-      self.notSwitch.checked = lastTag["not"]
-      self.key_change()
+      self.date_picker.date = lastTag["date"]
       self.notSwitch_change()
 
-  def key_change(self, **event_args):
-    """This method is called when the text in this text box is edited"""
-    self.tag["key"] = self.key.text.lstrip()
-    self.key.text = self.tag["key"]  # Prevent white space
-
-  def notSwitch_change(self, **event_args):
-    """This method is called when this checkbox is checked or unchecked"""
-    self.tag["not"] = self.notSwitch.checked
+  def date_picker_change(self, **event_args):
+    """This method is called when the selected date changes"""
+    self.tag.date = self.date_picker.date
