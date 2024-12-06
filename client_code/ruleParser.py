@@ -142,6 +142,9 @@ def parse(structure, includeTypes, parentStructLists):
     if handler is None:
       print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
       continue
+    if "OR" in grouped and key != "OR": #This will be included inside anways
+      continue
+      
     result = handler(list, includeTypes, parentStructLists)
     output += result
   return output
