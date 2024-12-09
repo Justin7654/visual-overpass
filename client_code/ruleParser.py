@@ -164,6 +164,7 @@ def parse(structure, includeTypes, parentStructLists):
         continue
       print("Running "+str(key))
       result = handler(ruleList, includeTypes, parentStructLists)
-      result = addTypeFilter(includeTypes, result)
       output += result
-  return output
+
+  if "OR" not in grouped
+  return addTypeFilter(includeTypes, output)
