@@ -43,12 +43,13 @@ def has_tag(list, includeTypes, parentStructLists):
       quary += f'[{key}]'
   return quary#addTypeFilter(includeTypes, quary)
 
-def newer_than(ruleList):
+def newer_than(ruleList, includeTypes, parentStructLists):
+  print("Newer than:")
   quary = ""
-  for i in ruleList:
-    rule = ruleList[i]
-    date = rule["date"]
-    quary += f'(newer:"{date.year}-{date.month}-{date.day}T00:00:00Z")'
+  for rule in ruleList:
+    quary += f'(newer:"{rule["year"]}-{rule["month"]:02d}-{rule["day"]:02d}T00:00:00Z")'
+  print(quary)
+  return quary
 
 def intersects(list):
   pass

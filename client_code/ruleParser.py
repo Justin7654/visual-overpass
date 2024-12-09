@@ -106,7 +106,7 @@ typeParsers = {
 
 typePriority = {
   0: ["Match Tag", "Has Tag"], #First part
-  1: ["Newer Than, Intersects"], #After, usually inside ()
+  1: ["Newer Than", "Intersects"], #After, usually inside ()
   2: ["OR"]
 }
 
@@ -160,11 +160,13 @@ def parse(structure, includeTypes, parentStructLists):
       #Check if we are at the correct priority level
       #Some rules need to be added at the start, some at the end, etc. Prioritys help this
       if key not in typePriority[priority]:
-        print("Skip "+str(key))
+        print("Skip "+str(key)+" (P"+str(priority)+")")
         continue
       print("Running "+str(key))
       result = handler(ruleList, includeTypes, parentStructLists)
       output += result
 
-  if "OR" not in grouped
-  return addTypeFilter(includeTypes, output)
+  if "OR" not in grouped:
+    output = addTypeFilter(includeTypes, output)
+  
+  return output

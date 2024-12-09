@@ -1,0 +1,74 @@
+components_by_slot:
+  content:
+  - components:
+    - components:
+      - layout_properties: {}
+        name: label_1
+        properties:
+          font_size: 20
+          italic: false
+          spacing:
+            padding: [null, null, null, '0']
+          text: Last Modified Between
+        type: Label
+      layout_properties: {expand: false, width: null}
+      name: flow_panel_left
+      properties:
+        align: center
+        spacing:
+          margin: [null, null, null, '50']
+          padding: [null, null, null, '0']
+        vertical_align: full
+      type: FlowPanel
+    - components:
+      - components:
+        - components:
+          - name: text_1
+            properties: {text: Start}
+            type: form:dep_svn0zot51dwdba:_Components.Text
+          - event_bindings: {change: date_picker_start_change}
+            name: date_picker_start
+            properties: {}
+            type: DatePicker
+          layout_properties: {}
+          name: flow_panel_1
+          properties: {align: center, spacing_above: small, spacing_below: medium, vertical_align: middle}
+          type: FlowPanel
+        - components:
+          - layout_properties: {}
+            name: text_1_copy
+            properties: {text: End}
+            type: form:dep_svn0zot51dwdba:_Components.Text
+          - event_bindings: {change: date_picker_start_change}
+            layout_properties: {}
+            name: date_picker_start_copy
+            properties: {spacing_above: small}
+            type: DatePicker
+          layout_properties: {}
+          name: flow_panel_1_copy
+          properties: {align: center, spacing_above: medium, spacing_below: small, vertical_align: middle}
+          type: FlowPanel
+        layout_properties: {expand: false}
+        name: linear_panel
+        properties: {spacing_above: small, spacing_below: small}
+        type: LinearPanel
+      layout_properties: {expand: true}
+      name: flow_panel_right
+      properties:
+        align: right
+        spacing:
+          padding: [null, '20', null, '0']
+        vertical_align: middle
+      type: FlowPanel
+    layout_properties: {}
+    name: main_flow
+    properties:
+      align: center
+      spacing:
+        padding: [null, null, null, null]
+      spacing_above: none
+      spacing_below: none
+      vertical_align: middle
+    type: FlowPanel
+is_package: true
+layout: {type: 'form:NewRuleset.deletable_card'}
