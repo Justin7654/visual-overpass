@@ -105,9 +105,9 @@ typeParsers = {
 }
 
 typePriority = {
-  "1": ["Match Tag", "Has Tag"], #First part
-  "2": ["Newer Than, Intersects"], #After, usually inside ()
-  "3": ["OR"]
+  0: ["Match Tag", "Has Tag"], #First part
+  1: ["Newer Than, Intersects"], #After, usually inside ()
+  2: ["OR"]
 }
 
 groupTypes = ["OR","Intersects"]
@@ -128,23 +128,29 @@ def group_by_type(ruleGroupList):
         grouped[item_type].append(item)
   return dict(grouped)
 
-
 '''
 Main Function
 '''
 
 def parse(structure, includeTypes, parentStructLists):
-  parentStructLists += filterParentStructList(structure)
+  parentStructLists += list(filterParentStructList(structure))
   grouped = group_by_type(structure)
   output = ""
-  for key, list in grouped.items():
-    handler = typeParsers.get(key)
-    if handler is None:
-      print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
-      continue
-    if "OR" in grouped and key != "OR": #This will be included inside anways
-      continue
-      
-    result = handler(list, includeTypes, parentStructLists)
-    output += result
+  for priority in range(3):
+    for key, ruleList in grouped.items():
+      handler = typeParsers.get(key)
+      if handler is None:
+        print(f'WARNING: No handler found for the rule type "{key}". It will be not included in the final output')
+        continue
+      #Check if a OR statement is in the group. If it is, skip since the rule will be included in there
+      if "OR" in grouped and key != "OR":
+        continue
+      #Check if we are at the correct priority level
+      #Some rules need to be added at the start, some at the end, etc. Prioritys help this
+      if key not in typePriority[priority]:
+        print("Skip "+str(key))
+        continue
+      print("Running "+str(key))
+      result = handler(ruleList, includeTypes, parentStructLists)
+      output += result
   return output

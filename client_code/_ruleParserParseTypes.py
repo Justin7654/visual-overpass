@@ -46,7 +46,7 @@ def has_tag(list, includeTypes, parentStructLists):
 def intersects(list):
   pass
 
-def OR(list, includeTypes, parentStructLists):
+def OR(ruleList, includeTypes, parentStructLists):
   '''
   Parse each side like normal, and put them in a OR format next to each other in a union
   Also give it the rules above it to be parsed so those ANDs also need to work
@@ -54,7 +54,7 @@ def OR(list, includeTypes, parentStructLists):
   #parentStructLists = filterParentStructList(parentStructLists)
   
   output = ""
-  for value in list:
+  for value in ruleList:
     group1 = value["group1"]
     group1Tags = value["group1tag"]
     group2 = value["group2"]
@@ -65,8 +65,8 @@ def OR(list, includeTypes, parentStructLists):
     print("--- End parent struct")
     combined1 = group1+parentStructLists
     combined2 = group2+parentStructLists
-    result1 = ruleParser.parse(combined1, group1Tags["include"], parentStructLists)
-    result2 = ruleParser.parse(combined2, group2Tags["include"], parentStructLists)
+    result1 = ruleParser.parse(combined1, group1Tags["include"], list(parentStructLists))
+    result2 = ruleParser.parse(combined2, group2Tags["include"], list(parentStructLists))
     output += f'({result1}{result2});'
   return output
 
