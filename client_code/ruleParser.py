@@ -133,7 +133,8 @@ Main Function
 '''
 
 def parse(structure, includeTypes, parentStructLists):
-  parentStructLists += list(filterParentStructList(structure))
+  if len(parentStructLists) == 0:
+    parentStructLists += list(filterParentStructList(structure))
   grouped = group_by_type(structure)
   output = ""
   for priority in range(3):
