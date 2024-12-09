@@ -30,7 +30,7 @@ def match_tag(list, includeTypes, parentStructLists):
           quary += f'["{key}"="{value}"]'
     
     #
-    return addTypeFilter(includeTypes, quary+";")
+    return quary#addTypeFilter(includeTypes, quary+";")
 
 def has_tag(list, includeTypes, parentStructLists):
   quary = ""
@@ -41,7 +41,14 @@ def has_tag(list, includeTypes, parentStructLists):
       quary += f'[!{key}]'
     else:
       quary += f'[{key}]'
-  return addTypeFilter(includeTypes, quary+";")
+  return quary#addTypeFilter(includeTypes, quary)
+
+def newer_than(ruleList):
+  quary = ""
+  for i in ruleList:
+    rule = ruleList[i]
+    date = rule["date"]
+    quary += f'(newer:"{date.year}-{date.month}-{date.day}T00:00:00Z")'
 
 def intersects(list):
   pass
@@ -69,6 +76,3 @@ def OR(ruleList, includeTypes, parentStructLists):
     result2 = ruleParser.parse(combined2, group2Tags["include"], list(parentStructLists))
     output += f'({result1}{result2});'
   return output
-
-def newer_than():
-  pass

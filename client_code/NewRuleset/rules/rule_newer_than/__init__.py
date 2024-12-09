@@ -14,10 +14,12 @@ class rule_newer_than(rule_newer_thanTemplate):
       "type": "Newer Than",
       "date": self.date_picker.date,
     }
+    
     if lastTag:
       self.date_picker.date = lastTag["date"]
       self.notSwitch_change()
 
   def date_picker_change(self, **event_args):
     """This method is called when the selected date changes"""
-    self.tag.date = self.date_picker.date
+    self.tag["date"] = self.date_picker.date
+    print(type(self.date_picker.date))

@@ -128,6 +128,17 @@ def group_by_type(ruleGroupList):
         grouped[item_type].append(item)
   return dict(grouped)
 
+def addTypeFilter(includeTypes, text):
+  #If all of them are true, just use nwr since thats all of them combined
+  if all(includeTypes.values()): #value for value in includeTypes.values()):
+    return "nwr"+text+";"
+  #Make a new line for each of the types
+  output = ""
+  for key,value in includeTypes.items():
+    if value:
+      output += key+text+";"
+  return output
+
 '''
 Main Function
 '''
@@ -153,5 +164,6 @@ def parse(structure, includeTypes, parentStructLists):
         continue
       print("Running "+str(key))
       result = handler(ruleList, includeTypes, parentStructLists)
+      result = addTypeFilter(includeTypes, result)
       output += result
   return output
