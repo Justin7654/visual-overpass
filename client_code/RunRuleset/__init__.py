@@ -101,9 +101,10 @@ class RunRuleset(RunRulesetTemplate):
           task.get_error()
         except Exception as err:
           msg = str(err)
-          Notification("A error occured: "+msg,title="error",style="warning",timeout=6).show()
+          Notification("A error occured: "+msg,title="error",style="warning",timeout=10).show()
+          print(err)
       elif state == "killed":
-        Notification("Quary task was unexpectedly killed",title="error",style="warning",timeout=4).show()
+        Notification("Quary task was killed",title="error",style="warning",timeout=4).show()
       elif state == "missing":
         Notification("Quary task went missing. This is most likely caused by an outage with our hosting provider",title="missing",timeout=4).show()
       self.onTaskFail()

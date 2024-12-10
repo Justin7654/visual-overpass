@@ -101,12 +101,12 @@ typeParsers = {
   "Has Tag": parseTypeModule.has_tag,
   "Intersects": parseTypeModule.intersects,
   "OR": parseTypeModule.OR,
-  "Newer Than": parseTypeModule.newer_than
+  "Last Modified": parseTypeModule.last_modified,
 }
 
 typePriority = {
   0: ["Match Tag", "Has Tag"], #First part
-  1: ["Newer Than", "Intersects"], #After, usually inside ()
+  1: ["Last Modified", "Intersects"], #After, usually inside ()
   2: ["OR"]
 }
 

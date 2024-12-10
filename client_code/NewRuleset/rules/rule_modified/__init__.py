@@ -1,4 +1,4 @@
-from ._anvil_designer import rule_modified_afterTemplate
+from ._anvil_designer import rule_modifiedTemplate
 from anvil import *
 import datetime
 
@@ -7,14 +7,14 @@ import datetime
 
 #nwr["name"="River Oaks Drive"](changed:"2000-01-01T00:00:00Z","2008-12-09T00:00:00Z");
 
-class rule_modified_after(rule_modified_afterTemplate):
+class rule_modified(rule_modifiedTemplate):
   def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
     self.tag = {
-      "type": "Modified After",
+      "type": "Last Modified",
       "not": False,
       "start_year": 0,
       "start_month": 0,
@@ -27,8 +27,12 @@ class rule_modified_after(rule_modified_afterTemplate):
     if lastTag:
       self.date_picker_start.date = datetime.date(lastTag["start_year"], lastTag["start_month"], lastTag["start_day"])
       self.date_picker_end.date = datetime.date(lastTag["end_year"], lastTag["end_month"], lastTag["end_day"])
-      self.date_picker_start_change()
-      self.date_picker_end_change()
+    else:
+      self.date_picker_start.date = datetime.date(2004, 9, 8)
+      self.date_picker_end.date = datetime.date.today()
+    
+    self.date_picker_start_change()
+    self.date_picker_end_change()
 
   def date_picker_start_change(self, **event_args):
     """This method is called when the selected date changes"""

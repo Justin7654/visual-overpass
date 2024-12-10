@@ -43,7 +43,7 @@ def has_tag(list, includeTypes, parentStructLists):
       quary += f'[{key}]'
   return quary#addTypeFilter(includeTypes, quary)
 
-def newer_than(ruleList, includeTypes, parentStructLists):
+def last_modified(ruleList, includeTypes, parentStructLists):
   print("Newer than:")
   quary = ""
   for rule in ruleList:

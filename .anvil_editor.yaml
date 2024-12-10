@@ -20,7 +20,7 @@ unique_ids:
     NewRuleset.rules.rule_has_tag: '173169465710782477072002.24696'
     NewRuleset.rules.rule_intersects: '1731694749044702109347070.5127'
     NewRuleset.rules.rule_match_tag: '1731696906248359484536305.9076'
-    NewRuleset.rules.rule_modified_after: '173222150212550111261283.18844'
+    NewRuleset.rules.rule_modified: '173222150212550111261283.18844'
     NewRuleset.rules.rule_or_group: '1731696980557114331689393.2882'
     RulesetResult: '1733099310143578842477863.1547'
     RulesetResult.exportMenu: '1733275644481776899764540.5144'
