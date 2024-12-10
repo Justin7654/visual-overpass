@@ -74,6 +74,7 @@ class NewRuleset(NewRulesetTemplate):
         foundRule = rule
         break
     else:
+      Notification("No rule found with the name '"+name+"'. Loading halted", title="Unexpected error while initializing", style="warning").show()
       exit("No rule found with the name '"+name+"'")
 
     #Make the and/or text

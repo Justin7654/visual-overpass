@@ -47,7 +47,8 @@ def newer_than(ruleList, includeTypes, parentStructLists):
   print("Newer than:")
   quary = ""
   for rule in ruleList:
-    quary += f'(newer:"{rule["year"]}-{rule["month"]:02d}-{rule["day"]:02d}T00:00:00Z")'
+    #quary += f'(newer:"{rule["year"]}-{rule["month"]:02d}-{rule["day"]:02d}T00:00:00Z")'
+    quary += f'(changed:"{rule["start_year"]}-{rule["start_month"]:02d}-{rule["start_day"]:02d}T00:00:00Z","{rule["end_year"]}-{rule["end_month"]:02d}-{rule["end_day"]:02d}T00:00:00Z")'
   print(quary)
   return quary
 

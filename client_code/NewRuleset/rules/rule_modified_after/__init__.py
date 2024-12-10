@@ -14,22 +14,32 @@ class rule_modified_after(rule_modified_afterTemplate):
 
     # Any code you write here will run before the form opens.
     self.tag = {
-      "type": "Newer Than",
+      "type": "Modified After",
       "not": False,
-      "year": 0,
-      "month": 0,
-      "day": 0
+      "start_year": 0,
+      "start_month": 0,
+      "start_day": 0,
+      "end_year": 0,
+      "end_month": 0,
+      "end_day": 0
     }
     
     if lastTag:
-      self.date_picker.date = datetime.date(lastTag["year"], lastTag["month"], lastTag["day"])
-      self.notSwitch.checked = lastTag["not"]
-      self.notSwitch_change()
+      self.date_picker_start.date = datetime.date(lastTag["start_year"], lastTag["start_month"], lastTag["start_day"])
+      self.date_picker_end.date = datetime.date(lastTag["end_year"], lastTag["end_month"], lastTag["end_day"])
+      self.date_picker_start_change()
+      self.date_picker_end_change()
 
   def date_picker_start_change(self, **event_args):
     """This method is called when the selected date changes"""
-    date = self.date_picker.date
-    self.tag["year"] = date.year
-    self.tag["month"] = date.month
-    self.tag["day"] = date.day
-    print(type(self.date_picker.date))
+    date = self.date_picker_start.date
+    self.tag["start_year"] = date.year
+    self.tag["start_month"] = date.month
+    self.tag["start_day"] = date.day
+
+  def date_picker_end_change(self, **event_args):
+    """This method is called when the selected date changes"""
+    date = self.date_picker_end.date
+    self.tag["end_year"] = date.year
+    self.tag["end_month"] = date.month
+    self.tag["end_day"] = date.day

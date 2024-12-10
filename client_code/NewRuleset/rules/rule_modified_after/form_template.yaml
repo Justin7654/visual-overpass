@@ -39,9 +39,9 @@ components_by_slot:
             name: text_1_copy
             properties: {text: End}
             type: form:dep_svn0zot51dwdba:_Components.Text
-          - event_bindings: {change: date_picker_start_change}
+          - event_bindings: {change: date_picker_end_change}
             layout_properties: {}
-            name: date_picker_start_copy
+            name: date_picker_end
             properties: {spacing_above: small}
             type: DatePicker
           layout_properties: {}
