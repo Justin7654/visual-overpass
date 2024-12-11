@@ -141,7 +141,7 @@ class NewRuleset(NewRulesetTemplate):
     topIncludes = data["topLayerIncludeTypes"]
     #Check if this still uses the old structure format
     if savedStructure is not None:
-      savedStructure = anvil.server.call("decompress_structure_dict", savedStructure)
+      savedStructure = anvil.server.call("decompress_dict", savedStructure)
     elif data["savedStructure_legacy"] is not None:
       savedStructure = data["savedStructure_legacy"]
     #Check the top includes

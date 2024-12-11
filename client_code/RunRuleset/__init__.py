@@ -32,7 +32,7 @@ class RunRuleset(RunRulesetTemplate):
     #Decompress structure if needed
     if str(type(self.structure)) == "<class 'anvil.LazyMedia'>":
       self.addProgress("Decompressing")
-      self.structure = anvil.server.call("decompress_structure_dict", self.structure)
+      self.structure = anvil.server.call("decompress_dict", self.structure)
       self.appenedLastProgress("... done")
     print("------------- PARSING STRUCTURE ----------------")
     self.addProgress("Parsing structure")

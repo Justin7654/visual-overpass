@@ -20,7 +20,7 @@ def saveRuleset(name, structure, topLayerIncludes):
   if name == "":
     name = "Unnamed Ruleset"
   name = getSafeRulesetName(name)
-  structure = compress_structure_dict(structure)
+  structure = compress_dict(structure)
   #Get new data
   user = anvil.users.get_user()
   date = datetime.now()
@@ -57,9 +57,9 @@ def cancelQuary(task):
 @anvil.server.background_task()
 def runQuaryTask(quaryText, outMode):
   import overpass
-
-  api = overpass.API(timeout=60, debug=True)
-  response = api.get('node["name"="Salt Lake City"]', verbosity=outMode)
+  
+  api = overpass.API(timeout=999, debug=True)
+  response = api.get(quaryText, verbosity=outMode, responseformat="json")
   print(response)
   print(type(response))
 
@@ -91,7 +91,7 @@ def generateKmlMediafromGeoJson(geojson, filename):
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
   return True
 
-def compress_structure_dict(data):
+def compress_dict(data):
   import pyzstd #Compresses
   byteData = encode_dict_to_byte(data)
   startTime = time.time()
@@ -101,7 +101,7 @@ def compress_structure_dict(data):
   return anvil.BlobMedia("application/zstd", compressed)
 
 @anvil.server.callable
-def decompress_structure_dict(data):
+def decompress_dict(data):
   import pyzstd
   original = pyzstd.decompress(data.get_bytes())
   return decode_byte_to_dict(original)
