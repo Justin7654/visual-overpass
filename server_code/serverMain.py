@@ -37,7 +37,7 @@ def saveRuleset(name, structure, topLayerIncludes):
 def updateRuleset(row, name, structure, topLayerIncludes):  
   #row = app_tables.user_rulesets.get_by_id(rowID)
   row["name"] = name
-  row["savedStructure"] = compress_structure_dict(structure)
+  row["savedStructure"] = compress_dict(structure)
   row["topLayerIncludeTypes"] = topLayerIncludes
   
 
@@ -60,21 +60,8 @@ def runQuaryTask(quaryText, outMode):
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
-  print(response)
-  print(type(response))
 
   return response
-  
-  '''
-  from OSMPythonTools.overpass import Overpass
-  import logging
-  logging.getLogger('OSMPythonTools').setLevel(logging.ERROR)
-  print("Running task")
-  overpass = Overpass()
-  result = overpass.query(quaryText, timeout=500) #the result is a number of objects, which can be accessed by result.elements()
-  jsonVersion = result.toJSON()
-  return jsonVersion
-  '''
 
 @anvil.server.callable
 def generateGeoJson(data):
