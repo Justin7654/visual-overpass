@@ -42,16 +42,15 @@ class RunRuleset(RunRulesetTemplate):
     totalTime = (time.time() - startTime)*1000
     self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
-    #Modify the parsed string to include the out and a recurse down if selected
+    #Modify the parsed string to include a recurse down if selected
     if options["recurse_down"]:
       parsed += '(._;>;);'
-    parsed += f'out {options["mode"]};'
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
     try:
       with anvil.server.no_loading_indicator:
-        self.task = anvil.server.call_s("runQuary", parsed)
+        self.task = anvil.server.call_s("runQuary", parsed, options["mode"])
     except anvil.server.RuntimeUnavailableError as err:
       self.progressDots.interval = 0
       self.appenedLastProgress("... "+str(err))

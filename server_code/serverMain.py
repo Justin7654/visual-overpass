@@ -46,8 +46,8 @@ def deleteRuleset(ruleset):
   ruleset.delete()
 
 @anvil.server.callable(require_user=True)
-def runQuary(quaryText):
-  task = anvil.server.launch_background_task("runQuaryTask", quaryText)
+def runQuary(quaryText, outMode):
+  task = anvil.server.launch_background_task("runQuaryTask", quaryText, outMode)
   return task
 
 @anvil.server.callable(require_user=True)
@@ -55,7 +55,17 @@ def cancelQuary(task):
   task.kill()
 
 @anvil.server.background_task()
-def runQuaryTask(quaryText):
+def runQuaryTask(quaryText, outMode):
+  import overpass
+
+  api = overpass.API(timeout=60, debug=True)
+  response = api.get('node["name"="Salt Lake City"]', verbosity=outMode)
+  print(response)
+  print(type(response))
+
+  return response
+  
+  '''
   from OSMPythonTools.overpass import Overpass
   import logging
   logging.getLogger('OSMPythonTools').setLevel(logging.ERROR)
@@ -64,6 +74,7 @@ def runQuaryTask(quaryText):
   result = overpass.query(quaryText, timeout=500) #the result is a number of objects, which can be accessed by result.elements()
   jsonVersion = result.toJSON()
   return jsonVersion
+  '''
 
 @anvil.server.callable
 def generateGeoJson(data):
