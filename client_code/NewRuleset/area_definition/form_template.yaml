@@ -9,7 +9,7 @@ components_by_slot:
           italic: false
           spacing:
             padding: [null, null, null, '0']
-          text: Intersects
+          text: Define Area
         type: Label
       layout_properties: {expand: false, width: null}
       name: flow_panel_left
@@ -21,19 +21,16 @@ components_by_slot:
         vertical_align: full
       type: FlowPanel
     - components:
-      - layout_properties: {}
-        name: label_4
-        properties: {align: right, text: Not}
-        type: Label
-      - event_bindings: {change: notSwitch_change}
-        name: notSwitch
-        properties: {}
-        type: form:dep_803t20b0qsk9h:Switch
+      - data_bindings: []
+        event_bindings: {change: key_change}
+        layout_properties: {}
+        name: area_id
+        properties: {placeholder: Area ID, tooltip: What you will need to use to reference this area in rules}
+        type: TextBox
       layout_properties: {expand: true}
       name: flow_panel_right
       properties:
         align: right
-        gap: none
         spacing:
           padding: [null, '20', null, '0']
         vertical_align: middle
@@ -47,15 +44,7 @@ components_by_slot:
       vertical_align: middle
     type: FlowPanel
   - layout_properties: {}
-    name: label_2
-    properties:
-      spacing:
-        margin: ['7', null, null, null]
-      spacing_above: small
-      text: Group 1
-    type: Label
-  - layout_properties: {}
-    name: rule_group_1
+    name: rule_group
     properties: {allow_nodes: false, allow_relations: false, allow_ways: false}
     type: form:NewRuleset.rule_group
 is_package: true

@@ -18,11 +18,11 @@ class rule_group(rule_groupTemplate):
     self.rule_group.tag = {
       "rule_group": True,
       "include": {
-        "node":True,
-        "way":True,
-        "relation":True,
+        "node":self.allow_nodes,
+        "way":self.allow_ways,
+        "relation":self.allow_relations,
       }
-    }
+    }      
 
   def includeNodes_change(self, **event_args):
     self.rule_group.tag["include"]["node"] = event_args["sender"].checked
