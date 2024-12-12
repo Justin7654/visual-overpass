@@ -7,6 +7,7 @@ from anvil_extras.non_blocking import call_async
 from anvil_extras import augment
 from . import hoverTracking
 from .. import ruleParser
+from .area_definition import area_definition
 
 #UI
 from .new_rule_button import new_rule_button
@@ -34,6 +35,7 @@ class NewRuleset(NewRulesetTemplate):
     self.dirty = False
     
     self.initRuleGroups(self)
+    self.initRuleGroups(self.area_definition_1.layout.slots['content'])
     
     self.saveRow = None
     if properties["preset"]:
@@ -198,9 +200,7 @@ class NewRuleset(NewRulesetTemplate):
 
   def save_click(self, **event_args):
     """This method is called when the button is clicked"""
-    success = self.saveSet()
-    #if success or success is None:
-      #self.runSet()
+    self.saveSet()
 
   def return_click(self, **event_args):
     if self.dirty:

@@ -20,6 +20,9 @@ def is_rule_group(component):
 def is_rule(component):
   return tag_has_key(component.tag, "type")
 
+def is_area_def(component):
+  return tag_has_key(component.tag, "area_definition")
+
 def get_structure(form):
   def customException(text, focusTo):
     anvil.alert(text)
@@ -35,7 +38,8 @@ def get_structure(form):
       return scan(component)
     except AttributeError:
       return
-  
+
+  preStructure = []
   def scan(form):
     is_group = is_rule_group(form)
     structure = []
@@ -71,6 +75,15 @@ def get_structure(form):
 
         #Final
         structure.append(structureItem)
+      elif is_group and is_area_def(child):
+        print("Found area def")
+        tag = child.tag
+        structureItem = dict(tag)
+        structureItem["group1"] = scan(tag["group1"])
+        if len(structureItem["group1"]) == 0:
+          #Group was left empty
+          raise customException("Area group left blank", tag["group1"])
+        preStructure.append(structureItem)
       else:
         try_expand_search(child)
 
@@ -79,7 +92,7 @@ def get_structure(form):
   if is_rule_group(form):
     try:
       result = scan(form)
-      return result
+      return preStructure + result
     except NameError as e:
       print(e)
       return []
