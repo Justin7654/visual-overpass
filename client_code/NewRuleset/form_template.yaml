@@ -26,10 +26,7 @@ components:
         margin: ['0', null, '0', null]
       vertical_align: middle
     type: FlowPanel
-  - components:
-    - name: area_definition_1
-      properties: {}
-      type: form:NewRuleset.area_definition
+  - components: []
     layout_properties: {grid_position: 'SAFOKN,UBTEWW', row_background: ''}
     name: rule_group
     properties: {}

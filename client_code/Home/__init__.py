@@ -13,12 +13,6 @@ class Home(HomeTemplate):
     anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
 
-  def loadHistory(self):
-    pass  
-
-  def addNewHistoryItem(self):
-    pass
-
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data
   
