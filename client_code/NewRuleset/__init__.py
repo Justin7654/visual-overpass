@@ -96,7 +96,7 @@ class NewRuleset(NewRulesetTemplate):
 
     def onDelete(**event_args):
       copy.remove_from_parent()
-      if operation_text:
+      if operationText:
         operationText.remove_from_parent()
 
     copy.layout.tag.onDeleteCallback = onDelete
