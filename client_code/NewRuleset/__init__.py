@@ -66,6 +66,12 @@ class NewRuleset(NewRulesetTemplate):
     newRuleButton = new_rule_button()
     newRuleButton.raise_event("x-hookClick", func=self.new_rule_click)
     form.add_component(newRuleButton)
+
+  def rebuild_operation_text(self, form):
+    #Delete all the current text
+    children = form.get_components()
+    for child in children:
+      if isinstance(child.tag, dict) and child.tag["is"]
   
   def add_new_rule(self, name, form, preset=False):
     # Adds a new rule form in the specified location. Name is the user-friendly name of the target rule.
@@ -78,7 +84,7 @@ class NewRuleset(NewRulesetTemplate):
       Notification("No rule found with the name '"+name+"'. Loading halted", title="Unexpected error while initializing", style="warning").show()
       exit("No rule found with the name '"+name+"'")
 
-    #Make the and/or text
+    #Make the AND text
     currentSize = len(form.get_components()) #Use custom index to keep the plus at the bottom
     operationText = False
     if currentSize > 1:
@@ -95,11 +101,14 @@ class NewRuleset(NewRulesetTemplate):
 
     def onDelete(**event_args):
       copy.remove_from_parent()
+      self.rebuild_operation_text(form)
+      '''
       if operationText:
         operationText.remove_from_parent()
       elif len(form.get_components()) > 0:
         top = form.get_components()[0]
         top.remove_from_parent()
+      '''
       
 
     copy.layout.tag.onDeleteCallback = onDelete

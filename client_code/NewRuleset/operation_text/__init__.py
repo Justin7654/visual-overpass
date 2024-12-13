@@ -9,3 +9,6 @@ class operation_text(operation_textTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.tag = {
+      "is_operation_text": True
+    }
