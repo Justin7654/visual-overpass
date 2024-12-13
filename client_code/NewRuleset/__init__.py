@@ -35,7 +35,7 @@ class NewRuleset(NewRulesetTemplate):
     self.dirty = False
     
     self.initRuleGroups(self)
-    self.initRuleGroups(self.area_definition_1.layout.slots['content'])
+    #self.initRuleGroups(self.area_definition_1.layout.slots['content'])
     
     self.saveRow = None
     if properties["preset"]:

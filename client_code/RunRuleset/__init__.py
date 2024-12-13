@@ -70,8 +70,9 @@ class RunRuleset(RunRulesetTemplate):
     open_form("RulesetResult", json=self.result, geojson=self.geojson)
 
   def onTaskFail(self):
-    self.appenedLastProgress("... error")
+    self.appenedLastProgress("... "+self.errMessage)
     self.loading.visible = False
+    self.progressDots.interval = 0
     #self.addProgress("Attempting alternate method") #Use users browser to send request
   
   def addProgress(self, text):
@@ -101,6 +102,7 @@ class RunRuleset(RunRulesetTemplate):
         except Exception as err:
           msg = str(err)
           Notification("A error occured: "+msg,title="error",style="warning",timeout=10).show()
+          self.errMessage = msg
           print(err)
       elif state == "killed":
         Notification("Quary task was killed",title="error",style="warning",timeout=4).show()
