@@ -33,7 +33,6 @@ class NewRuleset(NewRulesetTemplate):
       }
     }
     self.dirty = False
-    
     self.initRuleGroups(self)
     #self.initRuleGroups(self.area_definition_1.layout.slots['content'])
     
@@ -98,6 +97,10 @@ class NewRuleset(NewRulesetTemplate):
       copy.remove_from_parent()
       if operationText:
         operationText.remove_from_parent()
+      elif len(form.get_components()) > 0:
+        top = form.get_components()[0]
+        top.remove_from_parent()
+      
 
     copy.layout.tag.onDeleteCallback = onDelete
     
