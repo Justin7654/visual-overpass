@@ -71,7 +71,15 @@ class NewRuleset(NewRulesetTemplate):
     #Delete all the current text
     children = form.get_components()
     for child in children:
-      if isinstance(child.tag, dict) and child.tag["is"]
+      if isinstance(child.tag, dict) and child.tag.get("is_operation_text", False):
+        child.remove_from_parent()
+    #Add them all back where its needed
+    children = form.get_components()[1:-1]
+    print(len(form.get_components()))
+    print(len(children))
+    for child in children:
+      pass
+      
   
   def add_new_rule(self, name, form, preset=False):
     # Adds a new rule form in the specified location. Name is the user-friendly name of the target rule.
