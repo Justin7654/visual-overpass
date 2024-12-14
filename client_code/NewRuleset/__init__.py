@@ -74,11 +74,10 @@ class NewRuleset(NewRulesetTemplate):
       if isinstance(child.tag, dict) and child.tag.get("is_operation_text", False):
         child.remove_from_parent()
     #Add them all back where its needed
-    children = form.get_components()[1:-1]
-    print(len(form.get_components()))
-    print(len(children))
-    for child in children:
-      pass
+    size = len(form.get_components())
+    for i in range(1, size-1):
+      operationText = operation_text()
+      form.add_component(operationText, index=i+(i-1))
       
   
   def add_new_rule(self, name, form, preset=False):
@@ -113,9 +112,6 @@ class NewRuleset(NewRulesetTemplate):
       '''
       if operationText:
         operationText.remove_from_parent()
-      elif len(form.get_components()) > 0:
-        top = form.get_components()[0]
-        top.remove_from_parent()
       '''
       
 
