@@ -8,7 +8,6 @@ def setEnabled(bool):
   enabled = bool
 
 def getState():
-  global enabled
   return enabled
 
 def onHoverEnter(item):
@@ -19,7 +18,6 @@ def onHoverEnter(item):
     default_color = item.outlined_card_1.background
   
   update_colors()
-  print("Start hover:")
 
 def onHoverEnd(item):
   global default_color
@@ -27,7 +25,6 @@ def onHoverEnd(item):
     item.outlined_card_1.background = default_color
     hovering.remove(item)
     update_colors()
-    print("Exit hover:")
   except ValueError:
     print("(onHoverEnd) WARNING: item is not in list: ",item)
   
@@ -45,6 +42,8 @@ def update_colors():
       i.outlined_card_1.background = "red"
     else:
       i.outlined_card_1.background = default_color
+    if len(hovering) > 1 and i == hovering[-2]:
+      i.outlined_card_1.background = "cyan"
 
 def get_primary():
   if len(hovering) == 0:
