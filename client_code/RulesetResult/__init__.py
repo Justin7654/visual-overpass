@@ -12,6 +12,7 @@ class RulesetResult(RulesetResultTemplate):
     # Any code you write here will run before the form opens.
     self.json = json
     self.geojson = geojson
+    self.kml = None
     self.export_menu.visible = False
     self.export_menu.raise_event("x-hook", otherSelf=self)
     self.set_event_handler("x-export-geojson", self.export_geojson)
@@ -39,8 +40,9 @@ class RulesetResult(RulesetResultTemplate):
   def export_kml(self, **args):
     if self.geojson is None:
       return Notification("KML exporting not supported with current output", style="warning").show()
-    file = anvil.server.call("generateKmlMediafromGeoJson", self.geojson, "exported.kml")
-    anvil.download(file)
+    if self.kml is None:
+      self.kml = anvil.server.call("generateKmlMediafromGeoJson", self.geojson, "exported.kml")
+    anvil.download(self.kml)
   
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
