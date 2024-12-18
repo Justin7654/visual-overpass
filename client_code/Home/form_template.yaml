@@ -4,14 +4,19 @@ components:
     name: label_2
     properties: {align: center, bold: false, font_size: 18, text: Start New Query}
     type: Label
-  - layout_properties: {grid_position: 'HIEQOW,JBPGJL'}
-    name: rule_and_option_checkbox
-    properties: {align: center, enabled: false, text: All selected rules must be true, tooltip: 'If selected it acts like: rule1 AND rule2.  If not selected it acts like: rule1 OR rule2'}
-    type: CheckBox
   - components:
     - name: ruleset_repeating_panel
       properties: {item_template: Home.RowRulesetTemplate}
       type: RepeatingPanel
+    - layout_properties: {}
+      name: no_saved
+      properties:
+        align: center
+        spacing:
+          margin: ['15', null, null, null]
+        text: No saves found
+        visible: false
+      type: form:dep_svn0zot51dwdba:_Components.Text
     - name: spacer_1
       properties: {height: 32}
       type: Spacer

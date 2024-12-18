@@ -15,6 +15,10 @@ class Home(HomeTemplate):
 
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data
+    if len(data) == 0:
+      self.no_saved.visible = True
+    else:
+      self.no_saved.visible = False
   
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""
@@ -29,7 +33,7 @@ class Home(HomeTemplate):
         Notification("Must be logged in to show this information", title="ERR: 401 Unauthorized", style="warning").show()
         anvil.users.login_with_form(allow_cancel=False)
         return self.ruleset_datagrid_show()
-      except anvil.server.RuntimeUnavailableError as err:
+      except (anvil.server.RuntimeUnavailableError, anvil.server.AppOfflineError) as err:
         self.serverFails += 1
         if self.serverFails <= 2:
           print("Retrying... attempt ",self.serverFails)

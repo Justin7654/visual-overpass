@@ -42,8 +42,8 @@ def update_colors():
       i.outlined_card_1.background = "red"
     else:
       i.outlined_card_1.background = default_color
-    if len(hovering) > 1 and i == hovering[-2]:
-      i.outlined_card_1.background = "cyan"
+    #if len(hovering) > 1 and i == hovering[-2]:
+      #i.outlined_card_1.background = "cyan"
 
 def get_primary():
   if len(hovering) == 0:
