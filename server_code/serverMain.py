@@ -60,9 +60,9 @@ def runQuaryTask(quaryText, outMode):
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
-  #file = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
+  file = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   
-  return response
+  return file
 
 @anvil.server.callable
 def generateGeoJson(data):

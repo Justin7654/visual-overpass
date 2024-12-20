@@ -67,7 +67,7 @@ class RunRuleset(RunRulesetTemplate):
     self.appenedLastProgress("... done")
     self.addProgress("Processing results")
     self.result = self.task.get_return_value()
-    #self.result = json.loads(self.result.get_bytes().decode('utf-8'))
+    self.result = json.loads(self.result.get_bytes().decode('utf-8'))
     self.geojson = anvil.server.call_s('generateGeoJson', self.result)
     open_form("RulesetResult", json=self.result, geojson=self.geojson)
 
