@@ -60,7 +60,7 @@ def runQuaryTask(quaryText, outMode):
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
-  print(type(response))
+  #file = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   
   return response
 

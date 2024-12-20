@@ -3,6 +3,7 @@ from .OutModeSelector import OutModeSelector
 from anvil import *
 import anvil.server
 import time
+import json
 from .. import ruleParser
 
 
@@ -66,6 +67,7 @@ class RunRuleset(RunRulesetTemplate):
     self.appenedLastProgress("... done")
     self.addProgress("Processing results")
     self.result = self.task.get_return_value()
+    #self.result = json.loads(self.result.get_bytes().decode('utf-8'))
     self.geojson = anvil.server.call_s('generateGeoJson', self.result)
     open_form("RulesetResult", json=self.result, geojson=self.geojson)
 
@@ -94,7 +96,7 @@ class RunRuleset(RunRulesetTemplate):
       state = task.get_termination_status()
       print("Finish state:",state)
       if state == "completed":
-        self.taskReturn = task.get_return_value()
+        #self.taskReturn = task.get_return_value()
         return self.onTaskSuccess()
       elif state == "failed":
         try:
