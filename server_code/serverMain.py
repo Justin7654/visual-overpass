@@ -60,7 +60,8 @@ def runQuaryTask(quaryText, outMode):
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
-
+  print(type(response))
+  
   return response
 
 @anvil.server.callable
