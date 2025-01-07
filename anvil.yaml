@@ -1,5 +1,17 @@
 allow_embedding: false
 db_schema:
+  data_output:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: data
+      type: media
+    - admin_ui: {order: 1, width: 200}
+      name: user
+      target: users
+      type: link_single
+    server: full
+    title: data_output
   user_history:
     client: none
     columns: []

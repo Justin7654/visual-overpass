@@ -65,10 +65,15 @@ class RunRuleset(RunRulesetTemplate):
   
   def onTaskSuccess(self):
     self.appenedLastProgress("... done")
-    self.addProgress("Processing results")
+    self.addProgress("Receiving data")
     self.result = self.task.get_return_value()
-    #self.result = json.loads(self.result.get_bytes().decode('utf-8'))
+    self.result = json.loads(self.result.get_bytes().decode('utf-8'))
+    self.appenedLastProgress("... done")
+    self.addProgress("Processing results")
     self.geojson = anvil.server.call_s('generateGeoJson', self.result)
+    if not self.geojson:
+      #Handle a potential error
+      return self.start_error(errorText="Error occurred while converting to geojson")
     open_form("RulesetResult", json=self.result, geojson=self.geojson)
 
   def onTaskFail(self):
@@ -134,3 +139,8 @@ class RunRuleset(RunRulesetTemplate):
       self.recheckTask.interval = 0
       self.progressDots.interval = 0
       open_form("Home")
+
+  def start_error(self, errorText="error"):
+    self.appenedLastProgress("... "+errorText)
+    self.progressDots.interval = 0
+    self.abort.text = "Exit"

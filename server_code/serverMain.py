@@ -60,14 +60,25 @@ def runQuaryTask(quaryText, outMode):
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
-  #file = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
-  
-  return response
+  contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
+  newRow = app_tables.data_output.add_row(data=contentFile, user=anvil.users.get_user())
+
+  return newRow.get_id()#response
+
+@anvil.server.callable
+def getDataOutput(row_id):
+  row = app_tables.data_output.get_by_id(row_id)
+  if row and row['user'] == anvil.users.get_user():
+    #row.delete()
+    return row
 
 @anvil.server.callable
 def generateGeoJson(data):
   import osm2geojson
-  return osm2geojson.json2geojson(data, log_level="ERROR")
+  try:
+    return osm2geojson.json2geojson(data, log_level="ERROR")
+  except KeyError: #KeyError: 'lon' at /home/anvil/.env/lib/python3.10/site-packages/osm2geojson/main.py, line 186
+    return False
 
 @anvil.server.callable
 def generateKmlMediafromGeoJson(geojson, filename):
