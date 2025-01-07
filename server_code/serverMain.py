@@ -47,7 +47,8 @@ def deleteRuleset(ruleset):
 
 @anvil.server.callable(require_user=True)
 def runQuary(quaryText, outMode):
-  task = anvil.server.launch_background_task("runQuaryTask", quaryText, outMode)
+  user = anvil.users.get_user()
+  task = anvil.server.launch_background_task("runQuaryTask", quaryText, outMode, user)
   return task
 
 @anvil.server.callable(require_user=True)
@@ -55,13 +56,13 @@ def cancelQuary(task):
   task.kill()
 
 @anvil.server.background_task()
-def runQuaryTask(quaryText, outMode):
+def runQuaryTask(quaryText, outMode, user):
   import overpass
   
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json")
   contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
-  newRow = app_tables.data_output.add_row(data=contentFile, user=anvil.users.get_user())
+  newRow = app_tables.data_output.add_row(data=contentFile, user=user)
 
   return newRow.get_id()#response
 
@@ -69,8 +70,7 @@ def runQuaryTask(quaryText, outMode):
 def getDataOutput(row_id):
   row = app_tables.data_output.get_by_id(row_id)
   if row and row['user'] == anvil.users.get_user():
-    #row.delete()
-    return row
+    return row['data']
 
 @anvil.server.callable
 def generateGeoJson(data):

@@ -66,7 +66,8 @@ class RunRuleset(RunRulesetTemplate):
   def onTaskSuccess(self):
     self.appenedLastProgress("... done")
     self.addProgress("Receiving data")
-    self.result = self.task.get_return_value()
+    resultLocation = self.task.get_return_value()
+    self.result = anvil.server.call_s("getDataOutput", resultLocation)
     self.result = json.loads(self.result.get_bytes().decode('utf-8'))
     self.appenedLastProgress("... done")
     self.addProgress("Processing results")
