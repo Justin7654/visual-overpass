@@ -5,14 +5,15 @@ import anvil.users
 import anvil.js
 
 class RulesetResult(RulesetResultTemplate):
-  def __init__(self, json=None, geojson=None, **properties):
+  def __init__(self, json=None, geojson=None, jsonMedia=None, geojsonMedia=None,**properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    print("Initializing RulesetResult")
     # Any code you write here will run before the form opens.
     self.json = json
+    self.jsonMedia = jsonMedia
     self.geojson = geojson
+    self.geojsonMedia = geojsonMedia
     self.kml = None
     self.export_menu.visible = False
     self.export_menu.raise_event("x-hook", otherSelf=self)
@@ -25,7 +26,7 @@ class RulesetResult(RulesetResultTemplate):
     if self.geojson is None:
       return Notification("GeoJSON exporting not supported with current output", style="warning").show()
     
-    file = BlobMedia("application/geo+json", json.dumps(self.geojson).encode(), name="exported.geojson")
+    file = BlobMedia("application/geo+json", self.geojsonMedia, name="exported.geojson")
     anvil.download(file)
 
 
@@ -34,7 +35,6 @@ class RulesetResult(RulesetResultTemplate):
     if self.json is None:
       return Notification("JSON exporting not supported with current information", style="warning").show()
 
-    print(self.json)
     file = BlobMedia("application/json", json.dumps(self.json).encode(), name="exported.json")
     anvil.download(file)
 
@@ -47,9 +47,12 @@ class RulesetResult(RulesetResultTemplate):
   
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    self.load_map(self.map_placeholder)
-    
-
+    MAX_SIZE = 1_000_000 #1mb
+    if not self.geojson or len(self.geojsonMedia.get_bytes()) < MAX_SIZE:
+      self.load_map(self.map_placeholder)
+    elif self.geojson:
+      size = str(len(self.geojsonMedia.get_bytes())/1_000_000)
+      alert(content="Result is too big to automatically render on the map for performance reasons. ("+size+"mb)", title="Too Big")
   def load_map(self, renderAt):
     renderAt = anvil.js.get_dom_node(renderAt)
     leaf = anvil.js.window.leaflet
@@ -64,7 +67,7 @@ class RulesetResult(RulesetResultTemplate):
       try:
         map.fitBounds(self.geoLayer.getBounds())
       except:
-        
+        pass
         '''Uncaught TypeError: Cannot read properties of undefined (reading '_leaflet_pos')
     at getPosition (leaflet:2563:14)
     at NewClass._getMapPanePos (leaflet:4601:12)
