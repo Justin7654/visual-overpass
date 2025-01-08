@@ -10,7 +10,12 @@ class Home(HomeTemplate):
       
     # Any code you write here will run before the form opens.
     self.serverFails = 0
-    anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
+    if anvil.users.get_user() is None:
+      alert("This is used to keep track of your saved sets, and to track who to send the output data to when running a ruleset. The login "+
+            "process is handled securely by Anvil",title="Login Required", large=True)
+      anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
+      
+      #anvil.users.logout()
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
 
   def loadRulesets(self, data):
