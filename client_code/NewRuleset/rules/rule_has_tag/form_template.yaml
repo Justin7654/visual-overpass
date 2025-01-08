@@ -29,8 +29,9 @@ components_by_slot:
         - data_bindings:
           - {code: 'self.item['''']', property: enabled, writeback: false}
           event_bindings: {change: notSwitch_change}
+          layout_properties: {}
           name: notSwitch
-          properties: {}
+          properties: {enabled: true}
           type: form:dep_803t20b0qsk9h:Switch
         layout_properties: {}
         name: flow_panel_1_copy
