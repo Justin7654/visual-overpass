@@ -10,9 +10,6 @@ db_schema:
       name: user
       target: users
       type: link_single
-    - admin_ui: {order: 2, width: 200}
-      name: expireTime
-      type: datetime
     server: full
     title: data_output
   user_history:
