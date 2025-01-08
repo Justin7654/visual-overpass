@@ -52,7 +52,10 @@ class RulesetResult(RulesetResultTemplate):
       self.load_map(self.map_placeholder)
     elif self.geojson:
       size = str(len(self.geojsonMedia.get_bytes())/1_000_000)
-      alert(content="Result is too big to automatically render on the map for performance reasons. ("+size+"mb)", title="Too Big")
+      buttons = [("Render Anyways",True), ("Continue",False)]
+      confirmed = confirm(content="Result is too big to automatically render on the map for performance reasons. ("+size+"mb)", buttons=buttons,large=True)
+      if confirmed and confirm("Are you sure? If theres enough data, this may freeze the tab.",dismissible=False):
+        self.load_map(self.map_placeholder)
   def load_map(self, renderAt):
     renderAt = anvil.js.get_dom_node(renderAt)
     leaf = anvil.js.window.leaflet
