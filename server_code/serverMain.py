@@ -89,7 +89,6 @@ def generateGeoJson(data):
 def generateKmlMediafromGeoJson(geojson, filename):
   from geo2kml import to_kml
   geojson = decode_byte_to_dict(geojson.get_bytes())
-  print("Data type:",type(geojson))
   data = to_kml(geojson)
   return anvil.BlobMedia("application/vnd.google-earth.kml+xml", data.encode(), name=filename)
 
