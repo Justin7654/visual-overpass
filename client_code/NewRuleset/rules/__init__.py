@@ -18,7 +18,7 @@ def get_all_rule_data():
   
   return [
     genRuleData(rule_match_tag, "Match Tag"),
-    #genRuleData(rule_has_tag, "Has Tag"),
+    genRuleData(rule_has_tag, "Has Tag"),
     #genRuleData(rule_intersects, "Intersects"),
     genRuleData(rule_or_group, "OR"),
     genRuleData(rule_modified, "Modified Between")

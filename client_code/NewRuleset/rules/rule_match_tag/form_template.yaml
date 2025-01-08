@@ -40,22 +40,20 @@ components_by_slot:
           spacing_above: none
           spacing_below: none
         type: RichText
-      - data_bindings: []
-        event_bindings: {change: key_change}
+      - event_bindings: {change: key_change, lost_focus: key_lost_focus, pressed_enter: key_change, suggestion_clicked: key_change}
         layout_properties: {}
         name: key
         properties: {placeholder: key}
-        type: TextBox
+        type: form:dep_803t20b0qsk9h:Autocomplete
       - layout_properties: {}
         name: label_2
         properties: {align: center, font_size: 20, text: =}
         type: Label
-      - data_bindings: []
-        event_bindings: {change: value_change}
+      - event_bindings: {change: value_change, pressed_enter: value_change, suggestion_clicked: value_change}
         layout_properties: {}
         name: value
-        properties: {placeholder: value}
-        type: TextBox
+        properties: {placeholder: value, suggest_if_empty: true}
+        type: form:dep_803t20b0qsk9h:Autocomplete
       layout_properties: {expand: true}
       name: flow_panel_right
       properties:

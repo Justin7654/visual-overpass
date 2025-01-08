@@ -1,6 +1,7 @@
 from ._anvil_designer import rule_has_tagTemplate
 from anvil import *
 import anvil.server
+from .... import tagsManager
 
 
 class rule_has_tag(rule_has_tagTemplate):
@@ -9,6 +10,7 @@ class rule_has_tag(rule_has_tagTemplate):
     self.init_components(**properties)
     
     # Any code you write here will run before the form opens.
+    self.key.suggestions = tagsManager.getKeyList()
     self.tag = {
       "type": "Has Tag",
       "key": "",
@@ -28,4 +30,3 @@ class rule_has_tag(rule_has_tagTemplate):
   def notSwitch_change(self, **event_args):
     """This method is called when this checkbox is checked or unchecked"""
     self.tag["not"] = self.notSwitch.checked
- 
