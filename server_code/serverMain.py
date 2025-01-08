@@ -70,7 +70,9 @@ def runQuaryTask(quaryText, outMode, user):
 def getDataOutput(row_id):
   row = app_tables.data_output.get_by_id(row_id)
   if row and row['user'] == anvil.users.get_user():
-    return row['data']
+    newFile = anvil.BlobMedia("application/json", row['data'].get_bytes())
+    #row.delete()
+    return newFile
 
 @anvil.server.callable
 def generateGeoJson(data):
