@@ -8,7 +8,8 @@ class RulesetResult(RulesetResultTemplate):
   def __init__(self, json=None, geojson=None, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-   
+
+    print("Initializing RulesetResult")
     # Any code you write here will run before the form opens.
     self.json = json
     self.geojson = geojson
