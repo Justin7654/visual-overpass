@@ -112,7 +112,7 @@ def decompress_dict(data):
 
 def encode_dict_to_byte(dict):
   import json
-  print("Ecoding: ",dict)
+  #print("Ecoding: ",dict)
   return json.dumps(dict).encode('utf-8')
 
 def decode_byte_to_dict(byte):
