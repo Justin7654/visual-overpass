@@ -75,6 +75,7 @@ def getDataOutput(row_id):
 @anvil.server.callable
 def generateGeoJson(data):
   import osm2geojson
+  data = decode_byte_to_dict(data.get_bytes())
   try:
     return osm2geojson.json2geojson(data, log_level="ERROR")
   except KeyError: #KeyError: 'lon' at /home/anvil/.env/lib/python3.10/site-packages/osm2geojson/main.py, line 186
