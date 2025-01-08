@@ -1,12 +1,15 @@
 from ._anvil_designer import rule_match_tagTemplate
 from anvil import *
 import anvil.server
+from .... import tagsManager
 
 
 class rule_match_tag(rule_match_tagTemplate):
   def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    
+    self.key.suggestions = tagsManager.getKeyList()
     self.tag = {
       "type": "Match Tag",
       "key": "",
@@ -35,3 +38,9 @@ class rule_match_tag(rule_match_tagTemplate):
   def notSwitch_change(self, **event_args):
     """This method is called when this checkbox is checked or unchecked"""
     self.tag["not"] = self.notSwitch.checked
+
+  def key_lost_focus(self, **event_args):
+    #Trim the text
+    self.key.text = self.key.text.strip()
+    #Apply suggestions to the value box
+    self.value.suggestions = tagsManager.getValueList(self.key.text)

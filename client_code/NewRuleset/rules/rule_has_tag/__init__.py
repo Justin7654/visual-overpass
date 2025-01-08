@@ -11,7 +11,6 @@ class rule_has_tag(rule_has_tagTemplate):
     
     # Any code you write here will run before the form opens.
     self.key.suggestions = tagsManager.getKeyList()
-    print(self.key.suggestions)
     self.tag = {
       "type": "Has Tag",
       "key": "",
@@ -31,10 +30,3 @@ class rule_has_tag(rule_has_tagTemplate):
   def notSwitch_change(self, **event_args):
     """This method is called when this checkbox is checked or unchecked"""
     self.tag["not"] = self.notSwitch.checked
-
-  def key_lost_focus(self, **event_args):
-    print("Lost focus")
-
-  def key_focus(self, **event_args):
-    print("Focus")
- 

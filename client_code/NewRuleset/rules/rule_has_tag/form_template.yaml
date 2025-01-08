@@ -37,7 +37,7 @@ components_by_slot:
         name: flow_panel_1_copy
         properties: {gap: none, vertical_align: middle}
         type: FlowPanel
-      - event_bindings: {change: key_change, focus: key_focus, lost_focus: key_lost_focus}
+      - event_bindings: {change: key_change, pressed_enter: key_change, suggestion_clicked: key_change}
         layout_properties: {}
         name: key
         properties:
