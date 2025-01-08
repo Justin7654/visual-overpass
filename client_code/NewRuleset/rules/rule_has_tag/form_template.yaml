@@ -37,12 +37,14 @@ components_by_slot:
         name: flow_panel_1_copy
         properties: {gap: none, vertical_align: middle}
         type: FlowPanel
-      - data_bindings: []
-        event_bindings: {change: key_change}
+      - event_bindings: {change: key_change, focus: key_focus, lost_focus: key_lost_focus}
         layout_properties: {}
         name: key
-        properties: {placeholder: key}
-        type: TextBox
+        properties:
+          placeholder: key
+          suggest_if_empty: false
+          suggestions: []
+        type: form:dep_803t20b0qsk9h:Autocomplete
       layout_properties: {expand: true}
       name: flow_panel_right
       properties:

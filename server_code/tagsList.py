@@ -14,7 +14,7 @@ def getValueListForKey(key):
   import taginfo
   MIN_COUNT = 1000
   MAX_AMOUNT = 50
-
+  
   page1 = taginfo.query.get_page_of_key_values(key, 1)
   values = [item['value'] for item in page1[:MAX_AMOUNT] if 'value' in item and item['count'] > MIN_COUNT]  
   return values
