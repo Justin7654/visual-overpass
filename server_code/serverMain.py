@@ -77,9 +77,11 @@ def generateGeoJson(data):
   import osm2geojson
   print("Decoding data")
   data = decode_byte_to_dict(data.get_bytes())
-  print("Converting")
+  print("Converting to GeoJSON")
   try:
-    return osm2geojson.json2geojson(data, log_level="ERROR")
+    result = osm2geojson.json2geojson(data, log_level="ERROR")
+    print("Packaging to BlobMedia")
+    return anvil.BlobMedia("application/geo+json", encode_dict_to_byte(result))
   except KeyError: #KeyError: 'lon' at /home/anvil/.env/lib/python3.10/site-packages/osm2geojson/main.py, line 186
     return False
 

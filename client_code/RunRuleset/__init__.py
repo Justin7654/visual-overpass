@@ -68,10 +68,13 @@ class RunRuleset(RunRulesetTemplate):
     self.addProgress("Receiving data")
     resultLocation = self.task.get_return_value()
     self.resultFile = anvil.server.call_s("getDataOutput", resultLocation)
-    self.result = json.loads(self.resultFile.get_bytes().decode('utf-8'))
+    self.result = self.parse_file(self.resultFile)
     self.appenedLastProgress("... done")
     self.addProgress("Processing results")
-    self.geojson = anvil.server.call_s('generateGeoJson', self.resultFile)
+    self.geojsonFile = anvil.server.call_s('generateGeoJson', self.resultFile)
+    print("Received geojson")
+    self.geojson = self.parse_file(self.geojsonFile)
+    print("Parsed successfully")
     if not self.geojson:
       #Handle a potential error
       return self.start_error(errorText="Error occurred while converting to geojson")
@@ -142,6 +145,10 @@ class RunRuleset(RunRulesetTemplate):
       open_form("Home")
 
   def start_error(self, errorText="error"):
+    print("Error:",errorText)
     self.appenedLastProgress("... "+errorText)
     self.progressDots.interval = 0
     self.abort.text = "Exit"
+
+  def parse_file(self, file):
+    return json.loads(file.get_bytes().decode('utf-8'))
