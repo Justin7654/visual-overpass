@@ -26,7 +26,7 @@ class RulesetResult(RulesetResultTemplate):
     if self.geojson is None:
       return Notification("GeoJSON exporting not supported with current output", style="warning").show()
     
-    file = BlobMedia("application/geo+json", self.geojsonMedia, name="exported.geojson")
+    file = BlobMedia("application/geo+json", self.geojsonMedia.get_bytes(), name="exported.geojson")
     anvil.download(file)
 
 
@@ -42,7 +42,7 @@ class RulesetResult(RulesetResultTemplate):
     if self.geojson is None:
       return Notification("KML exporting not supported with current output", style="warning").show()
     if self.kml is None:
-      self.kml = anvil.server.call("generateKmlMediafromGeoJson", self.geojson, "exported.kml")
+      self.kml = anvil.server.call("generateKmlMediafromGeoJson", self.geojsonMedia, "exported.kml")
     anvil.download(self.kml)
   
   def form_show(self, **event_args):
