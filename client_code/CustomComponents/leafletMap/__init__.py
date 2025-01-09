@@ -8,14 +8,21 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+next_id = 1
 
 class leafletMap(leafletMapTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
+    global next_id
+    self.id = next_id
+    next_id += 1
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    map_id = f"leafmap-{self.id}"
     self.mapDiv = self.dom_nodes["leaflet-div"]
+    self.mapDiv.setAttribute("id", map_id)
+    self.mapDiv.setAttribute("for", map_id)
     self.load_map()
     
   def load_map(self):

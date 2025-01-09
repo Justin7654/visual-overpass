@@ -12,5 +12,4 @@ events: []
 is_package: true
 properties:
 - {default_binding_prop: true, important: true, name: leafmap, type: object}
-- {default_value: true, important: true, name: visible, type: boolean}
 toolbox_item: {title: Leaflet Map}

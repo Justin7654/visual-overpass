@@ -7,7 +7,7 @@ class AreaSelector(AreaSelectorTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    print(self.leaflet.leafmap)
+    self.leaflet.visible = self.radio_bbox.selected
 
   def getBoundingArea(self):
     '''
@@ -29,15 +29,21 @@ class AreaSelector(AreaSelectorTemplate):
   def radio_global_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = False
+    self.locationName.visible = False
+    self.divider.visible = False
 
   def radio_bbox_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = True
+    self.locationName.visible = False
+    self.divider.visible = True
 
   def update_bounds_tick(self, **event_args):
-    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
-    self.item["mapBounds"] = self.getBoundingArea()
+    if self.leaflet.visible:
+      self.item["mapBounds"] = self.getBoundingArea()
 
-  def radio_geocode_select(self, **event_args):
+  def radio_area_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = False
+    self.locationName.visible = True
+    self.divider.visible = True
