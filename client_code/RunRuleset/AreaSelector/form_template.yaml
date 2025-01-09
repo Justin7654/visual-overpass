@@ -8,22 +8,34 @@ components:
   name: heading_1
   properties: {text: Please select a search area}
   type: form:dep_svn0zot51dwdba:_Components.Heading
+- layout_properties: {grid_position: 'RIXUGZ,DELPWD'}
+  name: text_1
+  properties:
+    spacing:
+      margin: [null, null, '5', null]
+    text: Smaller areas will help with file sizes, and processing time.
+  type: form:dep_svn0zot51dwdba:_Components.Text
 - components:
-  - event_bindings: {select: radio_global_select}
+  - data_bindings: []
+    event_bindings: {select: radio_global_select}
     layout_properties: {}
     name: radio_global
-    properties: {selected: true, text: Global}
+    properties: {selected: true, text: Global, value: global}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
-  - event_bindings: {select: radio_bbox_select}
+  - data_bindings: []
+    event_bindings: {select: radio_bbox_select}
     layout_properties: {}
     name: radio_bbox
-    properties: {selected: false, text: BBox}
+    properties: {selected: false, text: BBox, value: bbox}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
-  - event_bindings: {select: radio_area_select}
+  - data_bindings: []
+    event_bindings: {select: radio_area_select}
     layout_properties: {}
     name: radio_area
-    properties: {selected: false, text: Location}
+    properties: {selected: false, text: Location, value: location}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
+  data_bindings:
+  - {code: 'self.item[''mode'']', property: selected_value, writeback: true}
   layout_properties: {grid_position: 'OTKBWY,MCCPJF'}
   name: radio_group_panel_1
   properties: {}
@@ -36,9 +48,11 @@ components:
   name: leaflet
   properties: {visible: true}
   type: form:CustomComponents.leafletMap
-- layout_properties: {grid_position: 'QCMQCM,XDDRCT'}
+- data_bindings:
+  - {code: 'self.item[''locationName'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'QCMQCM,XDDRCT'}
   name: locationName
-  properties: {error: false, label: '', placeholder: Location Name, tooltip: 'Overpass will attempt to geocode this as the search area. It can be a city, state, country, etc.'}
+  properties: {character_limit: 100, error: false, label: '', placeholder: Location Name, supporting_text: 'This can be a city, state, country, etc', tooltip: 'Overpass will attempt to geocode this as the search area. It can be a city, state, country, etc.', visible: false}
   type: form:dep_svn0zot51dwdba:_Components.TextInput.TextBox
 container:
   properties: {col_widths: '{}'}

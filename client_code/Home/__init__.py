@@ -18,7 +18,6 @@ class Home(HomeTemplate):
       
       #anvil.users.logout()
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
-    alert(content=AreaSelector(), large=True)
 
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data
