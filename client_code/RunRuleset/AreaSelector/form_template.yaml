@@ -1,29 +1,45 @@
 components:
+- event_bindings: {tick: update_bounds_tick}
+  layout_properties: {grid_position: 'EAUODJ,CILHFL'}
+  name: update_bounds
+  properties: {}
+  type: Timer
 - layout_properties: {full_width_row: false, grid_position: 'CIRGAE,YPRPQE'}
   name: heading_1
   properties: {text: Please select a search area}
   type: form:dep_svn0zot51dwdba:_Components.Heading
 - components:
-  - layout_properties: {}
-    name: radio_button_4
-    properties: {text: Global}
+  - event_bindings: {select: radio_global_select}
+    layout_properties: {}
+    name: radio_global
+    properties: {selected: true, text: Global}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
-  - layout_properties: {}
-    name: radio_button_5
-    properties: {text: BBox}
+  - event_bindings: {select: radio_bbox_select}
+    layout_properties: {}
+    name: radio_bbox
+    properties: {selected: false, text: BBox}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
-  - layout_properties: {}
-    name: radio_button_6
-    properties: {text: Area}
+  - event_bindings: {select: radio_geocode_select}
+    layout_properties: {}
+    name: radio_geocode
+    properties: {selected: false, text: Geocode (Area)}
     type: form:dep_svn0zot51dwdba:_Components.RadioButton
-  - layout_properties: {slot: default}
-    name: map_location
-    properties: {spacing_below: large}
-    type: Spacer
   layout_properties: {grid_position: 'OTKBWY,MCCPJF'}
   name: radio_group_panel_1
   properties: {}
   type: form:dep_svn0zot51dwdba:_Components.RadioGroupPanel
+- layout_properties: {grid_position: 'ESGTMF,OUUXSN'}
+  name: leaflet
+  properties: {}
+  type: form:CustomComponents.leafletMap
+- layout_properties: {grid_position: 'RYLXJP,RPMMMH'}
+  name: divider_1
+  properties: {}
+  type: form:dep_svn0zot51dwdba:_Components.Divider
+- layout_properties: {grid_position: 'YABZPV,MVPFGS'}
+  name: autocomplete_1
+  properties: {visible: false}
+  type: form:dep_803t20b0qsk9h:Autocomplete
 container:
   properties: {col_widths: '{}'}
   type: ColumnPanel

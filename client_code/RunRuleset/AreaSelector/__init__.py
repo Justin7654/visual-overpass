@@ -7,33 +7,37 @@ class AreaSelector(AreaSelectorTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.load_map(self.map_location)
+    print(self.leaflet.leafmap)
 
-  def load_map(self, renderAt):
-    renderAt = anvil.js.get_dom_node(renderAt)
-    renderAt.height = 100
-    leaf = anvil.js.window.leaflet
-    map = leaf.map(renderAt).setView([0, 0], 1)
-    leaf.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      "maxZoom": 19,
-      "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map)
-    renderAt.height = 700
-    
-    self.map = map
+  def getBoundingArea(self):
+    '''
+    nwr(51.477,-0.001,51.478,0.001);
+    Here (51.477,-0.001,51.478,0.001) represents the bounding box. The order of the edges is always the same:
 
-  def reset_map(self):
-    self.map.off()
-    self.map.remove()
-    self.load_map(self.map_placeholder)
+    51.477 is the latitude of the southern edge.
+    -0.001 is the longitude of the western edge.
+    51.478 is the latitude of the norther edge.
+    0.001 is the longitude of the eastern edge.
+    '''
+    bounds = self.leaflet.leafmap.getBounds()
+    south = bounds.getSouth()
+    west = bounds.getWest()
+    north = bounds.getNorth()
+    east = bounds.getEast()
+    return f'({south},{west},{north},{east})'
+  
+  def radio_global_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = False
 
-  def mode_change(self, **event_args):
-    """This method is called when an item is selected"""
-    mode = self.mode.selected_value
-    if mode in self.textData:
-      self.setContents(self.textData[mode]["pros"], self.textData[mode]["cons"])
+  def radio_bbox_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = True
 
-  def mode_show(self, **event_args):
-    """This method is called when the component is shown on the screen."""
-    self.mode.selected_value = "global"
-    self.mode_change()
+  def update_bounds_tick(self, **event_args):
+    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
+    self.item["mapBounds"] = self.getBoundingArea()
+
+  def radio_geocode_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = False
