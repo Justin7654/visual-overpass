@@ -129,8 +129,10 @@ class RunRuleset(RunRulesetTemplate):
           print(err)
       elif state == "killed":
         Notification("Quary task was killed",title="error",style="warning",timeout=4).show()
+        self.errMessage = "Quary task was killed"
       elif state == "missing":
         Notification("Quary task went missing. This is most likely caused by an outage with our hosting provider",title="missing",timeout=4).show()
+        self.errMessage = "Quary task went missing"
       self.onTaskFail()
 
   def progressDots_tick(self, **event_args):
