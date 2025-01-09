@@ -32,9 +32,8 @@ class RunRuleset(RunRulesetTemplate):
     searchAreaItems = {"mode":"global", "locationName":"","mapBounds":""}
     promptForm = AreaSelector(item=searchAreaItems)
     alert(content=promptForm, large=True, dismissible=False, buttons=[("Continue")])
-    print(searchAreaItems)
+    areaMode = searchAreaItems["mode"]
     
-    return
     #Start processing
     self.loading.visible = True
     #Decompress structure if needed
@@ -53,6 +52,10 @@ class RunRuleset(RunRulesetTemplate):
     #Modify the parsed string to include a recurse down if selected
     if options["recurse_down"]:
       parsed += '(._;>;);'
+    if areaMode == "bbox":
+      parsed = f'[bbox:{searchAreaItems["mapBounds"]}]'+parsed
+    elif areaMode == "location":
+      print("Location mode")
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")

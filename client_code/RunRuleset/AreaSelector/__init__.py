@@ -20,11 +20,11 @@ class AreaSelector(AreaSelectorTemplate):
     0.001 is the longitude of the eastern edge.
     '''
     bounds = self.leaflet.leafmap.getBounds()
-    south = bounds.getSouth()
-    west = bounds.getWest()
-    north = bounds.getNorth()
-    east = bounds.getEast()
-    return f'({south},{west},{north},{east})'
+    south = min(max(bounds.getSouth(),-90),90) #Returns the south latitude of the bounds
+    west = min(max(bounds.getWest(),-180),180) #Returns the west longitude of the bounds
+    north = min(max(bounds.getNorth(),-90),90) #Returns the north latitude of the bounds
+    east = min(max(bounds.getEast(),-180),180) #Returns the east longitude of the bounds
+    return f'{south},{west},{north},{east}'
   
   def radio_global_select(self, **event_args):
     """This method is called when the radio button is selected."""
