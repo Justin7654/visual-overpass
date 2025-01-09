@@ -11,7 +11,7 @@ class AreaSelector(AreaSelectorTemplate):
 
   def load_map(self, renderAt):
     renderAt = anvil.js.get_dom_node(renderAt)
-    
+    renderAt.height = 100
     leaf = anvil.js.window.leaflet
     map = leaf.map(renderAt).setView([0, 0], 1)
     leaf.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
