@@ -43,4 +43,5 @@ class rule_match_tag(rule_match_tagTemplate):
     #Trim the text
     self.key.text = self.key.text.strip()
     #Apply suggestions to the value box
+    self.value.suggestions = []
     self.value.suggestions = tagsManager.getValueList(self.key.text)

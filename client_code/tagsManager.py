@@ -4,10 +4,11 @@ keyList = {}
 valueLists = {}
 
 #Need to put inside a try statement or else designer wont work in forms where this is imported
-try:
-  keyList = anvil.server.call_s("getKeyList")
-except anvil.server.SessionExpiredError:
-  pass
+if len(keyList) == 0:
+  try:
+    keyList = anvil.server.call_s("getKeyList")
+  except anvil.server.SessionExpiredError:
+    pass
 
 def getKeyList():
   return keyList
