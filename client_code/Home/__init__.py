@@ -2,6 +2,7 @@ from ._anvil_designer import HomeTemplate
 from anvil import *
 import anvil.users
 import anvil.server
+from ..RunRuleset.AreaSelector import AreaSelector
 
 class Home(HomeTemplate):
   def __init__(self, **properties):
@@ -17,6 +18,7 @@ class Home(HomeTemplate):
       
       #anvil.users.logout()
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
+    alert(content=AreaSelector(), large=True)
 
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data

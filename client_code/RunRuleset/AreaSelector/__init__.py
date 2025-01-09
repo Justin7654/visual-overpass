@@ -3,12 +3,11 @@ from anvil import *
 import anvil.server
 import anvil.js
 
-
-
 class AreaSelector(AreaSelectorTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    self.load_map(self.map_location)
 
   def load_map(self, renderAt):
     renderAt = anvil.js.get_dom_node(renderAt)
@@ -18,6 +17,7 @@ class AreaSelector(AreaSelectorTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
+    renderAt.height = 700
     
     self.map = map
 
