@@ -65,9 +65,20 @@ class RulesetResult(RulesetResultTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
-    if self.geojson:
+    if self.geojson:      
+      def onClick(e):
+        '''
+        type: 
+        id: 
+        tags: {
+          dict with key being key and value being value
+        }
+        '''
+        print(e.layer.feature)
       self.geoLayer = leaf.geoJSON(self.geojson)
+      self.geoLayer.on("click", onClick)
       self.geoLayer.addTo(map)
+
       try:
         map.fitBounds(self.geoLayer.getBounds())
       except:
