@@ -13,7 +13,7 @@ components:
   properties:
     spacing:
       margin: [null, null, '5', null]
-    text: Smaller areas will help with file sizes, and processing time.
+    text: Smaller areas will help with file sizes and processing time.
   type: form:dep_svn0zot51dwdba:_Components.Text
 - components:
   - data_bindings: []
