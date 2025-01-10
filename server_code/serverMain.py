@@ -100,20 +100,28 @@ def generateKmlMediafromGeoJson(geojson, filename):
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
   return True
 
-def compress_dict(data):
-  import pyzstd #Compresses
-  byteData = encode_dict_to_byte(data)
+def compress_bytes(byteData):
+  import pyzstd
   startTime = time.time()
   compressed = pyzstd.compress(byteData) #Eligable for training?
   totalTime = (time.time() - startTime)*1000
   print(f'Compress took {totalTime:.0f}ms')
   return anvil.BlobMedia("application/zstd", compressed)
 
+#Input: BlobMedia of compressed bytes (application/zstd)
+#Output: Uncompressed bytestring
+def decompress_bytes(blobMedia):
+  import pyzstd
+  original = pyzstd.decompress(blobMedia.get_bytes())
+  return original
+
+def compress_dict(data):
+  byteData = encode_dict_to_byte(data)
+  return compress_bytes(byteData)
+
 @anvil.server.callable
 def decompress_dict(data):
-  import pyzstd
-  original = pyzstd.decompress(data.get_bytes())
-  return decode_byte_to_dict(original)
+  return decode_byte_to_dict(decompress_bytes(data))
 
 def encode_dict_to_byte(dict):
   import json
