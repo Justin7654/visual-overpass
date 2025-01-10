@@ -62,7 +62,7 @@ def runQuaryTask(quaryText, outMode, user):
   quaryText += f'out {outMode};'
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json", build=False)
-  contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
+  contentFile = compress_dict(response) #anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   size = len(contentFile.get_bytes())/1_000_000
   newRow = app_tables.data_output.add_row(data=contentFile, user=user, size=size)
 
@@ -72,10 +72,10 @@ def runQuaryTask(quaryText, outMode, user):
 def getDataOutput(row_id):
   row = app_tables.data_output.get_by_id(row_id)
   if row and row['user'] == anvil.users.get_user():
-    #newFile = anvil.BlobMedia("application/json", row['data'].get_bytes())
+    newFile = anvil.BlobMedia("application/json", decompress_to_bytes(row['data']))
     #row.delete()
-    #return newFile
-    return row['data']
+    return newFile
+    #return row['data']
 
 @anvil.server.callable
 def generateGeoJson(data):
@@ -109,12 +109,15 @@ def compress_bytes(byteData):
   startTime = time.time()
   compressed = pyzstd.compress(byteData) #Eligable for training?
   totalTime = (time.time() - startTime)*1000
-  print(f'Compress took {totalTime:.0f}ms')
+  print(f'\nCompress took {totalTime:.0f}ms')
+  #Calculate saved amount
+  prev, after = calculate_mb(byteData), calculate_mb(compressed)
+  print(f'Saved {prev-after:.2f}mb from compression ({prev:.2f} -> {after:.2f})')
   return anvil.BlobMedia("application/zstd", compressed)
 
 #Input: BlobMedia of compressed bytes (application/zstd)
 #Output: Uncompressed bytestring
-def decompress_bytes(blobMedia):
+def decompress_to_bytes(blobMedia):
   import pyzstd
   original = pyzstd.decompress(blobMedia.get_bytes())
   return original
@@ -125,7 +128,7 @@ def compress_dict(data):
 
 @anvil.server.callable
 def decompress_dict(data):
-  return decode_byte_to_dict(decompress_bytes(data))
+  return decode_byte_to_dict(decompress_to_bytes(data))
 
 def encode_dict_to_byte(dict):
   import json
@@ -147,3 +150,6 @@ def getSafeRulesetName(name):
     return getNewName(num)
   else:
     return name
+
+def calculate_mb(bytestring):
+  return len(bytestring)/1_000_000

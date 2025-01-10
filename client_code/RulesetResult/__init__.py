@@ -52,7 +52,7 @@ class RulesetResult(RulesetResultTemplate):
       self.load_map(self.map_placeholder)
     elif self.geojson:
       size = str(len(self.geojsonMedia.get_bytes())/1_000_000)
-      buttons = [("Render Anyways",True), ("Continue",False)]
+      buttons = [("Render Anyways",True), ("Continue without map",False)]
       confirmed = confirm(content="Result is too big to automatically render on the map for performance reasons. ("+size+"mb)", buttons=buttons,large=True)
       if confirmed and confirm("Are you sure? If theres enough data, this may freeze the tab.",dismissible=False):
         self.load_map(self.map_placeholder)

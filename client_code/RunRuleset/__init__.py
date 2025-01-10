@@ -90,7 +90,6 @@ class RunRuleset(RunRulesetTemplate):
     if not self.geojson:
       #Handle a potential error
       return self.start_error(errorText="Error occurred while converting to geojson. Please try again")
-    print("Opening RulesetResult form")
     open_form("RulesetResult", json=self.result, geojson=self.geojson, jsonMedia=self.resultFile, geojsonMedia=self.geojsonFile)
 
   def onTaskFail(self):
