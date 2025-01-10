@@ -1,0 +1,15 @@
+components: []
+container:
+  properties:
+    html: |-
+      <center style="font-style:italic; color:#888; margin: 3em;">
+        <div class="leaflet-map" anvil-name="leaflet-div"></div>
+      </center>
+      <div anvil-slot="default"></div>
+  type: HtmlTemplate
+custom_component: true
+events: []
+is_package: true
+properties:
+- {default_binding_prop: true, important: true, name: leafmap, type: object}
+toolbox_item: {title: Leaflet Map}

@@ -1,5 +1,6 @@
 from ._anvil_designer import RunRulesetTemplate
 from .OutModeSelector import OutModeSelector
+from .AreaSelector import AreaSelector
 from anvil import *
 import anvil.server
 import time
@@ -26,7 +27,12 @@ class RunRuleset(RunRulesetTemplate):
     chooseDefault = alert(content=promptForm, large=True, dismissible=False, buttons=[("Select",False),("Choose for me",True)])
     if chooseDefault:
       options = {"mode":"body","recurse_down":True}
-
+    
+    #Get the search area
+    searchAreaItems = {"mode":"global", "locationName":"","mapBounds":""}
+    promptForm = AreaSelector(item=searchAreaItems)
+    alert(content=promptForm, large=True, dismissible=False, buttons=[("Continue")])
+    areaMode = searchAreaItems["mode"]
     
     #Start processing
     self.loading.visible = True
@@ -46,6 +52,12 @@ class RunRuleset(RunRulesetTemplate):
     #Modify the parsed string to include a recurse down if selected
     if options["recurse_down"]:
       parsed += '(._;>;);'
+    if areaMode == "bbox":
+      parsed = f'[out:json][bbox:{searchAreaItems["mapBounds"]}];'+parsed
+    elif areaMode == "location":
+      print("Location mode")
+    else:
+      parsed = '[out:json];'+parsed
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
@@ -119,8 +131,10 @@ class RunRuleset(RunRulesetTemplate):
           print(err)
       elif state == "killed":
         Notification("Quary task was killed",title="error",style="warning",timeout=4).show()
+        self.errMessage = "Quary task was killed"
       elif state == "missing":
         Notification("Quary task went missing. This is most likely caused by an outage with our hosting provider",title="missing",timeout=4).show()
+        self.errMessage = "Quary task went missing"
       self.onTaskFail()
 
   def progressDots_tick(self, **event_args):

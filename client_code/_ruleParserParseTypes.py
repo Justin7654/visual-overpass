@@ -78,3 +78,6 @@ def OR(ruleList, includeTypes, parentStructLists):
     result2 = ruleParser.parse(combined2, group2Tags["include"], list(parentStructLists))
     output += f'({result1}{result2});'
   return output
+
+def area_limiter():
+  return "({{bbox}})"

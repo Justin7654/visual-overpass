@@ -3,36 +3,51 @@ from anvil import *
 import anvil.server
 import anvil.js
 
-
-
 class AreaSelector(AreaSelectorTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    self.leaflet.visible = self.radio_bbox.selected
 
-  def load_map(self, renderAt):
-    renderAt = anvil.js.get_dom_node(renderAt)
-    leaf = anvil.js.window.leaflet
-    map = leaf.map(renderAt).setView([0, 0], 1)
-    leaf.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      "maxZoom": 19,
-      "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map)
-    
-    self.map = map
+  def getBoundingArea(self):
+    '''
+    nwr(51.477,-0.001,51.478,0.001);
+    Here (51.477,-0.001,51.478,0.001) represents the bounding box. The order of the edges is always the same:
 
-  def reset_map(self):
-    self.map.off()
-    self.map.remove()
-    self.load_map(self.map_placeholder)
+    51.477 is the latitude of the southern edge.
+    -0.001 is the longitude of the western edge.
+    51.478 is the latitude of the norther edge.
+    0.001 is the longitude of the eastern edge.
+    '''
+    bounds = self.leaflet.leafmap.getBounds()
+    south = min(max(bounds.getSouth(),-90),90) #Returns the south latitude of the bounds
+    west = min(max(bounds.getWest(),-180),180) #Returns the west longitude of the bounds
+    north = min(max(bounds.getNorth(),-90),90) #Returns the north latitude of the bounds
+    east = min(max(bounds.getEast(),-180),180) #Returns the east longitude of the bounds
+    return f'{south},{west},{north},{east}'
+  
+  def radio_global_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = False
+    self.map_hint.visible = False
+    self.locationName.visible = False
+    self.divider.visible = False
 
-  def mode_change(self, **event_args):
-    """This method is called when an item is selected"""
-    mode = self.mode.selected_value
-    if mode in self.textData:
-      self.setContents(self.textData[mode]["pros"], self.textData[mode]["cons"])
+  def radio_bbox_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = True
+    self.map_hint.visible = True
+    self.locationName.visible = False
+    self.divider.visible = True
 
-  def mode_show(self, **event_args):
-    """This method is called when the component is shown on the screen."""
-    self.mode.selected_value = "global"
-    self.mode_change()
+  def update_bounds_tick(self, **event_args):
+    if self.leaflet.visible:
+      self.item["mapBounds"] = self.getBoundingArea()
+      self.leaflet.map.invalidateSize() #Fixes a weird issue where you have to resize your browser window in order for all tiles to load
+
+  def radio_area_select(self, **event_args):
+    """This method is called when the radio button is selected."""
+    self.leaflet.visible = False
+    self.map_hint.visible = False
+    self.locationName.visible = True
+    self.divider.visible = True
