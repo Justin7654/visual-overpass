@@ -89,8 +89,7 @@ class RunRuleset(RunRulesetTemplate):
     print("Parsed successfully")
     if not self.geojson:
       #Handle a potential error
-      print("Error!")
-      return self.start_error(errorText="Error occurred while converting to geojson")
+      return self.start_error(errorText="Error occurred while converting to geojson. Please try again")
     print("Opening RulesetResult form")
     open_form("RulesetResult", json=self.result, geojson=self.geojson, jsonMedia=self.resultFile, geojsonMedia=self.geojsonFile)
 
@@ -167,4 +166,8 @@ class RunRuleset(RunRulesetTemplate):
     self.abort.text = "Exit"
 
   def parse_file(self, file):
-    return json.loads(file.get_bytes().decode('utf-8'))
+    try:
+      return json.loads(file.get_bytes().decode('utf-8'))
+    except AttributeError as err: #If the file isn't a file and doesn't have get_bytes
+      print("Could not parse file:",str(err))
+      return None
