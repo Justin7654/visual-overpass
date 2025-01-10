@@ -63,7 +63,8 @@ def runQuaryTask(quaryText, outMode, user):
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json", build=False)
   contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
-  newRow = app_tables.data_output.add_row(data=contentFile, user=user)
+  size = contentFile.get_bytes()/1_000_000
+  newRow = app_tables.data_output.add_row(data=contentFile, user=user, size=size)
 
   return newRow.get_id()#response
 
