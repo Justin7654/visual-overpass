@@ -74,7 +74,11 @@ class RulesetResult(RulesetResultTemplate):
           dict with key being key and value being value
         }
         '''
-        print(e.layer.feature)
+        #https://runebook.dev/en/articles/leaflet/index/geojson-click
+        clickedFeature = e.layer.feature
+        htmlContent = f'<h3>{clickedFeature["properties"]["type"]}</h3>'
+        leaf.popup(e.latlng, {"content":htmlContent}).openOn(map)
+
       self.geoLayer = leaf.geoJSON(self.geojson)
       self.geoLayer.on("click", onClick)
       self.geoLayer.addTo(map)
