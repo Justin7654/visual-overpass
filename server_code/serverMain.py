@@ -63,7 +63,7 @@ def runQuaryTask(quaryText, outMode, user):
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json", build=False)
   contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
-  size = contentFile.get_bytes()/1_000_000
+  size = len(contentFile.get_bytes())/1_000_000
   newRow = app_tables.data_output.add_row(data=contentFile, user=user, size=size)
 
   return newRow.get_id()#response
@@ -101,6 +101,8 @@ def generateKmlMediafromGeoJson(geojson, filename):
 def renew_session(): #Cliant can call this every once in a while to prevent the session from expiring
   return True
 
+#Input: Uncompressed bytestring
+#Output: BlobMedia of compressed bytes (application/zstd)
 def compress_bytes(byteData):
   import pyzstd
   startTime = time.time()

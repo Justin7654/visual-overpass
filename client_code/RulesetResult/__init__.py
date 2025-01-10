@@ -47,7 +47,7 @@ class RulesetResult(RulesetResultTemplate):
   
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    MAX_SIZE = 1_000_000 #1mb
+    MAX_SIZE = 2_000_000 #2mb
     if not self.geojson or len(self.geojsonMedia.get_bytes()) < MAX_SIZE:
       self.load_map(self.map_placeholder)
     elif self.geojson:
