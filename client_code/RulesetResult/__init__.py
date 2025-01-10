@@ -24,7 +24,8 @@ class RulesetResult(RulesetResultTemplate):
   def export_geojson(self, **args):
     import json
     if self.geojson is None:
-      return Notification("GeoJSON exporting not supported with current output", style="warning").show()
+      return Notification(
+        "GeoJSON exporting not supported with current output mode (requires location data)", style="warning").show()
     
     file = BlobMedia("application/geo+json", self.geojsonMedia.get_bytes(), name="exported.geojson")
     anvil.download(file)
@@ -40,19 +41,19 @@ class RulesetResult(RulesetResultTemplate):
 
   def export_kml(self, **args):
     if self.geojson is None:
-      return Notification("KML exporting not supported with current output", style="warning").show()
+      return Notification("KML exporting not supported with current output mode (requires location data)", style="warning").show()
     if self.kml is None:
       self.kml = anvil.server.call("generateKmlMediafromGeoJson", self.geojsonMedia, "exported.kml")
     anvil.download(self.kml)
   
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    MAX_SIZE = 1_000_000 #1mb
+    MAX_SIZE = 2_000_000 #2mb
     if not self.geojson or len(self.geojsonMedia.get_bytes()) < MAX_SIZE:
       self.load_map(self.map_placeholder)
     elif self.geojson:
       size = str(len(self.geojsonMedia.get_bytes())/1_000_000)
-      buttons = [("Render Anyways",True), ("Continue",False)]
+      buttons = [("Render Anyways",True), ("Continue without map",False)]
       confirmed = confirm(content="Result is too big to automatically render on the map for performance reasons. ("+size+"mb)", buttons=buttons,large=True)
       if confirmed and confirm("Are you sure? If theres enough data, this may freeze the tab.",dismissible=False):
         self.load_map(self.map_placeholder)

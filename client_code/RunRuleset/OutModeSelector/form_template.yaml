@@ -16,7 +16,7 @@ components:
   layout_properties: {grid_position: 'JHMTFE,RPKTBJ'}
   name: mode
   properties:
-    items: [id, skel, body, tags, meta]
+    items: [ids, skel, body, tags, meta]
     label: ''
     supporting_text: ''
   type: form:dep_svn0zot51dwdba:_Components.DropdownMenu
