@@ -44,6 +44,17 @@ components:
   name: divider
   properties: {}
   type: form:dep_svn0zot51dwdba:_Components.Divider
+- data_bindings: []
+  layout_properties: {grid_position: 'HPUSSX,ORJEUG'}
+  name: map_hint
+  properties:
+    align: center
+    spacing:
+      padding: [null, null, '0', null]
+    style: body
+    text: The area contained in the map below will be the area that will be searched.
+    visible: false
+  type: form:dep_svn0zot51dwdba:_Components.Text
 - layout_properties: {grid_position: 'ESGTMF,OUUXSN'}
   name: leaflet
   properties: {visible: true}

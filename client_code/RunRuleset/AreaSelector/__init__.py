@@ -29,12 +29,14 @@ class AreaSelector(AreaSelectorTemplate):
   def radio_global_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = False
+    self.map_hint.visible = False
     self.locationName.visible = False
     self.divider.visible = False
 
   def radio_bbox_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = True
+    self.map_hint.visible = True
     self.locationName.visible = False
     self.divider.visible = True
 
@@ -46,5 +48,6 @@ class AreaSelector(AreaSelectorTemplate):
   def radio_area_select(self, **event_args):
     """This method is called when the radio button is selected."""
     self.leaflet.visible = False
+    self.map_hint.visible = False
     self.locationName.visible = True
     self.divider.visible = True
