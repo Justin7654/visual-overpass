@@ -58,9 +58,10 @@ def cancelQuary(task):
 @anvil.server.background_task()
 def runQuaryTask(quaryText, outMode, user):
   import overpass
-  
+
+  quaryText += f'out {outMode};'
   api = overpass.API(timeout=999, debug=True)
-  response = api.get(quaryText, verbosity=outMode, responseformat="json")
+  response = api.get(quaryText, verbosity=outMode, responseformat="json", build=False)
   contentFile = anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   newRow = app_tables.data_output.add_row(data=contentFile, user=user)
 

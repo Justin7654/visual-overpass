@@ -41,6 +41,7 @@ class AreaSelector(AreaSelectorTemplate):
   def update_bounds_tick(self, **event_args):
     if self.leaflet.visible:
       self.item["mapBounds"] = self.getBoundingArea()
+      self.leaflet.map.invalidateSize() #Fixes a weird issue where you have to resize your browser window in order for all tiles to load
 
   def radio_area_select(self, **event_args):
     """This method is called when the radio button is selected."""

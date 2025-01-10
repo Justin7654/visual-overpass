@@ -53,9 +53,11 @@ class RunRuleset(RunRulesetTemplate):
     if options["recurse_down"]:
       parsed += '(._;>;);'
     if areaMode == "bbox":
-      parsed = f'[bbox:{searchAreaItems["mapBounds"]}]'+parsed
+      parsed = f'[out:json][bbox:{searchAreaItems["mapBounds"]}];'+parsed
     elif areaMode == "location":
       print("Location mode")
+    else:
+      parsed = '[out:json];'+parsed
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
