@@ -72,7 +72,9 @@ def runQuaryTask(quaryText, outMode, user):
 def getDataOutput(row_id):
   row = app_tables.data_output.get_by_id(row_id)
   if row and row['user'] == anvil.users.get_user():
+    print("(getDataOutput) Found row and it is owned by the user")
     newFile = anvil.BlobMedia("application/json", decompress_to_bytes(row['data']))
+    print("(GetDataOutput) Decompressed and packaged into application")
     #row.delete()
     return newFile
     #return row['data']
@@ -84,12 +86,15 @@ def generateGeoJson(data):
   data = decode_byte_to_dict(data.get_bytes())
   print("Converting to GeoJSON")
   try:
-    result = osm2geojson.json2geojson(data, log_level="ERROR")
+    print(data)
+    result = osm2geojson.json2geojson(data, log_level="INFO")
     print("Packaging to BlobMedia")
     return anvil.BlobMedia("application/geo+json", encode_dict_to_byte(result))
-  except KeyError as err: #KeyError: 'lon' at /home/anvil/.env/lib/python3.10/site-packages/osm2geojson/main.py, line 186
+  except KeyError as err:
+    #KeyError: 'lon' at /home/anvil/.env/lib/python3.10/site-packages/osm2geojson/main.py, line 186
+    # ^ This means the json doesn't contain location data
     print("Error converting to geojson:",str(err))
-    return False
+    return None
 
 @anvil.server.callable
 def generateKmlMediafromGeoJson(geojson, filename):

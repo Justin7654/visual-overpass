@@ -86,10 +86,6 @@ class RunRuleset(RunRulesetTemplate):
     self.geojsonFile = anvil.server.call_s('generateGeoJson', self.resultFile)
     print("Received geojson")
     self.geojson = self.parse_file(self.geojsonFile)
-    print("Parsed successfully")
-    if not self.geojson:
-      #Handle a potential error
-      return self.start_error(errorText="Error occurred while converting to geojson. Please try again")
     open_form("RulesetResult", json=self.result, geojson=self.geojson, jsonMedia=self.resultFile, geojsonMedia=self.geojsonFile)
 
   def onTaskFail(self):

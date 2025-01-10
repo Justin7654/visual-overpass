@@ -30,7 +30,7 @@ class OutModeSelector(OutModeSelectorTemplate):
     
     # Any code you write here will run before the form opens.
     self.textData = {
-      "id": {
+      "ids": {
         "pros": [INCLUDES_TYPE, INCLUDES_ID, "Fastest processing time"],
         "cons": [DOES_NOT_INCLUDE_LOCATION, DOES_NOT_INCLUDE_TAGS, DOES_NOT_INCLUDE_META]
       },
@@ -68,6 +68,9 @@ class OutModeSelector(OutModeSelectorTemplate):
     mode = self.mode.selected_value
     if mode in self.textData:
       self.setContents(self.textData[mode]["pros"], self.textData[mode]["cons"])
+    else:
+      self.pros.text = "not found"
+      self.cons.text = "not found"
 
   def mode_show(self, **event_args):
     """This method is called when the component is shown on the screen."""
