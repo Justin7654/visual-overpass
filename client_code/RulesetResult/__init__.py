@@ -76,9 +76,11 @@ class RulesetResult(RulesetResultTemplate):
         '''
         #https://runebook.dev/en/articles/leaflet/index/geojson-click
         clickedFeature = e.layer.feature["properties"]
-        htmlContent = '<h2>Tags</h2>'
-        for i in clickedFeature["tags"]:
-          pass
+        htmlContent = '<h3>Tags</h3><h5>'
+        for key in clickedFeature["tags"].keys():
+          value = clickedFeature["tags"][key]
+          htmlContent += f'<br>{key+": "+value}'
+        htmlContent += "</h5>"
         leaf.popup(e.latlng, {"content":htmlContent}).openOn(map)
 
       self.geoLayer = leaf.geoJSON(self.geojson)
