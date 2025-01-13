@@ -65,9 +65,28 @@ class RulesetResult(RulesetResultTemplate):
       "maxZoom": 19,
       "attribution": '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
-    if self.geojson:
+    if self.geojson:      
+      def onClick(e):
+        '''
+        type: 
+        id: 
+        tags: {
+          dict with key being key and value being value
+        }
+        '''
+        #https://runebook.dev/en/articles/leaflet/index/geojson-click
+        clickedFeature = e.layer.feature["properties"]
+        htmlContent = '<h3>Tags</h3><h5>'
+        for key in clickedFeature["tags"].keys():
+          value = clickedFeature["tags"][key]
+          htmlContent += f'<br>{key+": "+value}'
+        htmlContent += "</h5>"
+        leaf.popup(e.latlng, {"content":htmlContent}).openOn(map)
+
       self.geoLayer = leaf.geoJSON(self.geojson)
+      self.geoLayer.on("click", onClick)
       self.geoLayer.addTo(map)
+
       try:
         map.fitBounds(self.geoLayer.getBounds())
       except:
