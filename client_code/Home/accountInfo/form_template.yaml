@@ -1,34 +1,43 @@
 components:
-- layout_properties: {grid_position: 'HLQDZT,LIXBRP'}
-  name: heading
-  properties: {align: center, text: My Account}
-  type: form:dep_svn0zot51dwdba:_Components.Heading
-- layout_properties: {grid_position: 'OZMISZ,TRLOKW'}
+- layout_properties: {grid_position: 'TSQHLD,VEVFDA'}
   name: user_email
-  properties: {align: center, text: exampleEmail@example.com}
+  properties:
+    align: center
+    spacing:
+      margin: [null, null, '5', null]
   type: form:dep_svn0zot51dwdba:_Components.Text
-- layout_properties: {grid_position: 'ENHBOY,LOEEKH'}
-  name: divider_1
-  properties: {}
-  type: form:dep_svn0zot51dwdba:_Components.Divider
-- layout_properties: {grid_position: 'KOHBHX,BMQMMS'}
-  name: spacer_1
-  properties: {}
-  type: Spacer
-- event_bindings: {click: log_out_click}
-  layout_properties: {grid_position: 'OPHYXJ,LYBHHF'}
-  name: log_out
-  properties: {align: center, appearance: filled, text: Log Out}
-  type: form:dep_svn0zot51dwdba:_Components.Button
 - event_bindings: {click: change_password_click}
-  layout_properties: {grid_position: 'AJASLP,RGBYZZ'}
+  layout_properties: {grid_position: 'HAHOIN,BFQLFY'}
   name: change_password
-  properties: {align: center, text: Change Password}
+  properties:
+    align: center
+    appearance: text
+    italic: false
+    spacing:
+      margin: ['0', null, '0', null]
+    text: Change Password
   type: form:dep_svn0zot51dwdba:_Components.Button
-- event_bindings: {}
-  layout_properties: {grid_position: 'IVYZTD,ZVIAVM'}
-  name: delete_account
-  properties: {align: center, background_color: 'theme:Error', text: Delete Account}
+- event_bindings: {click: log_out_click}
+  layout_properties: {full_width_row: false, grid_position: 'NMIRBO,QVUSVJ'}
+  name: log_out
+  properties:
+    align: center
+    appearance: text
+    italic: false
+    spacing:
+      margin: ['0', null, '0', null]
+    text: Log Out
+  type: form:dep_svn0zot51dwdba:_Components.Button
+- event_bindings: {click: log_in_click}
+  layout_properties: {grid_position: 'XVPUFH,GFFTHM'}
+  name: log_in
+  properties:
+    align: center
+    appearance: text
+    italic: false
+    spacing:
+      margin: ['0', null, '0', null]
+    text: Login
   type: form:dep_svn0zot51dwdba:_Components.Button
 container: {type: ColumnPanel}
 is_package: true

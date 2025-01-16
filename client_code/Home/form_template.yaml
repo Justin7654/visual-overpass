@@ -17,6 +17,15 @@ components:
         text: No saves found
         visible: false
       type: form:dep_svn0zot51dwdba:_Components.Text
+    - layout_properties: {}
+      name: not_logged_in
+      properties:
+        align: center
+        spacing:
+          margin: ['15', null, null, null]
+        text: Login to view saves
+        visible: false
+      type: form:dep_svn0zot51dwdba:_Components.Text
     - name: spacer_1
       properties: {height: 32}
       type: Spacer
@@ -38,7 +47,7 @@ components:
   properties: {col_widths: '{}'}
   type: ColumnPanel
 - components:
-  - event_bindings: {click: account_button_click}
+  - event_bindings: {}
     layout_properties: {}
     name: account_button
     properties: {icon: 'mi:account_circle'}

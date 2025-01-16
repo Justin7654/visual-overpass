@@ -4,6 +4,8 @@ import anvil.users
 import anvil.server
 from ..RunRuleset.AreaSelector import AreaSelector
 from .accountInfo import accountInfo
+from anvil_extras import popover
+from anvil_extras.storage import local_storage
 
 class Home(HomeTemplate):
   def __init__(self, **properties):
@@ -12,13 +14,12 @@ class Home(HomeTemplate):
       
     # Any code you write here will run before the form opens.
     self.serverFails = 0
-    if anvil.users.get_user() is None:
-      alert("This is used to keep track of your saved sets, and to track who to send the output data to when running a ruleset. The login "+
-            "process is handled securely by Anvil",title="Login Required", large=True)
-      anvil.users.login_with_form(allow_cancel=False, allow_remembered=True, remember_by_default=True)
+    if local_storage.get("visited") is None and anvil.users.get_user() is None:
+      anvil.users.login_with_form(allow_cancel=True, allow_remembered=True, remember_by_default=True)
       
-      #anvil.users.logout()
+    local_storage["visited"] = True
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
+    self.account_button.popover(content=accountInfo(), placement="auto", trigger="click")
 
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data
@@ -32,13 +33,19 @@ class Home(HomeTemplate):
     open_form('NewRuleset', preset=False)
 
   def ruleset_datagrid_show(self, **event_args):
+    #Make sure they are logged in
+    if anvil.users.get_user() is None:
+      self.not_logged_in.visible = True
+      return
+    else:
+      self.not_logged_in.visible = False
+    #Load the data
     with anvil.server.loading_indicator(self.ruleset_repeating_panel, min_height=100):
-      #self.loadRulesets()
       try:
         result = anvil.server.call("getUserRulesets")
       except anvil.users.AuthenticationFailed:
-        Notification("Must be logged in to show this information", title="ERR: 401 Unauthorized", style="warning").show()
-        anvil.users.login_with_form(allow_cancel=False)
+        Notification("AuthenticationFailed error while getting saved rulesets", title="ERR: 401 Unauthorized", style="warning").show()
+        #anvil.users.login_with_form(allow_cancel=False)
         return self.ruleset_datagrid_show()
       except (anvil.server.RuntimeUnavailableError, anvil.server.AppOfflineError) as err:
         self.serverFails += 1
@@ -59,6 +66,3 @@ class Home(HomeTemplate):
       anvil.server.call("deleteRuleset", item)
       #refresh the Data Grid
       self.ruleset_datagrid_show()
-
-  def account_button_click(self, **event_args):
-    confirm(content=accountInfo(), large=True)
