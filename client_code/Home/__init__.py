@@ -3,6 +3,7 @@ from anvil import *
 import anvil.users
 import anvil.server
 from ..RunRuleset.AreaSelector import AreaSelector
+from .accountInfo import accountInfo
 
 class Home(HomeTemplate):
   def __init__(self, **properties):
@@ -58,3 +59,6 @@ class Home(HomeTemplate):
       anvil.server.call("deleteRuleset", item)
       #refresh the Data Grid
       self.ruleset_datagrid_show()
+
+  def account_button_click(self, **event_args):
+    confirm(content=accountInfo(), large=True)

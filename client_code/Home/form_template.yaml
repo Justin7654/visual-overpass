@@ -37,7 +37,13 @@ components:
   name: content_panel
   properties: {col_widths: '{}'}
   type: ColumnPanel
-- layout_properties: {slot: nav-right}
+- components:
+  - event_bindings: {click: account_button_click}
+    layout_properties: {}
+    name: account_button
+    properties: {icon: 'mi:account_circle'}
+    type: form:dep_svn0zot51dwdba:_Components.IconButton
+  layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}
   type: FlowPanel
