@@ -21,7 +21,7 @@ class NewRuleset(NewRulesetTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     
-    #Find the rules    
+    #Find the rules
     self.ruleData = get_all_rule_data()
     
     self.rule_group.tag = {
