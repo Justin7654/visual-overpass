@@ -35,6 +35,12 @@ class NewRuleset(NewRulesetTemplate):
     self.dirty = False
     self.initRuleGroups(self)
     #self.initRuleGroups(self.area_definition_1.layout.slots['content'])
+
+    self.saveEnabled = True
+    if anvil.users.get_user() is None:
+      self.saveEnabled = False
+      self.save.enabled = False
+      self.save.tooltip = "Must be logged in"
     
     self.saveRow = None
     if properties["preset"]:
@@ -120,7 +126,7 @@ class NewRuleset(NewRulesetTemplate):
     return copy
 
   def runSet(self):
-    if self.dirty:
+    if self.dirty and self.saveEnabled:
       if not confirm("All unsaved changes will be lost. Are you sure?"):
         return
     print("-------------- GETTING STRUCTURE ----------------")
@@ -219,8 +225,11 @@ class NewRuleset(NewRulesetTemplate):
     self.saveSet()
 
   def return_click(self, **event_args):
-    if self.dirty:
+    if self.dirty and self.saveEnabled:
       if not confirm("All unsaved changes will be lost. Are you sure?"):
+        return
+    elif not self.saveEnabled:
+      if not confirm("All changes will be lost. Are you sure?"):
         return
     open_form("Home")
 

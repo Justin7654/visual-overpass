@@ -45,13 +45,13 @@ def updateRuleset(row, name, structure, topLayerIncludes):
 def deleteRuleset(ruleset):
   ruleset.delete()
 
-@anvil.server.callable(require_user=True)
+@anvil.server.callable
 def runQuary(quaryText, outMode):
   user = anvil.users.get_user()
   task = anvil.server.launch_background_task("runQuaryTask", quaryText, outMode, user)
   return task
 
-@anvil.server.callable(require_user=True)
+@anvil.server.callable
 def cancelQuary(task):
   task.kill()
 
@@ -77,7 +77,6 @@ def getDataOutput(row_id):
     print("(GetDataOutput) Decompressed and packaged into application")
     #row.delete()
     return newFile
-    #return row['data']
 
 @anvil.server.callable
 def generateGeoJson(data):
