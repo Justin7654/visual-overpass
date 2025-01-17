@@ -14,13 +14,17 @@ class Home(HomeTemplate):
       
     # Any code you write here will run before the form opens.
     self.serverFails = 0
+    self.buttonsBlocked = False
     if local_storage.get("visited") is None and anvil.users.get_user() is None:
       anvil.users.login_with_form(allow_cancel=True, allow_remembered=True, remember_by_default=True)
-      
+      if anvil.users.get_user() is None:
+        anvil.alert("Loading in anomalous mode. Your querys may not be as secure and you will not "+
+                   "be able to save data between sessions. To login in the future, click the "+
+                   "profile icon on the top right of the home screen.")
     local_storage["visited"] = True
     self.ruleset_repeating_panel.add_event_handler('x-delete-ruleset', self.delete_ruleset)
     self.account_button.popover(content=accountInfo(), placement="auto", trigger="click")
-
+    anvil.users
   def loadRulesets(self, data):
     self.ruleset_repeating_panel.items = data
     if len(data) == 0:
@@ -30,7 +34,9 @@ class Home(HomeTemplate):
   
   def new_ruleset_button_click(self, **event_args):
     """This method is called when the button is clicked"""
-    open_form('NewRuleset', preset=False)
+    if not self.buttonsBlocked:
+      self.buttonsBlocked = True
+      open_form('NewRuleset', preset=False)
 
   def ruleset_datagrid_show(self, **event_args):
     #Make sure they are logged in
@@ -62,7 +68,9 @@ class Home(HomeTemplate):
       self.loadRulesets(result)
 
   def delete_ruleset(self, sender, event_name, item):
-    if confirm(f'Do you really want to delete: {item["name"]}?'):
+    self.buttonsBlocked = True
+    if not self.buttonsBlocked and confirm(f'Do you really want to delete: {item["name"]}?'):
       anvil.server.call("deleteRuleset", item)
       #refresh the Data Grid
       self.ruleset_datagrid_show()
+      self.buttonsBlocked = False

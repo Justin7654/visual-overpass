@@ -1,12 +1,7 @@
 from ._anvil_designer import RowRulesetTemplateTemplate
 from anvil import *
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
 import anvil.users
 import anvil.server
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 from ... import ruleParser
 
 
@@ -16,13 +11,19 @@ class RowRulesetTemplate(RowRulesetTemplateTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.blocked = False
 
   def ruleset_edit_click(self, **event_args):
     """This method is called when the button is clicked"""
-    open_form("NewRuleset", preset=self.item)
+    if not self.blocked:
+      self.blocked = True
+      open_form("NewRuleset", preset=self.item)
 
   def ruleset_run_click(self, **event_args):
     """This method is called when the button is clicked"""
+    if self.blocked:
+      return
+    self.blocked = True
     data = self.item
     print("Open")
     structure = data["savedStructure"]
