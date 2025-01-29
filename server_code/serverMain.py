@@ -62,11 +62,18 @@ def runQuaryTask(quaryText, outMode, user):
   quaryText += f'out {outMode};'
   api = overpass.API(timeout=999, debug=True)
   response = api.get(quaryText, verbosity=outMode, responseformat="json", build=False)
+
+  return uploudQueryDataOutput(response, user)
+
+#@anvil.server.callable()
+def uploudQueryDataOutput(response, user):
+  #if anvil.users.get_user() is not None:
+    #return print("This function is only callable my uplinks.")
   contentFile = compress_dict(response) #anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   size = len(contentFile.get_bytes())/1_000_000
   newRow = app_tables.data_output.add_row(data=contentFile, user=user, size=size)
-
-  return newRow.get_id()#response
+  return newRow.get_id()
+  
 
 @anvil.server.callable
 def getDataOutput(row_id):
