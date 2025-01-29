@@ -65,10 +65,10 @@ def runQuaryTask(quaryText, outMode, user):
 
   return uploudQueryDataOutput(response, user)
 
-#@anvil.server.callable()
+@anvil.server.callable()
 def uploudQueryDataOutput(response, user):
-  #if anvil.users.get_user() is not None:
-    #return print("This function is only callable my uplinks.")
+  if anvil.users.get_user() is not None:
+    return print("This function is only callable by a uplink, not a user.")
   contentFile = compress_dict(response) #anvil.BlobMedia("application/json", encode_dict_to_byte(response))
   size = len(contentFile.get_bytes())/1_000_000
   newRow = app_tables.data_output.add_row(data=contentFile, user=user, size=size)
