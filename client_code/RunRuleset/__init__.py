@@ -3,9 +3,11 @@ from .OutModeSelector import OutModeSelector
 from .AreaSelector import AreaSelector
 from anvil import *
 import anvil.server
+import anvil.users
 import time
 import json
 from .. import ruleParser
+from anvil_extras import non_blocking
 
 
 class RunRuleset(RunRulesetTemplate):
@@ -40,14 +42,14 @@ class RunRuleset(RunRulesetTemplate):
     if str(type(self.structure)) == "<class 'anvil.LazyMedia'>":
       self.addProgress("Decompressing")
       self.structure = anvil.server.call("decompress_dict", self.structure)
-      self.appenedLastProgress("... done")
+      self.appendLastProgress("... done")
     print("------------- PARSING STRUCTURE ----------------")
     self.addProgress("Parsing structure")
     startTime = time.time()
     #Add a rescurse statement at the end to get nodes inside ways and then the out mode
     parsed =  ruleParser.parse(self.structure, self.topIncludes, [])
     totalTime = (time.time() - startTime)*1000
-    self.appenedLastProgress(f'... done ({totalTime:.0f}ms)')
+    self.appendLastProgress(f'... done ({totalTime:.0f}ms)')
     print("Parse final result:", parsed, sep="\n")
     #Modify the parsed string to include a recurse down if selected
     if options["recurse_down"]:
@@ -60,28 +62,40 @@ class RunRuleset(RunRulesetTemplate):
       parsed = '[out:json];'+parsed
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
-    self.addProgress("Connecting to server")
+    #Try to connect to uplink first. It has no timeout time
     try:
-      with anvil.server.no_loading_indicator:
-        self.task = anvil.server.call_s("runQuary", parsed, options["mode"])
-    except anvil.server.RuntimeUnavailableError as err:
-      self.progressDots.interval = 0
-      self.appenedLastProgress("... "+str(err))
-      print(err)
-      self.loading.visible = False
-      return
-    #Set up a timer
-    self.appenedLastProgress("... done")
-    self.addProgress("Waiting for Overpass API")
-    self.recheckTask.interval = 0.2
+      self.addProgress("Connecting to uplink")
+      uplinkCall = non_blocking.call_async("uplink_runQuary", parsed, options["mode"], anvil.users.get_user())
+      self.appendLastProgress("... Connected")
+      self.addProgress("Waiting for Overpass API")
+      def onFail(err):
+        print(str(err))
+        self.appendLastProgress("... "+str(err))
+      uplinkCall.on_result(self.onTaskSuccess, onFail)
+    except anvil.server.NoServerFunctionError:
+      #Connect to anvil's server instead
+      self.appendLastProgress("... uplink offline")
+      self.addProgress("Connecting to anvil server")
+      try:
+        with anvil.server.no_loading_indicator:
+          self.task = anvil.server.call_s("runQuary", parsed, options["mode"])
+      except anvil.server.RuntimeUnavailableError as err:
+        self.progressDots.interval = 0
+        self.appendLastProgress("... "+str(err))
+        print(err)
+        self.loading.visible = False
+        return
+      #Set up the timer to repeatedly check if its done
+      self.appendLastProgress("... done")
+      self.addProgress("Waiting for Overpass API")
+      self.recheckTask.interval = 0.2
   
-  def onTaskSuccess(self):
-    self.appenedLastProgress("... done")
+  def onTaskSuccess(self, resultLocation):
+    self.appendLastProgress("... done")
     self.addProgress("Receiving data")
-    resultLocation = self.task.get_return_value()
     self.resultFile = anvil.server.call_s("getDataOutput", resultLocation)
     self.result = self.parse_file(self.resultFile)
-    self.appenedLastProgress("... done")
+    self.appendLastProgress("... done")
     self.addProgress("Processing results")
     self.geojsonFile = anvil.server.call_s('generateGeoJson', self.resultFile)
     print("Received geojson")
@@ -89,7 +103,7 @@ class RunRuleset(RunRulesetTemplate):
     open_form("RulesetResult", json=self.result, geojson=self.geojson, jsonMedia=self.resultFile, geojsonMedia=self.geojsonFile)
 
   def onTaskFail(self):
-    self.appenedLastProgress("... "+self.errMessage)
+    self.appendLastProgress("... "+self.errMessage)
     self.loading.visible = False
     self.progressDots.interval = 0
     #self.addProgress("Attempting alternate method") #Use users browser to send request
@@ -97,7 +111,7 @@ class RunRuleset(RunRulesetTemplate):
   def addProgress(self, text):
     self.progress.append(text)
     self.progressText.text = "\n".join(self.progress)
-  def appenedLastProgress(self, text):
+  def appendLastProgress(self, text):
     self.progress[-1] += text
     self.progressText.text = "\n".join(self.progress)
   def editLastProgress(self, text):
@@ -113,8 +127,7 @@ class RunRuleset(RunRulesetTemplate):
       state = task.get_termination_status()
       print("Finish state:",state)
       if state == "completed":
-        #self.taskReturn = task.get_return_value()
-        return self.onTaskSuccess()
+        return self.onTaskSuccess(task.get_return_value())
       elif state == "failed":
         try:
           task.get_error()
@@ -156,7 +169,7 @@ class RunRuleset(RunRulesetTemplate):
 
   def start_error(self, errorText="error"):
     print("Error:",errorText)
-    self.appenedLastProgress("... "+errorText)
+    self.appendLastProgress("... "+errorText)
     self.progressDots.interval = 0
     self.abort.text = "Exit"
 
