@@ -46,7 +46,7 @@ def deleteRuleset(ruleset):
   ruleset.delete()
 
 @anvil.server.callable
-def runQuary(quaryText, outMode):
+def runQuary(quaryText, outMode, user):
   user = anvil.users.get_user()
   task = anvil.server.launch_background_task("runQuaryTask", quaryText, outMode, user)
   return task

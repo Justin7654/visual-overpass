@@ -62,33 +62,29 @@ class RunRuleset(RunRulesetTemplate):
       parsed = '[out:json];'+parsed
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
-    #Try to connect to uplink first. It has no timeout time
+    self.addProgress("Connecting to server")
+    def onResponse(response):
+      if isinstance(response, str) or isinstance(response, int):
+        self.onTaskSuccess(self.task)
+      else:
+        #Set up the timer to repeatedly check if its done
+        self.appendLastProgress("... done")
+        self.addProgress("Waiting for Overpass API")
+        self.task = response
+        self.recheckTask.interval = 0.2
+    def onFailure(err):
+      self.start_error(str(err))
     try:
-      self.addProgress("Connecting to uplink")
-      uplinkCall = non_blocking.call_async("uplink_runQuary", parsed, options["mode"], anvil.users.get_user())
-      self.appendLastProgress("... Connected")
-      self.addProgress("Waiting for Overpass API")
-      def onFail(err):
-        print(str(err))
-        self.appendLastProgress("... "+str(err))
-      uplinkCall.on_result(self.onTaskSuccess, onFail)
-    except anvil.server.NoServerFunctionError:
-      #Connect to anvil's server instead
-      self.appendLastProgress("... uplink offline")
-      self.addProgress("Connecting to anvil server")
-      try:
-        with anvil.server.no_loading_indicator:
-          self.task = anvil.server.call_s("runQuary", parsed, options["mode"])
-      except anvil.server.RuntimeUnavailableError as err:
-        self.progressDots.interval = 0
-        self.appendLastProgress("... "+str(err))
-        print(err)
-        self.loading.visible = False
-        return
-      #Set up the timer to repeatedly check if its done
-      self.appendLastProgress("... done")
-      self.addProgress("Waiting for Overpass API")
-      self.recheckTask.interval = 0.2
+      with anvil.server.no_loading_indicator:
+        run_call = non_blocking.call_async("runQuary", parsed, options["mode"], anvil.users.get_user())
+        run_call.on_result(onResponse, onFailure)
+    except anvil.server.RuntimeUnavailableError as err:
+      self.progressDots.interval = 0
+      self.appendLastProgress("... "+str(err))
+      print(err)
+      self.loading.visible = False
+      return
+    
   
   def onTaskSuccess(self, resultLocation):
     self.appendLastProgress("... done")
