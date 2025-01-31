@@ -63,29 +63,21 @@ class RunRuleset(RunRulesetTemplate):
     print("-------------- STARTING QUARY -----------------")
     print("Sending:\n"+str(parsed))
     self.addProgress("Connecting to server")
-    def onResponse(response):
-      if isinstance(response, str) or isinstance(response, int):
-        self.onTaskSuccess(self.task)
-      else:
-        #Set up the timer to repeatedly check if its done
-        self.appendLastProgress("... done")
-        self.addProgress("Waiting for Overpass API")
-        self.task = response
-        self.recheckTask.interval = 0.2
-    def onFailure(err):
-      self.start_error(str(err))
+
     try:
       with anvil.server.no_loading_indicator:
-        run_call = non_blocking.call_async("runQuary", parsed, options["mode"], anvil.users.get_user())
-        run_call.on_result(onResponse, onFailure)
+        self.task = anvil.server.call("runQuary", parsed, options["mode"], anvil.users.get_user())
     except anvil.server.RuntimeUnavailableError as err:
       self.progressDots.interval = 0
       self.appendLastProgress("... "+str(err))
       print(err)
       self.loading.visible = False
       return
-  def runOnAnvilServer(self):
-    pass
+    
+    #Set up the timer to repeatedly check if its done
+    self.appendLastProgress("... done")
+    self.addProgress("Waiting for Overpass API")
+    self.recheckTask.interval = 0.2
   
   def onTaskSuccess(self, resultLocation):
     self.appendLastProgress("... done")
@@ -94,6 +86,13 @@ class RunRuleset(RunRulesetTemplate):
     self.result = self.parse_file(self.resultFile)
     self.appendLastProgress("... done")
     self.addProgress("Processing results")
+    #Check for errors
+    print(self.result)
+    if self.result["osm3s"]["remark"] is not None:
+      print(self.result["osm3s"]["remark"])
+    else:
+      print("No remark")
+    #Generate geoJSON
     self.geojsonFile = anvil.server.call_s('generateGeoJson', self.resultFile)
     print("Received geojson")
     self.geojson = self.parse_file(self.geojsonFile)
