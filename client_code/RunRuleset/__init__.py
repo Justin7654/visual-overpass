@@ -88,8 +88,8 @@ class RunRuleset(RunRulesetTemplate):
     self.addProgress("Processing results")
     #Check for errors
     print(self.result)
-    if self.result["osm3s"]["remark"] is not None:
-      print(self.result["osm3s"]["remark"])
+    if self.result["remark"] is not None:
+      print(self.result["remark"])
     else:
       print("No remark")
     #Generate geoJSON
