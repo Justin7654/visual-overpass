@@ -84,7 +84,8 @@ class RunRuleset(RunRulesetTemplate):
       print(err)
       self.loading.visible = False
       return
-    
+  def runOnAnvilServer(self):
+    pass
   
   def onTaskSuccess(self, resultLocation):
     self.appendLastProgress("... done")
