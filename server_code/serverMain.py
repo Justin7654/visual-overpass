@@ -117,7 +117,7 @@ def compress_bytes(byteData):
   startTime = time.time()
   compressed = pyzstd.compress(byteData) #Eligable for training?
   totalTime = (time.time() - startTime)*1000
-  print(f'\nCompress took {totalTime:.0f}ms')
+  print(f'Compress took {totalTime:.0f}ms')
   #Calculate saved amount
   prev, after = calculate_mb(byteData), calculate_mb(compressed)
   print(f'Saved {prev-after:.2f}mb from compression ({prev:.2f} -> {after:.2f})')

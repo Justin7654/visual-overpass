@@ -87,11 +87,10 @@ class RunRuleset(RunRulesetTemplate):
     self.appendLastProgress("... done")
     self.addProgress("Processing results")
     #Check for errors
-    print(self.result)
-    if self.result["remark"] is not None:
-      print(self.result["remark"])
+    if self.result.get("remark") is not None:
+      return self.start_error(self.result["remark"])
     else:
-      print("No remark")
+      print("No remark found")
     #Generate geoJSON
     self.geojsonFile = anvil.server.call_s('generateGeoJson', self.resultFile)
     print("Received geojson")
