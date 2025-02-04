@@ -117,6 +117,13 @@ class RunRuleset(RunRulesetTemplate):
     if self.task is None:
       return
     task = self.task
+
+    #Check if offline. if we are, stop it
+    try:
+      task.is_running()
+    except anvil.server.AppOfflineError:
+      return self.start_error("Connection Lost")
+    
     if not task.is_running():
       self.recheckTask.interval = 0
       state = task.get_termination_status()
