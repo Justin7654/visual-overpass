@@ -9,7 +9,10 @@ class rule_match_tag(rule_match_tagTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     
-    self.key.suggestions = tagsManager.getKeyList()
+    self.keySuggestionsLoaded = False
+    if tagsManager.keyListLoaded():
+      self.keySuggestionsLoaded = True
+      self.key.suggestions = tagsManager.getKeyList()
     self.tag = {
       "type": "Match Tag",
       "key": "",
@@ -30,6 +33,9 @@ class rule_match_tag(rule_match_tagTemplate):
     """This method is called when the text in this text box is edited"""
     self.key.text = self.key.text.lstrip()
     self.tag["key"] = self.key.text
+    if tagsManager.keyListLoaded():
+      self.keySuggestionsLoaded = True
+      self.key.suggestions = tagsManager.getKeyList()
 
   def value_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
