@@ -8,9 +8,13 @@ class rule_has_tag(rule_has_tagTemplate):
   def __init__(self, lastTag=False, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+
+    self.keySuggestionsLoaded = False
+    if tagsManager.keyListLoaded():
+      self.keySuggestionsLoaded = True
+      self.key.suggestions = tagsManager.getKeyList()
     
     # Any code you write here will run before the form opens.
-    self.key.suggestions = tagsManager.getKeyList()
     self.tag = {
       "type": "Has Tag",
       "key": "",
@@ -24,6 +28,9 @@ class rule_has_tag(rule_has_tagTemplate):
 
   def key_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
+    if tagsManager.keyListLoaded():
+      self.keySuggestionsLoaded = True
+      self.key.suggestions = tagsManager.getKeyList()
     self.tag["key"] = self.key.text.lstrip()
     self.key.text = self.tag["key"] #Prevent white space
 

@@ -19,6 +19,9 @@ def tryGetKeyList():
   #Call the server function with non blocking
   call_async("getKeyList").on_result(_ResultHandler, _ErrorHandler)
 
+def keyListLoaded():
+  return len(keyList) > 0
+
 def getKeyList():
   return keyList
 
