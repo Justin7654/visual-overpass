@@ -1,5 +1,5 @@
 osm2geojson
-pyzstd
 geo2kml
 overpass
 taginfo
+pyzstd==0.16.2
