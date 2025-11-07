@@ -1,6 +1,5 @@
 from ._anvil_designer import rule_modifiedTemplate
 from anvil import *
-import m3.components as m3
 import anvil.server
 import datetime
 

@@ -1,6 +1,5 @@
 from ._anvil_designer import operation_textTemplate
 from anvil import *
-import m3.components as m3
 import anvil.server
 
 

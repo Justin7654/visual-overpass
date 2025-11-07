@@ -1,6 +1,5 @@
 from ._anvil_designer import accountInfoTemplate
 from anvil import *
-import m3.components as m3
 import anvil.server
 import anvil.users
 from anvil import users

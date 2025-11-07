@@ -1,6 +1,5 @@
 from ._anvil_designer import area_definitionTemplate
 from anvil import *
-import m3.components as m3
 import anvil.server
 import anvil.google.auth, anvil.google.drive
 from anvil.google.drive import app_files
