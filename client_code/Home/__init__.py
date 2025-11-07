@@ -46,7 +46,7 @@ class Home(HomeTemplate):
     else:
       self.not_logged_in.visible = False
     #Load the data
-    with anvil.server.loading_indicator(self.ruleset_repeating_panel, min_height=100):
+    with anvil.server.loading_indicator(self.ruleset_repeating_panel): #Adding min_height causes: "cssLength is not defined"
       try:
         result = anvil.server.call("getUserRulesets")
       except anvil.users.AuthenticationFailed:
