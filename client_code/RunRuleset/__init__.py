@@ -2,6 +2,7 @@ from ._anvil_designer import RunRulesetTemplate
 from .OutModeSelector import OutModeSelector
 from .AreaSelector import AreaSelector
 from anvil import *
+import m3.components as m3
 import anvil.server
 import anvil.users
 import time
